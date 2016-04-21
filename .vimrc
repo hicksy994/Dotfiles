@@ -1,10 +1,8 @@
 " Enable pathogen
 execute pathogen#infect()	
 
-"Enable syntax highlighting
+"Syntax and indentation
 syntax on
-
-"Indentation 
 set autoindent			
 filetype plugin indent on
 
