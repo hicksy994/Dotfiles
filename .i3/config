@@ -192,7 +192,7 @@ exec --no-startup-id xset s 0 0
 exec --no-startup-id xrdb .Xresources
 
 #preload 
-exec --no-startup-id preload
+# exec --no-startup-id preload not needed anymore? Keeping in case
 
 #mopidy
 exec --no-startup-id mopidy
