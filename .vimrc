@@ -36,10 +36,6 @@ let g:airline_symbols.space = "\ua0"
 "Prolog not Perl
 let g:filetype_pl="prolog"
 
-"NERDTree configuration
-let g:NERDTreeDirArrows=1
-map <C-n> :NERDTreeToggle<CR>
-
 "For tmuxline
 let g:airline#extensions#tmuxline#enabled = 1
 let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
