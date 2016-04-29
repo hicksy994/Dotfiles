@@ -21,12 +21,13 @@ inoremap jk <ESC>
 "for vim-airline
 set laststatus=2
 
-"256 colour terminal
+"256 colour terminal and colourscheme
 set t_Co=256
+colorscheme jellybeans
 
 "Vim-airline theme
 set background=dark
-let g:airline_theme='wombat'
+let g:airline_theme='jellybeans'
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
