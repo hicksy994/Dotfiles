@@ -42,7 +42,7 @@ let g:airline#extensions#tmuxline#enabled = 1
 let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
 
 "Completion colours
-hi Pmenu        cterm=none ctermfg=White     ctermbg=Black
-hi PmenuSel     cterm=none ctermfg=Black     ctermbg=DarkGreen
-hi PmenuSbar    cterm=none ctermfg=none      ctermbg=Green
-hi PmenuThumb   cterm=none ctermfg=DarkGreen ctermbg=DarkGreen
+" hi Pmenu        cterm=none ctermfg=White     ctermbg=Black
+" hi PmenuSel     cterm=none ctermfg=Black     ctermbg=DarkGreen
+" hi PmenuSbar    cterm=none ctermfg=none      ctermbg=Green
+" hi PmenuThumb   cterm=none ctermfg=DarkGreen ctermbg=DarkGreen
