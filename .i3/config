@@ -1,5 +1,5 @@
 #font
-font pango: System San Francisco Display 10
+font pango: System San Francisco Display 11
 
 #movement
 set $up k
@@ -13,7 +13,11 @@ floating_modifier Mod1
 # start a terminal
 bindsym Mod1+Return exec terminator
 
+#start rofi
+bindsym Mod1+d exec rofi -show run 
+
 # kill focused window
+
 bindsym Mod1+Shift+q kill
 
 #lock screen
@@ -76,10 +80,17 @@ bindsym Mod1+Shift+minus move scratchpad
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym Mod1+minus scratchpad show
 
-set $workspace1 ""
-set $workspace2 ""
-set $workspace3 ""
-set $workspace4 ""
+set $workspace1 "1"
+set $workspace2 "2"
+set $workspace3 "3"
+set $workspace4 "4"
+
+#choose icons or numbers - right now I like numbers
+
+# set $workspace1 ""
+# set $workspace2 ""
+# set $workspace3 ""
+# set $workspace4 ""
 
 
 # switch to workspace
@@ -87,8 +98,8 @@ bindsym Mod1+1 workspace $workspace1
 bindsym Mod1+2 workspace $workspace2
 bindsym Mod1+3 workspace $workspace3
 bindsym Mod1+4 workspace $workspace4
-bindsym Mod1+5 workspace Misc2 
-bindsym Mod1+6 workspace Misc3 
+bindsym Mod1+5 workspace 5
+bindsym Mod1+6 workspace 6
 bindsym Mod1+7 workspace 7
 bindsym Mod1+8 workspace 8
 bindsym Mod1+9 workspace 9
@@ -99,8 +110,8 @@ bindsym Mod1+Shift+1 move container to workspace $workspace1
 bindsym Mod1+Shift+2 move container to workspace $workspace2
 bindsym Mod1+Shift+3 move container to workspace $workspace3
 bindsym Mod1+Shift+4 move container to workspace $workspace4
-bindsym Mod1+Shift+5 move container to workspace Misc2 
-bindsym Mod1+Shift+6 move container to workspace Misc3 
+bindsym Mod1+Shift+5 move container to workspace 5
+bindsym Mod1+Shift+6 move container to workspace 6
 bindsym Mod1+Shift+7 move container to workspace 7
 bindsym Mod1+Shift+8 move container to workspace 8
 bindsym Mod1+Shift+9 move container to workspace 9
@@ -171,10 +182,11 @@ bar {
 }
 
 #nvidia settings
+exec --no-startup-id xrandr --output DVI-D-0 --mode 1920x1080 --rate 144
 exec --no-startup-id nvidia-settings -l
 
 #Wallpaper
-exec --no-startup-id feh --bg-scale /home/hicksy/Pictures/AuroraWallpaperSmaller.jpg
+exec --no-startup-id feh --bg-scale /home/hicksy/Pictures/aurorasmall.png
 
 #No title bars
 for_window [class="^.*"] border pixel 1
@@ -183,13 +195,12 @@ for_window [class="^.*"] border pixel 1
 exec_always compton -f
 
 #stop screen lock
-exec --no-startup-id xset s 0 0
+exec --no-startup-id xset s off
 
-#load Xresources
-exec --no-startup-id xrdb .Xresources
+exec --no-startup-id setxkbmap gb
 
 #mopidy
 exec --no-startup-id mopidy
 
-#start rofi in daemon mode with alt+d keybinding
-exec --no-startup-id rofi -key-run Alt+d -lines 3 -eh 2 -bw 1 -width 40 -padding 5 -opacity "90" -bw 0 -bc "#161719" -bg "#161719" -fg "$text-color" -hlbg "#161719" -hlfg "#26B9EB" -font "System San Francisco Display 14" 
+#Xresources
+exec --no-startup-id xrdb .Xresources
