@@ -1,0 +1,14 @@
+! ------------------------------------------------------------------------------
+! ROFI theme
+! ------------------------------------------------------------------------------
+ rofi.color-enabled: true
+ rofi.color-window: #161719, #161719, #111eae
+ rofi.color-normal: #161719, #c5c8c6, #161719, #161719, #00ff15
+ rofi.color-active: #161719, #c5c8c6, #161719, #161719, #00ff15
+ rofi.color-urgent: #161719, #c5c8c6, #161719, #161719, #00ff15
+ rofi.font: System San Francisco Display 12
+ rofi.hide-scrollbar: true
+ rofi.lines: 3
+ rofi.eh: 2
+ rofi.width: 30
+ rofi.opacity:95
