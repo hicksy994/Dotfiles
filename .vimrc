@@ -41,7 +41,7 @@ let g:filetype_pl="prolog"
 let g:airline#extensions#tmuxline#enabled = 1
 let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
 
-"Completion colours - uncomment and change if colorscheme contrasts with completion colours.
+"Completion colours - uncomment and change if colorscheme conflicts with completion colours.
 
 " hi Pmenu        cterm=none ctermfg=White     ctermbg=Black
 " hi PmenuSel     cterm=none ctermfg=Black     ctermbg=DarkGreen
