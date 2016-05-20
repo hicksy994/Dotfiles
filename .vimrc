@@ -18,14 +18,12 @@ set tabstop=4
 "Map ESCAPE to jk
 inoremap jk <ESC>
 
-"for vim-airline
-set laststatus=2
-
 "256 colour terminal and colourscheme
 set t_Co=256
 colorscheme jellybeans
 
-"Vim-airline theme
+"Vim-airline
+set laststatus=2
 set background=dark
 let g:airline_theme='jellybeans'
 let g:airline_powerline_fonts = 1
@@ -37,7 +35,7 @@ let g:airline_symbols.space = "\ua0"
 "Prolog not Perl
 let g:filetype_pl="prolog"
 
-"For tmuxline
+"tmuxline
 let g:airline#extensions#tmuxline#enabled = 1
 let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
 
