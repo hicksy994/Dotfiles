@@ -90,8 +90,8 @@ bindsym Mod1+1 workspace $workspace1
 bindsym Mod1+2 workspace $workspace2
 bindsym Mod1+3 workspace $workspace3
 bindsym Mod1+4 workspace $workspace4
-bindsym Mod1+5 workspace Misc2 
-bindsym Mod1+6 workspace Misc3 
+bindsym Mod1+5 workspace 5
+bindsym Mod1+6 workspace 6
 bindsym Mod1+7 workspace 7
 bindsym Mod1+8 workspace 8
 bindsym Mod1+9 workspace 9
@@ -102,8 +102,8 @@ bindsym Mod1+Shift+1 move container to workspace $workspace1
 bindsym Mod1+Shift+2 move container to workspace $workspace2
 bindsym Mod1+Shift+3 move container to workspace $workspace3
 bindsym Mod1+Shift+4 move container to workspace $workspace4
-bindsym Mod1+Shift+5 move container to workspace Misc2 
-bindsym Mod1+Shift+6 move container to workspace Misc3 
+bindsym Mod1+Shift+5 move container to workspace 5
+bindsym Mod1+Shift+6 move container to workspace 6
 bindsym Mod1+Shift+7 move container to workspace 7
 bindsym Mod1+Shift+8 move container to workspace 8
 bindsym Mod1+Shift+9 move container to workspace 9
