@@ -175,9 +175,10 @@ bar {
 
 #nvidia settings
 exec --no-startup-id nvidia-settings -l
+exec --no-startup-id xrandr --output DVI-D-0 --mode 1920x1080 --rate 144
 
 #Wallpaper
-exec --no-startup-id feh --bg-scale /home/hicksy/Pictures/AuroraWallpaperSmaller.jpg
+exec --no-startup-id feh --bg-scale /home/hicksy/wallpapers/aurorasmall.png
 
 #No title bars
 for_window [class="^.*"] border pixel 1
@@ -192,6 +193,9 @@ exec --no-startup-id xset s noblank
 
 #load Xresources
 exec --no-startup-id xrdb .Xresources
+
+#load keyboard map
+exec --no-startup-id setxkbmap gb
 
 #mopidy
 exec --no-startup-id mopidy
