@@ -109,8 +109,8 @@ values."
    dotspacemacs-colorize-cursor-according-to-state nil
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+   dotspacemacs-default-font '("Hack"
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.2)
@@ -257,7 +257,8 @@ you should place your code here."
 
 
   (setq-default evil-escape-key-sequence "jk")
-  (setq powerline-default-separator 'arrow)
+  (setq powerline-default-separator 'slant)
+  (spaceline-compile)
   (setq spaceline-minor-modes-p)
   (global-hl-line-mode 0)
   )
