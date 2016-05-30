@@ -20,7 +20,7 @@ bindsym Mod1+d exec rofi -show run
 bindsym Mod1+Shift+q kill
 
 #lock screen
-bindsym Mod1+Shift+x exec ./Scripts/locker.sh 
+bindsym Mod1+Shift+x exec i3lock -i ~/wallpapers/aurora.png --no-keyboard-layout 
 
 # change focus
 bindsym Mod1+$left focus left
