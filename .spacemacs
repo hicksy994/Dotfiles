@@ -31,6 +31,7 @@ values."
      org
      rust
      java
+     javascript
      haskell
      (shell :variables
             shell-default-height 30
