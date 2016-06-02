@@ -1,7 +1,6 @@
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
-
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -44,6 +43,7 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(company-racer
+                                      powerline
                                       emacs-eclim
                                       company-ghc)
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -101,13 +101,13 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-dark
+   dotspacemacs-themes '(monokai
+                         solarized-dark
                          badwolf
                          spacemacs-dark
                          spacemacs-light
                          solarized-light
                          leuven
-                         monokai
                          zenburn)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state nil
@@ -212,7 +212,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers 'relative
+   dotspacemacs-line-numbers 'nil
 
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
@@ -260,10 +260,10 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;Theme settings
-  (setq powerline-default-separator 'utf-8)
+  (setq powerline-default-separator 'arrow)
   (spaceline-compile)
   (setq spaceline-minor-modes-p)
-  (global-hl-line-mode 0)
+  (global-hl-line-mode 1)
 
   ;autocomplete settings
   (setq company-racer-executable "/usr/local/bin/.cargo/bin/racer")
@@ -273,6 +273,7 @@ you should place your code here."
   (setq-default evil-escape-key-sequence "jk")
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program "google-chrome-stable")
+
   )
 
 ; Do not write anything past this comment. This is where Emacs will
