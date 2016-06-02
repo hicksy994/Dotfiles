@@ -259,14 +259,20 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-
-  (setq-default evil-escape-key-sequence "jk")
+  ;Theme settings
   (setq powerline-default-separator 'utf-8)
   (spaceline-compile)
   (setq spaceline-minor-modes-p)
   (global-hl-line-mode 0)
+
+  ;autocomplete settings
   (setq company-racer-executable "/usr/local/bin/.cargo/bin/racer")
   (setq company-racer-rust-src "~/.rust/src")
+
+  ;misc
+  (setq-default evil-escape-key-sequence "jk")
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "google-chrome-stable")
   )
 
 ; Do not write anything past this comment. This is where Emacs will
