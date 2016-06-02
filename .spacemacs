@@ -25,24 +25,27 @@ values."
      ;; ----------------------------------------------------------------
      auto-completion
      themes-megapack
-      better-defaults
+     better-defaults
      emacs-lisp
-      git
-      markdown
-      org
-      ;;vim-powerline
-      (shell :variables
-             shell-default-height 30
-             shell-default-position 'bottom)
-      ;;spell-checking
-      syntax-checking
-      version-control
+     git
+     markdown
+     org
+     rust
+     java
+     haskell
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
+     syntax-checking
+     version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(company-racer
+                                      emacs-eclim
+                                      company-ghc)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(
                                     evil-search-highlight-persist)
@@ -99,6 +102,7 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(solarized-dark
+                         badwolf
                          spacemacs-dark
                          spacemacs-light
                          solarized-light
@@ -110,10 +114,9 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Hack"
-                               :size 14
-                               :weight normal
+                               :size 14 :weight normal
                                :width normal
-                               :powerline-scale 1.2)
+                               :powerline-scale 1.1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -153,7 +156,7 @@ values."
    ;; file stored in the cache directory and `nil' to disable auto-saving.
    ;; (default 'cache)
    dotspacemacs-auto-save-file-location 'cache
-   ;; Maximum number of rollback slots to keep in the cache. (default 5)
+   ; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
    ;; If non nil then `ido' replaces `helm' for some commands. For now only
    ;; `find-files' (SPC f f), `find-spacemacs-file' (SPC f e s), and
@@ -181,7 +184,7 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
    dotspacemacs-fullscreen-at-startup nil
@@ -210,6 +213,7 @@ values."
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
    dotspacemacs-line-numbers 'relative
+
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -257,10 +261,12 @@ you should place your code here."
 
 
   (setq-default evil-escape-key-sequence "jk")
-  (setq powerline-default-separator 'slant)
+  (setq powerline-default-separator 'utf-8)
   (spaceline-compile)
   (setq spaceline-minor-modes-p)
   (global-hl-line-mode 0)
+  (setq company-racer-executable "/usr/local/bin/.cargo/bin/racer")
+  (setq company-racer-rust-src "~/.rust/src")
   )
 
 ; Do not write anything past this comment. This is where Emacs will
