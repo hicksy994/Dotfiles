@@ -1,6 +1,5 @@
 ;; -*- mode: emacs-lisp -*-
-;; This file is loaded by Spacemacs at startup.
-;; It must be stored in your home directory.
+;; This file is loaded by Spacemacs at startup. ;; It must be stored in your home directory.
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -27,6 +26,7 @@ values."
      better-defaults
      emacs-lisp
      git
+     github
      markdown
      org
      rust
@@ -34,7 +34,7 @@ values."
      javascript
      haskell
      (shell :variables
-            shell-default-height 30
+            shell-default-width 30
             shell-default-position 'bottom)
      syntax-checking
      version-control
@@ -46,6 +46,7 @@ values."
    dotspacemacs-additional-packages '(company-racer
                                       powerline
                                       emacs-eclim
+                                      company
                                       company-ghc)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(
@@ -209,7 +210,7 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling t
+   dotspacemacs-smooth-scrolling nil
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
@@ -242,14 +243,18 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
-	(setq tramp-ssh-controlmaster-options
-		"-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init', before layer configuration
 executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+
+  ;;evil
+  (setq-default evil-shift-round nil)
+
+	(setq tramp-ssh-controlmaster-options
+        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
   )
 
 (defun dotspacemacs/user-config ()
@@ -260,22 +265,31 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  ;Theme settings
+  ;;Theme settings
   (setq powerline-default-separator 'arrow)
   (spaceline-compile)
   (setq spaceline-minor-modes-p)
-  (global-hl-line-mode 1)
+  (setq global-hl-line-mode nil)
+  (add-hook 'prog-mode-hook #'hl-line-mode)
 
-  ;autocomplete settings
+  ;;Current line highligthing
+
+  ;;autocomplete settings
   (setq company-racer-executable "/usr/local/bin/.cargo/bin/racer")
   (setq company-racer-rust-src "~/.rust/src")
+  (setq-default rust-enable-racer t)
 
-  ;misc
+  ;;keybindings
   (setq-default evil-escape-key-sequence "jk")
+
+  ;; Disable smartparens highlighting
+  (with-eval-after-load 'smartparens
+    (show-smartparens-global-mode -1))
+
+  ;;default browser
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program "google-chrome-stable")
 
   )
-
 ; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
