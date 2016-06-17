@@ -47,6 +47,7 @@ values."
                                       powerline
                                       emacs-eclim
                                       company
+                                      company-c-headers
                                       company-ghc)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(
@@ -291,5 +292,10 @@ you should place your code here."
         browse-url-generic-program "google-chrome-stable")
 
   )
+  (defun clear-shell ()
+    (interactive)
+    (let ((comint-buffer-maximum-size 0))
+      (comint-truncate-buffer)))
+
 ; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
