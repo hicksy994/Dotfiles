@@ -273,29 +273,32 @@ you should place your code here."
   (setq global-hl-line-mode nil)
   (add-hook 'prog-mode-hook #'hl-line-mode)
 
-  ;;Current line highligthing
 
   ;;autocomplete settings
   (setq company-racer-executable "/usr/local/bin/.cargo/bin/racer")
   (setq company-racer-rust-src "~/.rust/src")
   (setq-default rust-enable-racer t)
 
-  ;;keybindings
+  ;;jk to escape
   (setq-default evil-escape-key-sequence "jk")
-
-  ;; Disable smartparens highlighting
-  (with-eval-after-load 'smartparens
-    (show-smartparens-global-mode -1))
 
   ;;default browser
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program "google-chrome-stable")
 
-  )
+  ;;clear-shell function - clears screen in shell-mode
   (defun clear-shell ()
     (interactive)
     (let ((comint-buffer-maximum-size 0))
       (comint-truncate-buffer)))
+
+  (evil-define-key 'normal shell-mode-map (kbd "SPC m c") 'clear-shell)
+
+  ;;set keybinding for killing shell command.
+  (evil-define-key 'normal shell-mode-map (kbd "SPC m q") 'comint-kill-subjob)
+  )
+
+
 
 ; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
