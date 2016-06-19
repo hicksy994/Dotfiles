@@ -292,9 +292,10 @@ you should place your code here."
     (let ((comint-buffer-maximum-size 0))
       (comint-truncate-buffer)))
 
+  ;;set keybinding for clear-shell command
   (evil-define-key 'normal shell-mode-map (kbd "SPC m c") 'clear-shell)
 
-  ;;set keybinding for killing shell command.
+  ;;set keybinding for killing shell command
   (evil-define-key 'normal shell-mode-map (kbd "SPC m q") 'comint-kill-subjob)
   )
 
