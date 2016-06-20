@@ -33,6 +33,7 @@ values."
      java
      javascript
      haskell
+     c-c++
      (shell :variables
             shell-default-width 30
             shell-default-position 'bottom)
@@ -47,7 +48,6 @@ values."
                                       powerline
                                       emacs-eclim
                                       company
-                                      company-c-headers
                                       company-ghc)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(
@@ -273,7 +273,6 @@ you should place your code here."
   (setq global-hl-line-mode nil)
   (add-hook 'prog-mode-hook #'hl-line-mode)
 
-
   ;;autocomplete settings
   (setq company-racer-executable "/usr/local/bin/.cargo/bin/racer")
   (setq company-racer-rust-src "~/.rust/src")
@@ -285,6 +284,10 @@ you should place your code here."
   ;;default browser
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program "google-chrome-stable")
+
+  ;; Disable smartparens highlighting
+  (with-eval-after-load 'smartparens
+    (show-smartparens-global-mode -1))
 
   ;;clear-shell function - clears screen in shell-mode
   (defun clear-shell ()
