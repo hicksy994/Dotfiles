@@ -37,6 +37,11 @@ values."
      (shell :variables
             shell-default-width 30
             shell-default-position 'bottom)
+     (theming :variables
+                   theming-modifications
+                   '((monokai
+                      (linum-relative-current-face :background "#272822")
+                      (linum-relative-current-face :foreground "#75715E"))))
      syntax-checking
      version-control
      )
@@ -45,8 +50,8 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(company-racer
-                                      powerline
                                       emacs-eclim
+                                      company-c-headers
                                       company
                                       company-ghc)
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -215,7 +220,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers 'nil
+   dotspacemacs-line-numbers 'relative
 
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
