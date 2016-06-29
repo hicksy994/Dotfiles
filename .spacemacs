@@ -50,8 +50,6 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(company-racer
-                                      emacs-eclim
-                                      company-c-headers
                                       company
                                       company-ghc)
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -216,7 +214,7 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling nil
+   dotspacemacs-smooth-scrolling t
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
@@ -271,14 +269,21 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  ;;Theme settings
+  ;;Powerline settings
   (setq powerline-default-separator 'arrow)
   (spaceline-compile)
   (setq spaceline-minor-modes-p)
-  (setq global-hl-line-mode nil)
-  (add-hook 'prog-mode-hook #'hl-line-mode)
 
-  ;;autocomplete settings
+  ;;Disable current line highlighting
+  (setq global-hl-line-mode nil)
+  ;; (add-hook 'prog-mode-hook #'hl-line-mode)
+
+  ;;Stop annoying highlighting on creating new lines etc
+  (setq sp-highlight-pair-overlay nil)
+  (setq sp-highlight-wrap-overlay nil)
+  (setq sp-highlight-wrap-tag-overlay nil)
+
+  ;;Rust autocomplete settings
   (setq company-racer-executable "/usr/local/bin/.cargo/bin/racer")
   (setq company-racer-rust-src "~/.rust/src")
   (setq-default rust-enable-racer t)
