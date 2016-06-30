@@ -53,7 +53,7 @@ values."
                                       company
                                       company-ghc)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(
+   dotspacemacs-excluded-packages '(;; volatile-highlights-mode
                                     evil-search-highlight-persist)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -282,6 +282,7 @@ you should place your code here."
   (setq sp-highlight-pair-overlay nil)
   (setq sp-highlight-wrap-overlay nil)
   (setq sp-highlight-wrap-tag-overlay nil)
+  (setq spacemacs-show-trailing-whitespace nil)
 
   ;;Rust autocomplete settings
   (setq company-racer-executable "/usr/local/bin/.cargo/bin/racer")
