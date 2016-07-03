@@ -308,9 +308,11 @@ you should place your code here."
 
   ;;set keybinding for clear-shell command
   (evil-define-key 'normal shell-mode-map (kbd "SPC m c") 'clear-shell)
+  (evil-define-key 'normal shell-mode-map (kbd ", c") 'clear-shell)
 
   ;;set keybinding for killing shell command
   (evil-define-key 'normal shell-mode-map (kbd "SPC m q") 'comint-kill-subjob)
+  (evil-define-key 'normal shell-mode-map (kbd ", q") 'comint-kill-subjob)
   )
 
 
