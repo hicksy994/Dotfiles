@@ -284,6 +284,9 @@ you should place your code here."
   (setq sp-highlight-wrap-tag-overlay nil)
   (setq spacemacs-show-trailing-whitespace nil)
 
+  ;;Turn off vi-tilde-fringe mode
+  (global-vi-tilde-fringe-mode -1)
+
   ;;Rust autocomplete settings
   (setq company-racer-executable "/usr/local/bin/.cargo/bin/racer")
   (setq company-racer-rust-src "~/.rust/src")
@@ -314,8 +317,6 @@ you should place your code here."
   (evil-define-key 'normal shell-mode-map (kbd "SPC m q") 'comint-kill-subjob)
   (evil-define-key 'normal shell-mode-map (kbd ", q") 'comint-kill-subjob)
   )
-
-
 
 ; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
