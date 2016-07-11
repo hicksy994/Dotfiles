@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;;; volatile-highlights-mode; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup. ;; It must be stored in your home directory.
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
@@ -31,9 +31,9 @@ values."
      org
      rust
      java
-     javascript
      haskell
      c-c++
+     ranger
      (shell :variables
             shell-default-width 30
             shell-default-position 'bottom)
@@ -53,7 +53,7 @@ values."
                                       company
                                       company-ghc)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(;; volatile-highlights-mode
+   dotspacemacs-excluded-packages '(vi-tilde-fringe
                                     evil-search-highlight-persist)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -119,7 +119,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state nil
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Hack"
+   dotspacemacs-default-font '("Source code pro"
                                :size 14 :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -257,8 +257,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;;evil
   (setq-default evil-shift-round nil)
 
-	(setq tramp-ssh-controlmaster-options
-        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+  ;;No idea what this does but do not remove it
+  (setq tramp-ssh-controlmaster-options
+      "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
   )
 
 (defun dotspacemacs/user-config ()
@@ -276,16 +277,12 @@ you should place your code here."
 
   ;;Disable current line highlighting
   (setq global-hl-line-mode nil)
-  ;; (add-hook 'prog-mode-hook #'hl-line-mode)
 
   ;;Stop annoying highlighting on creating new lines etc
   (setq sp-highlight-pair-overlay nil)
   (setq sp-highlight-wrap-overlay nil)
   (setq sp-highlight-wrap-tag-overlay nil)
   (setq spacemacs-show-trailing-whitespace nil)
-
-  ;;Turn off vi-tilde-fringe mode
-  (global-vi-tilde-fringe-mode -1)
 
   ;;Rust autocomplete settings
   (setq company-racer-executable "/usr/local/bin/.cargo/bin/racer")
@@ -299,7 +296,6 @@ you should place your code here."
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program "google-chrome-stable")
 
-  ;; Disable smartparens highlighting
   (with-eval-after-load 'smartparens
     (show-smartparens-global-mode -1))
 
@@ -316,6 +312,10 @@ you should place your code here."
   ;;set keybinding for killing shell command
   (evil-define-key 'normal shell-mode-map (kbd "SPC m q") 'comint-kill-subjob)
   (evil-define-key 'normal shell-mode-map (kbd ", q") 'comint-kill-subjob)
+
+  ;;turn on line numbers for config modes
+  (add-hook 'conf-mode-hook 'linum-mode)
+
   )
 
 ; Do not write anything past this comment. This is where Emacs will
