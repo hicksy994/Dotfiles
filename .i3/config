@@ -11,7 +11,7 @@ set $right l
 floating_modifier Mod4
 
 # start a terminal
-bindsym Mod4+Return exec terminator
+bindsym Mod4+Return exec urxvt
 
 # start rofi
 bindsym Mod4+d exec rofi -show run
