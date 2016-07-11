@@ -14,3 +14,55 @@
  rofi.padding: 486
  rofi.bw: 0
  rofi.opacity:85
+
+
+!urxvt
+URxvt.font:                xft:Hack:pixelsize=13
+URxvt.boldFont:            xft:Hack:pixelsize=13:bold
+URxvt.italicFont:          xft:Hack:pixelsize=13:italic
+URxvt.boldItalicFont:      xft:Hack:pixelsize=13:bold:italic
+URxvt.letterSpace:         -1
+
+*background: #161719
+*foreground: #c5c8c6
+! black
+*color0: #000000
+*color8: #404040
+! red
+*color1: #CD0000
+*color9: #FF0000
+! green
+*color2: #00CD00
+*color10: #00FF00
+! yellow
+*color3: #CDCD00
+*color11: #FFFF00
+! blue
+*color4: #3366cc
+*color12: #3366ff
+! magenta
+*color5: #CD00CD
+*color13: #FF00FF
+! cyan
+*color6: #5E8D87
+*color14: #00FFFF
+! white
+*color7: #6C7A80
+*color15: #FFFFFF
+
+URxvt.internalBorder:      0
+URxvt.externalBorder:      0
+
+URxvt.scrollBar:           false
+
+URxvt*fading:              30
+
+URxvt.perl-ext-common:     matcher,resize-font,foo
+
+URxvt.keysym.F11:          perl:fullscreen:switch
+
+URxvt.resize-font.smaller: C-Down
+URxvt.resize-font.bigger:  C-Up
+
+URxvt.keysym.M-Delete:     perl:matcher:list
+URxvt.colorUL:             #7780a1
