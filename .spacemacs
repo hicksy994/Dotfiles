@@ -49,9 +49,11 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(company-racer
-                                      company
-                                      company-ghc)
+   dotspacemacs-additional-packages '(;; company-racer
+                                      ;; company-cabal
+                                      ;; company
+                                      ;; company-ghc)
+                                      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(vi-tilde-fringe
                                     evil-search-highlight-persist)
@@ -313,8 +315,10 @@ you should place your code here."
   (evil-define-key 'normal shell-mode-map (kbd "SPC m q") 'comint-kill-subjob)
   (evil-define-key 'normal shell-mode-map (kbd ", q") 'comint-kill-subjob)
 
-  ;;turn on line numbers for config modes
+  ;;Add this stuff to config modes
   (add-hook 'conf-mode-hook 'linum-mode)
+  (add-hook 'conf-mode-hook 'auto-complete-mode)
+  (add-hook 'conf-mode-hook 'smartparens-mode)
 
   )
 
