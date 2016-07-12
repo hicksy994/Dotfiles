@@ -142,8 +142,9 @@ mode "resize" {
 
 bindsym Mod4+r mode "resize"
 
-set $bg-color 	         #2f343f
-set $inactive-bg-color   #2f343f
+set $bg-color 	         #3a3a3a
+# set $bg-color 	         #2f343f
+set $inactive-bg-color   #3a3a3a
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
@@ -177,19 +178,22 @@ bar {
 		}	
 }
 
+# exec yabar
+
 #nvidia settings
 exec --no-startup-id nvidia-settings -l
 exec --no-startup-id xrandr --output DVI-D-0 --mode 1920x1080 --rate 144
 
 #Wallpaper
-exec --no-startup-id feh --bg-scale /home/hicksy/wallpapers/yosemite1920.jpg
+exec --no-startup-id feh --bg-scale /home/hicksy/wallpapers/gnulinux.png
 
 #No title bars
 for_window [class="^.*"] border pixel 1
 
 #Gaps
-gaps inner 7
-gaps outer 7
+smart_borders on
+gaps inner 10
+gaps outer 10
 
 #compton
 exec_always compton -f

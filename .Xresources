@@ -21,8 +21,10 @@ URxvt.boldFont:            xft:Hack:pixelsize=13:bold
 URxvt.italicFont:          xft:Hack:pixelsize=13:italic
 URxvt.boldItalicFont:      xft:Hack:pixelsize=13:bold:italic
 URxvt.letterSpace:         -1
+URxvt.transparent:   true
+URxvt.shading:       50
 
-*background: #161719
+*background: #212121
 *foreground: #c5c8c6
 ! black
 *color0: #000000
