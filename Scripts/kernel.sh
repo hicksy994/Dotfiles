@@ -2,5 +2,5 @@
 
 kernel=$(uname -r)
 
-echo $kernel
+echo '<span foreground="#FFFFFF"> '$kernel' </span>'
 

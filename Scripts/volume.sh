@@ -7,5 +7,5 @@ muted=${pavu_status[1]}
 if [ "$muted" == "yes" ]; then
   echo '<span foreground="#Cd3f45">Muted</span>'
 else
-    echo $volume%
+    echo '<span foreground="#FFFFFF"> '$volume%' </span>'
 fi
