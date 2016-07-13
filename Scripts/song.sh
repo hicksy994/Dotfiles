@@ -2,4 +2,7 @@
 
 song=$(mpc current)
 
-echo '<span foreground="#FFFFFF"> '$song' </span>'
+if [ "$song" != "" ];
+   then
+       echo '<span foreground="#FFFFFF"> '$song' </span>'
+fi

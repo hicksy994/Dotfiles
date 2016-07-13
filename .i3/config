@@ -142,9 +142,9 @@ mode "resize" {
 
 bindsym Mod4+r mode "resize"
 
-set $bg-color 	         #3a3a3a
+set $bg-color 	         #212121
 # set $bg-color 	         #2f343f
-set $inactive-bg-color   #3a3a3a
+set $inactive-bg-color   #212121
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
@@ -178,14 +178,12 @@ bar {
 		}	
 }
 
-# exec yabar
-
 #nvidia settings
 exec --no-startup-id nvidia-settings -l
 exec --no-startup-id xrandr --output DVI-D-0 --mode 1920x1080 --rate 144
 
 #Wallpaper
-exec --no-startup-id feh --bg-scale /home/hicksy/wallpapers/gnulinux.png
+exec --no-startup-id feh --bg-scale /home/hicksy/wallpapers/archwallpaper.png
 
 #No title bars
 for_window [class="^.*"] border pixel 1
