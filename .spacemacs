@@ -254,7 +254,7 @@
   (setq sp-highlight-wrap-overlay nil)
   (setq sp-highlight-wrap-tag-overlay nil)
   (setq spacemacs-show-trailing-whitespace nil)
-
+  
   ;;Rust autocomplete settings
   (setq racer-cmd "/usr/local/bin/racer")
   (setq racer-rust-src-path "~/.rust/src")
@@ -269,6 +269,7 @@
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program "chromium")
 
+  ;;Disable smartparens highlighting
   (with-eval-after-load 'smartparens
     (show-smartparens-global-mode -1))
 
@@ -279,12 +280,10 @@
       (comint-truncate-buffer)))
 
   ;;set keybinding for clear-shell command
-  (evil-define-key 'normal shell-mode-map (kbd "SPC m c") 'clear-shell)
-  (evil-define-key 'normal shell-mode-map (kbd ", c") 'clear-shell)
+  (spacemacs/set-leader-keys-for-major-mode 'shell-mode "c" 'clear-shell)
 
   ;;set keybinding for killing shell command
-  (evil-define-key 'normal shell-mode-map (kbd "SPC m q") 'comint-kill-subjob)
-  (evil-define-key 'normal shell-mode-map (kbd ", q") 'comint-kill-subjob)
+  (spacemacs/set-leader-keys-for-major-mode 'shell-mode "q" 'comint-kill-subjob)
 
   ;;Add this stuff to config modes
   (add-hook 'conf-mode-hook 'linum-mode)
