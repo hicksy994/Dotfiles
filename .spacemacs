@@ -261,6 +261,7 @@
   (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook  #'company-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
+  (setq company-racer-annotation-format "")
 
   ;;jk to escape
   (setq-default evil-escape-key-sequence "jk")
