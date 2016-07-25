@@ -257,7 +257,7 @@
   
   ;;Rust autocomplete settings
   (setq racer-cmd "/usr/local/bin/racer")
-  (setq racer-rust-src-path "~/.rust/src")
+  (setq racer-rust-src-path "/usr/local/src/rust/src")
   (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook  #'company-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
