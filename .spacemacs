@@ -24,6 +24,7 @@
      java
      haskell
      c-c++
+     gtags
      (shell :variables
             shell-default-width 30
             shell-default-position 'bottom)
