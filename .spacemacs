@@ -91,14 +91,7 @@
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai
-                         solarized-dark
-                         badwolf
-                         spacemacs-dark
-                         spacemacs-light
-                         solarized-light
-                         leuven
-                         zenburn)
+   dotspacemacs-themes '(monokai)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state nil
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -264,8 +257,13 @@
   (add-hook 'racer-mode-hook #'eldoc-mode)
   (setq company-racer-annotation-format "")
 
+  ;;camelCase for c modes
   (add-hook 'c++-mode-hook 'spacemacs/toggle-camel-case-motion-on)
   (add-hook 'c-mode-hook 'spacemacs/toggle-camel-case-motion-on)
+
+  ;;c-eldoc-mode for c modes
+  (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
+  (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode)
 
   ;;jk to escape
   (setq-default evil-escape-key-sequence "jk")
