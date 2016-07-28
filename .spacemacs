@@ -17,7 +17,6 @@
      better-defaults
      emacs-lisp
      git
-     github
      markdown
      org
      rust
@@ -40,7 +39,8 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(c-eldoc
+                                      )
 
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(vi-tilde-fringe
@@ -243,7 +243,7 @@
 (defun dotspacemacs/user-config ()
 
   ;;Powerline settings
-  (setq powerline-default-separator 'arrow)
+  (setq powerline-default-separator 'slant)
   (spaceline-compile)
   (setq spaceline-minor-modes-p)
 
@@ -263,6 +263,9 @@
   (add-hook 'racer-mode-hook  #'company-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
   (setq company-racer-annotation-format "")
+
+  (add-hook 'c++-mode-hook 'spacemacs/toggle-camel-case-motion-on)
+  (add-hook 'c-mode-hook 'spacemacs/toggle-camel-case-motion-on)
 
   ;;jk to escape
   (setq-default evil-escape-key-sequence "jk")
