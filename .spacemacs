@@ -257,9 +257,8 @@
   (add-hook 'racer-mode-hook #'eldoc-mode)
   (setq company-racer-annotation-format "")
 
-  ;;camelCase for c modes
-  (add-hook 'c++-mode-hook 'spacemacs/toggle-camel-case-motion-on)
-  (add-hook 'c-mode-hook 'spacemacs/toggle-camel-case-motion-on)
+  ;;camelCase motion
+  (spacemacs/toggle-camel-case-motion-globally-on)
 
   ;;c-eldoc-mode for c modes
   (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
