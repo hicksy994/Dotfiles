@@ -276,17 +276,7 @@
   (with-eval-after-load 'smartparens
     (show-smartparens-global-mode -1))
 
-  ;;clear-shell function - clears screen in shell-mode
-  (defun clear-shell ()
-    (interactive)
-    (let ((comint-buffer-maximum-size 0))
-      (comint-truncate-buffer)))
-
-  ;;set keybinding for clear-shell command
-  (spacemacs/set-leader-keys-for-major-mode 'shell-mode "c" 'clear-shell)
-
   ;;set keybinding for killing shell command
-  (spacemacs/set-leader-keys-for-major-mode 'shell-mode "q" 'comint-kill-subjob)
   (spacemacs/set-leader-keys-for-major-mode 'term-mode "q" 'term-kill-subjob)
 
   ;;no yasnippet in term mode
