@@ -287,6 +287,11 @@
 
   ;;set keybinding for killing shell command
   (spacemacs/set-leader-keys-for-major-mode 'shell-mode "q" 'comint-kill-subjob)
+  (spacemacs/set-leader-keys-for-major-mode 'term-mode "q" 'term-kill-subjob)
+
+  ;;no yasnippet in term mode
+  (add-hook 'term-mode-hook
+    (lambda() (setq yas-dont-activate t)))
 
   ;;Add this stuff to config modes
   (add-hook 'conf-mode-hook 'linum-mode)
