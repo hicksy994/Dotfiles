@@ -198,6 +198,9 @@ exec --no-startup-id xset s off
 exec --no-startup-id xset -dpms
 exec --no-startup-id xset s noblank
 
+#launch xbanish - hide mouse when typing
+exec --no-startup-id xbanish
+
 #load Xresources
 exec --no-startup-id xrdb .Xresources
 
@@ -218,4 +221,4 @@ bindsym XF86AudioPrev exec mpc prev
 bindsym XF86AudioPlay exec ~/Scripts/playpause.sh
 
 #chromium shortcut
-bindsym Mod4+Shift+c exec chromium
+bindsym Mod4+Shift+c exec google-chrome-stable

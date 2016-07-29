@@ -44,6 +44,7 @@
 
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(vi-tilde-fringe
+                                    neotree
                                     evil-search-highlight-persist)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -269,7 +270,7 @@
 
   ;;default browser
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "chromium")
+        browse-url-generic-program "google-chrome-stable")
 
   ;;Disable smartparens highlighting
   (with-eval-after-load 'smartparens
@@ -291,7 +292,6 @@
   (add-hook 'conf-mode-hook 'linum-mode)
   (add-hook 'conf-mode-hook 'company-mode)
   (add-hook 'conf-mode-hook 'smartparens-mode)
-
   )
 
 ; Do not write anything past this comment. This is where Emacs will
