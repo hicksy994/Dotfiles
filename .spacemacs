@@ -22,7 +22,8 @@
      rust
      java
      haskell
-     c-c++
+     (c-c++ :variables
+            c-c++-enable-clang-support t)
      gtags
      (shell :variables
             shell-default-width 30
@@ -231,8 +232,7 @@
 
   ;;No idea what this does but do not remove it
   (setq tramp-ssh-controlmaster-options
-      "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
-  )
+      "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no"))
 
 (defun dotspacemacs/user-config ()
 
@@ -268,7 +268,7 @@
   ;;jk to escape
   (setq-default evil-escape-key-sequence "jk")
 
-  ;;default browser
+  ;;Default browser
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program "google-chrome-stable")
 
@@ -276,18 +276,21 @@
   (with-eval-after-load 'smartparens
     (show-smartparens-global-mode -1))
 
-  ;;set keybinding for killing shell command
+  ;;Set keybinding for killing shell command
   (spacemacs/set-leader-keys-for-major-mode 'term-mode "q" 'term-kill-subjob)
 
-  ;;no yasnippet in term mode
+  ;;No yasnippet in term mode
   (add-hook 'term-mode-hook
     (lambda() (setq yas-dont-activate t)))
+
+  ;;No line numbers in org mode
+  (add-hook 'org-mode-hook
+    (lambda() (linum-mode 0)))
 
   ;;Add this stuff to config modes
   (add-hook 'conf-mode-hook 'linum-mode)
   (add-hook 'conf-mode-hook 'company-mode)
-  (add-hook 'conf-mode-hook 'smartparens-mode)
-  )
+  (add-hook 'conf-mode-hook 'smartparens-mode))
 
 ; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
