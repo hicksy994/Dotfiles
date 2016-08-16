@@ -24,6 +24,7 @@
      haskell
      (c-c++ :variables
             c-c++-enable-clang-support t)
+     ;; c-c++
      gtags
      (shell :variables
             shell-default-width 30
@@ -35,6 +36,7 @@
                       (linum-relative-current-face :foreground "#75715E"))))
      syntax-checking
      version-control
+     ;;spell-checking
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -286,6 +288,9 @@
   ;;No line numbers in org mode
   (add-hook 'org-mode-hook
     (lambda() (linum-mode 0)))
+
+  (add-hook 'org-mode-hook
+    (lambda() visual-line-mode t))
 
   ;;Add this stuff to config modes
   (add-hook 'conf-mode-hook 'linum-mode)
