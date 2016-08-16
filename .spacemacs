@@ -289,8 +289,14 @@
   (add-hook 'org-mode-hook
     (lambda() (linum-mode 0)))
 
+  ;;Text wrapping in org-mode
   (add-hook 'org-mode-hook
     (lambda() visual-line-mode t))
+
+  ;;Setup org-capture
+  (setq org-capture-templates
+    '(("t" "Todo" entry (file+headline "~/org/Todo.org" "Todo")
+       "* TODO  %?")))
 
   ;;Add this stuff to config modes
   (add-hook 'conf-mode-hook 'linum-mode)
