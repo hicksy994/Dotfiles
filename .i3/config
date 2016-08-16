@@ -176,39 +176,39 @@ bar {
 }
 
 #nvidia settings
-exec --no-startup-id nvidia-settings -l
-exec --no-startup-id xrandr --output DVI-D-0 --mode 1920x1080 --rate 144
+# exec --no-startup-id nvidia-settings -l
+# exec --no-startup-id xrandr --output DVI-D-0 --mode 1920x1080 --rate 144
 
 #Wallpaper
-exec --no-startup-id feh --bg-scale /home/hicksy/wallpapers/archwallpaper.png
+# exec --no-startup-id feh --bg-scale /home/hicksy/wallpapers/archwallpaper.png
 
 #No title bars
 for_window [class="^.*"] border pixel 1
 
 #Gaps
-smart_borders on
-gaps inner 10
-gaps outer 10
+# smart_borders on
+# gaps inner 10
+# gaps outer 10
 
 #compton
-exec_always compton -f
+# exec_always compton -f
 
 #stop screen lock
-exec --no-startup-id xset s off
-exec --no-startup-id xset -dpms
-exec --no-startup-id xset s noblank
+# exec --no-startup-id xset s off
+# exec --no-startup-id xset -dpms
+# exec --no-startup-id xset s noblank
 
 #launch xbanish - hide mouse when typing
-exec --no-startup-id xbanish
+# exec --no-startup-id xbanish
 
 #load Xresources
-exec --no-startup-id xrdb .Xresources
+# exec --no-startup-id xrdb .Xresources
 
 #load keyboard map
-exec --no-startup-id setxkbmap gb
+# exec --no-startup-id setxkbmap gb
 
 #mopidy
-exec --no-startup-id mopidy
+# exec --no-startup-id mopidy
 
 #volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 2 +1% && killall -SIGUSR1 i3status
