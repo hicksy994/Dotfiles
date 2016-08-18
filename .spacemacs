@@ -36,7 +36,6 @@
                       (linum-relative-current-face :foreground "#75715E"))))
      syntax-checking
      version-control
-     ;;spell-checking
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -243,6 +242,9 @@
   (spaceline-compile)
   (setq spaceline-minor-modes-p)
 
+  ;;Disable autosave
+  (setq auto-save-default nil)
+
   ;;Disable current line highlighting
   (setq global-hl-line-mode nil)
 
@@ -291,7 +293,7 @@
 
   ;;Text wrapping in org-mode
   (add-hook 'org-mode-hook
-    (lambda() visual-line-mode t))
+    (lambda() (visual-line-mode t)))
 
   ;;Setup org-capture
   (setq org-capture-templates
