@@ -262,6 +262,10 @@
   (add-hook 'racer-mode-hook #'eldoc-mode)
   (setq company-racer-annotation-format "")
 
+  ;;Eclim (Java autocomplete) attempt
+  (setq eclim-eclipse-dirs "/usr/lib/eclipse"
+        eclim-executable "/usr/lib/eclipse/eclim")
+
   ;;camelCase motion
   (spacemacs/toggle-camel-case-motion-globally-on)
 
