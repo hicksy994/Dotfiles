@@ -238,7 +238,7 @@
 (defun dotspacemacs/user-config ()
 
   ;;Powerline settings
-  (setq powerline-default-separator 'slant)
+  (setq powerline-default-separator 'arrow)
   (spaceline-compile)
   (setq spaceline-minor-modes-p)
 
@@ -262,7 +262,7 @@
   (add-hook 'racer-mode-hook #'eldoc-mode)
   (setq company-racer-annotation-format "")
 
-  ;;Eclim (Java autocomplete) attempt
+  ;;Eclim 
   (setq eclim-eclipse-dirs "/usr/lib/eclipse"
         eclim-executable "/usr/lib/eclipse/eclim")
 
@@ -272,6 +272,9 @@
   ;;c-eldoc-mode for c modes
   (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
   (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode)
+
+  ;;C style
+  (setq c-default-style "k&r")
 
   ;;jk to escape
   (setq-default evil-escape-key-sequence "jk")
