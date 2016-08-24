@@ -28,18 +28,19 @@
      (theming :variables
                   theming-modifications
                   '((monokai
+
+                     ;;Modeline modifications
                      (header-line :background "#393939")
                      (mode-line :background "#5a5a5a")
                      (mode-line-inactive :foreground "#F8F8F0" :background "#5a5a5a")
                      (powerline-active1 :background "#393939")
                      (powerline-inactive1 :foreground "#F8F8F0" :background "#393939")
-                     (powerline-active2 :background "#5a5a5a")
-                     (powerline-inactive2 :foreground "#F8F8F0" :background "#5a5a5a")
+                     ;; (powerline-active2 :background "#5a5a5a")
+                     ;; (powerline-inactive2 :foreground "#F8F8F0" :background "#5a5a5a")
+                     (powerline-inactive2 :foreground "#F8F8F0" :background "#272822")
 
-                     (helm-prefarg :foreground "PaleGreen")
-
-                     (linum-relative-current-face :background "#272822")
-                     (linum-relative-current-face :foreground "#75715E"))))
+                     ;;Line number modifications
+                     (linum-relative-current-face :background "#272822" :foreground "#75715E"))))
      syntax-checking
      version-control
      )
@@ -64,7 +65,7 @@
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
