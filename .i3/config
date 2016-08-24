@@ -172,6 +172,9 @@ bar {
 		}	
 }
 
+#No title bars
+for_window [class="^.*"] border pixel 1
+
 #Gaps
 smart_borders on
 gaps inner 10
