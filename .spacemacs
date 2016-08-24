@@ -24,33 +24,32 @@
      haskell
      (c-c++ :variables
             c-c++-enable-clang-support t)
-     ;; c-c++
      gtags
-     (shell :variables
-            shell-default-width 30
-            shell-default-position 'bottom)
      (theming :variables
-                   theming-modifications
-                   '((monokai
-                      (linum-relative-current-face :background "#272822")
-                      (linum-relative-current-face :foreground "#75715E"))))
+                  theming-modifications
+                  '((monokai
+                     (header-line :background "#404040")
+                     (mode-line :background "#5a5a5a")
+                     (mode-line-inactive :foreground "#F8F8F0" :background "#5a5a5a")
+                     (powerline-active1 :background "#404040")
+                     (powerline-inactive1 :foreground "#F8F8F0" :background "#404040")
+                     (powerline-active2 :background "#5a5a5a")
+                     (powerline-inactive2 :foreground "#F8F8F0" :background "#5a5a5a")
+                     (linum-relative-current-face :background "#272822")
+                     (linum-relative-current-face :foreground "#75715E"))))
      syntax-checking
      version-control
      )
-   ;; List of additional packages that will be installed without being
-   ;; wrapped in a layer. If you need some configuration for these
-   ;; packages, then consider creating a layer. You can also put the
-   ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(c-eldoc
-                                      )
+
+   ;;Additional packages not included in layers.
+   dotspacemacs-additional-packages '(c-eldoc)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(vi-tilde-fringe
                                     neotree
                                     evil-search-highlight-persist)
-   ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
-   ;; are declared in a layer which is not a member of
-   ;; the list `dotspacemacs-configuration-layers'. (default t)
+
+   ;;Delete packages not in additional-packages or a layer.
    dotspacemacs-delete-orphan-packages t))
 
 (defun dotspacemacs/init ()
@@ -199,7 +198,6 @@
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
    dotspacemacs-line-numbers 'relative
-
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -228,19 +226,19 @@
 
 (defun dotspacemacs/user-init ()
 
-  ;;dont round shifts.
-  (setq-default evil-shift-round nil)
-
   ;;No idea what this does but do not remove it
   (setq tramp-ssh-controlmaster-options
       "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no"))
 
 (defun dotspacemacs/user-config ()
 
+  ;;Dont round shifts.
+  (setq-default evil-shift-round nil)
+
   ;;Powerline settings
-  (setq powerline-default-separator 'arrow)
+  (setq powerline-default-separator 'slant)
+  (spaceline-toggle-minor-modes-off)
   (spaceline-compile)
-  (setq spaceline-minor-modes-p)
 
   ;;Disable autosave
   (setq auto-save-default nil)
@@ -258,7 +256,7 @@
   (setq racer-cmd "/usr/local/bin/racer")
   (setq racer-rust-src-path "/usr/local/src/rust/src")
   (add-hook 'rust-mode-hook #'racer-mode)
-  (add-hook 'racer-mode-hook  #'company-mode)
+  (add-hook 'racer-mode-hook #'company-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
   (setq company-racer-annotation-format "")
 
