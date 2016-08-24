@@ -28,13 +28,16 @@
      (theming :variables
                   theming-modifications
                   '((monokai
-                     (header-line :background "#404040")
+                     (header-line :background "#393939")
                      (mode-line :background "#5a5a5a")
                      (mode-line-inactive :foreground "#F8F8F0" :background "#5a5a5a")
-                     (powerline-active1 :background "#404040")
-                     (powerline-inactive1 :foreground "#F8F8F0" :background "#404040")
+                     (powerline-active1 :background "#393939")
+                     (powerline-inactive1 :foreground "#F8F8F0" :background "#393939")
                      (powerline-active2 :background "#5a5a5a")
                      (powerline-inactive2 :foreground "#F8F8F0" :background "#5a5a5a")
+
+                     (helm-prefarg :foreground "PaleGreen")
+
                      (linum-relative-current-face :background "#272822")
                      (linum-relative-current-face :foreground "#75715E"))))
      syntax-checking
@@ -236,7 +239,7 @@
   (setq-default evil-shift-round nil)
 
   ;;Powerline settings
-  (setq powerline-default-separator 'slant)
+  (setq powerline-default-separator 'utf-8)
   (spaceline-toggle-minor-modes-off)
   (spaceline-compile)
 
