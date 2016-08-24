@@ -30,7 +30,7 @@
                   '((monokai
 
                      ;;Modeline modifications
-                     (header-line :background "#393939")
+                     (header-line :background "#272822")
                      (mode-line :background "#5a5a5a")
                      (mode-line-inactive :foreground "#F8F8F0" :background "#5a5a5a")
                      (powerline-active1 :background "#393939")
