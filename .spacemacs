@@ -25,28 +25,13 @@
      (c-c++ :variables
             c-c++-enable-clang-support t)
      gtags
-     (theming :variables
-                  theming-modifications
-                  '((monokai
-
-                     ;;Modeline modifications
-                     (header-line :background "#272822")
-                     (mode-line :background "#5a5a5a")
-                     (mode-line-inactive :foreground "#F8F8F0" :background "#5a5a5a")
-                     (powerline-active1 :background "#393939")
-                     (powerline-inactive1 :foreground "#F8F8F0" :background "#393939")
-                     ;; (powerline-active2 :background "#5a5a5a")
-                     ;; (powerline-inactive2 :foreground "#F8F8F0" :background "#5a5a5a")
-                     (powerline-inactive2 :foreground "#F8F8F0" :background "#272822")
-
-                     ;;Line number modifications
-                     (linum-relative-current-face :background "#272822" :foreground "#75715E"))))
      syntax-checking
-     version-control
+     hicksy-theming
      )
 
    ;;Additional packages not included in layers.
-   dotspacemacs-additional-packages '(c-eldoc)
+   dotspacemacs-additional-packages '(
+                                      c-eldoc)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(vi-tilde-fringe
@@ -97,7 +82,9 @@
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai)
+   dotspacemacs-themes '(monokai
+                         solarized-dark
+                         gruvbox)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state nil
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -237,15 +224,15 @@
 (defun dotspacemacs/user-config ()
 
   ;;Dont round shifts.
-  (setq-default evil-shift-round nil)
+  (setq-default evil-shift-round 'nil)
 
   ;;Powerline settings
   (setq powerline-default-separator 'utf-8)
   (spaceline-toggle-minor-modes-off)
   (spaceline-compile)
 
-  ;;Disable autosave
-  (setq auto-save-default nil)
+  ;;Disable lockfile creation
+  (setq create-lockfiles nil)
 
   ;;Disable current line highlighting
   (setq global-hl-line-mode nil)
@@ -255,7 +242,7 @@
   (setq sp-highlight-wrap-overlay nil)
   (setq sp-highlight-wrap-tag-overlay nil)
   (setq spacemacs-show-trailing-whitespace nil)
-  
+
   ;;Rust autocomplete settings
   (setq racer-cmd "/usr/local/bin/racer")
   (setq racer-rust-src-path "/usr/local/src/rust/src")
@@ -277,6 +264,9 @@
 
   ;;C style
   (setq c-default-style "k&r")
+
+  ;;Keep VC modeline info up to date
+  (setq auto-revert-check-vc-info t)
 
   ;;jk to escape
   (setq-default evil-escape-key-sequence "jk")
@@ -302,8 +292,8 @@
 
   ;;Text wrapping in org-mode
   (add-hook 'org-mode-hook
-    (lambda() (visual-line-mode t)))
-
+            (lambda() (visual-line-mode t)))
+  
   ;;Setup org-capture
   (setq org-capture-templates
     '(("t" "Todo" entry (file+headline "~/org/Todo.org" "Todo")
