@@ -26,11 +26,12 @@
             c-c++-enable-clang-support t)
      gtags
      syntax-checking
+     ranger
      hicksy-theming
      )
 
    ;;Additional packages not included in layers.
-   dotspacemacs-additional-packages '(
+   dotspacemacs-additional-packages '(company-emacs-eclim
                                       c-eldoc)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -228,7 +229,7 @@
   (setq-default evil-shift-round 'nil)
 
   ;;Powerline settings
-  (setq powerline-default-separator 'utf-8)
+  (setq powerline-default-separator 'nil)
   (spaceline-toggle-minor-modes-off)
   (spaceline-compile)
 
