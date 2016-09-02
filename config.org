@@ -106,11 +106,6 @@
      "* TODO  %?")))
 #+END_SRC
 
-**** Use downward arrow instead of ellipsis
-#+BEGIN_SRC emacs-lisp
-(setq org-ellipsis "⤵")
-#+END_SRC
-
 **** Make tabs act as if they were issued in a buffer of the language's major modes
 #+BEGIN_SRC emacs-lisp
 (setq org-src-tab-acts-natively t)
