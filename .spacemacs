@@ -85,8 +85,9 @@
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(monokai
                          solarized-dark
-                         zenburn
+                         sanityinc-tomorrow-night
                          gruvbox)
+                         
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state nil
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -224,87 +225,7 @@
       "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no"))
 
 (defun dotspacemacs/user-config ()
-
-  ;;Dont round shifts.
-  (setq-default evil-shift-round 'nil)
-
-  ;;Powerline settings
-  (setq powerline-default-separator 'nil)
-  (spaceline-toggle-minor-modes-off)
-  (spaceline-compile)
-
-  ;;Disable lockfile creation
-  (setq create-lockfiles nil)
-
-  ;;Disable current line highlighting
-  (setq global-hl-line-mode nil)
-
-  ;;Stop annoying highlighting on creating new lines etc
-  (setq sp-highlight-pair-overlay nil)
-  (setq sp-highlight-wrap-overlay nil)
-  (setq sp-highlight-wrap-tag-overlay nil)
-  (setq spacemacs-show-trailing-whitespace nil)
-
-  ;;Rust autocomplete settings
-  (setq racer-cmd "/usr/local/bin/racer")
-  (setq racer-rust-src-path "/usr/local/src/rust/src")
-  (add-hook 'rust-mode-hook #'racer-mode)
-  (add-hook 'racer-mode-hook #'company-mode)
-  (add-hook 'racer-mode-hook #'eldoc-mode)
-  (setq company-racer-annotation-format "")
-
-  ;;Eclim 
-  (setq eclim-eclipse-dirs "/usr/lib/eclipse"
-        eclim-executable "/usr/lib/eclipse/eclim")
-
-  ;;camelCase motion
-  (spacemacs/toggle-camel-case-motion-globally-on)
-
-  ;;c-eldoc-mode for c modes
-  (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
-  (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode)
-
-  ;;C style
-  (setq c-default-style "k&r")
-
-  ;;Keep VC modeline info up to date
-  (setq auto-revert-check-vc-info t)
-
-  ;;jk to escape
-  (setq-default evil-escape-key-sequence "jk")
-
-  ;;Default browser
-  (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "google-chrome-stable")
-
-  ;;Disable smartparens highlighting
-  (with-eval-after-load 'smartparens
-    (show-smartparens-global-mode -1))
-
-  ;;Set keybinding for killing shell command
-  (spacemacs/set-leader-keys-for-major-mode 'term-mode "q" 'term-kill-subjob)
-
-  ;;No yasnippet in term mode
-  (add-hook 'term-mode-hook
-    (lambda() (setq yas-dont-activate t)))
-
-  ;;No line numbers in org mode
-  (add-hook 'org-mode-hook
-    (lambda() (linum-mode 0)))
-
-  ;;Text wrapping in org-mode
-  (add-hook 'org-mode-hook
-            (lambda() (visual-line-mode t)))
-  
-  ;;Setup org-capture
-  (setq org-capture-templates
-    '(("t" "Todo" entry (file+headline "~/org/Todo.org" "Todo")
-       "* TODO  %?")))
-
-  ;;Add this stuff to config modes
-  (add-hook 'conf-mode-hook 'linum-mode)
-  (add-hook 'conf-mode-hook 'company-mode)
-  (add-hook 'conf-mode-hook 'smartparens-mode))
+  (org-babel-load-file "~/.emacs.d/private/config.org"))
 
 ; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
