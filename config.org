@@ -1,6 +1,5 @@
-#+TITLE: Emacs Config
-
-* Theme settings
+* Emacs configuration
+** Theme settings
 ** Highlighting
 *** Disable current line highlighting
 #+BEGIN_SRC emacs-lisp
@@ -37,7 +36,7 @@
 (spaceline-compile)
 #+END_SRC
 
-* Major mode settings
+** Major mode settings
 ** Languages
 *** C/C++
 **** Enable eldoc-mode
@@ -135,7 +134,7 @@
   (lambda() (setq yas-dont-activate t)))
 #+END_SRC
 
-* Misc
+** Misc
 ** Set evil escape keymap to jk
 #+BEGIN_SRC emacs-lisp
 (setq-default evil-escape-key-sequence "jk")
