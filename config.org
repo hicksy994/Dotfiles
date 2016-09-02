@@ -106,6 +106,21 @@
      "* TODO  %?")))
 #+END_SRC
 
+**** Use downward arrow instead of ellipsis
+#+BEGIN_SRC emacs-lisp
+(setq org-ellipsis "⤵")
+#+END_SRC
+
+**** Make tabs act as if they were issued in a buffer of the language's major modes
+#+BEGIN_SRC emacs-lisp
+(setq org-src-tab-acts-natively t)
+#+END_SRC
+
+**** Use current window when editing a code snippet
+#+BEGIN_SRC emacs-lisp
+(setq org-src-window-setup 'current-window)
+#+END_SRC
+
 *** Conf-mode
 **** Enable line numbers
 #+BEGIN_SRC emacs-lisp
