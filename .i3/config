@@ -21,8 +21,7 @@ bindsym Mod4+d exec rofi -show run
 bindsym Mod4+Shift+q kill
 
 #lock screen
-bindsym Mod4+Shift+x exec i3lock -i ~/wallpapers/archwallpaper.png -R 1200 -O 0 --no-keyboard-layout
-
+bindsym Mod4+Shift+x exec i3lock -u -i ~/wallpapers/yosemite1920.png
 # change focus
 bindsym Mod4+$left focus left
 bindsym Mod4+$down focus down
@@ -143,8 +142,10 @@ mode "resize" {
 
 bindsym Mod4+r mode "resize"
 
-set $bg-color 	         #313131
-set $inactive-bg-color   #313131
+# set $bg-color 	         #313131
+set $bg-color 	         #2f343f
+# set $inactive-bg-color   #313131
+set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
