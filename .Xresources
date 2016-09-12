@@ -16,38 +16,47 @@ rofi.opacity:85
 
 !urxvt
 
-URxvt.font:                xft:Hack:pixelsize=13
-URxvt.boldFont:            xft:Hack:pixelsize=13:bold
-URxvt.italicFont:          xft:Hack:pixelsize=13:italic
-URxvt.boldItalicFont:      xft:Hack:pixelsize=13:bold:italic
+URxvt.font:                xft:Source Code Pro:pixelsize=13
+URxvt.boldFont:            xft:Source Code Pro:pixelsize=13:bold
+URxvt.italicFont:          xft:Source Code Pro:pixelsize=13:italic
+URxvt.boldItalicFont:      xft:Source Code Pro:pixelsize=13:bold:italic
 URxvt.letterSpace:         -1
 
-*background: #212121
-*foreground: #c5c8c6
+!test
+
+URxvt*background: #161719
+URxvt*foreground: #DEDEDE
+
+URxvt*colorUL: #86a2b0
+
 ! black
-*color0: #000000
-*color8: #404040
+URxvt*color0  : #2E3436
+URxvt*color8  : #555753
 ! red
-*color1: #CD0000
-*color9: #FF0000
+URxvt*color1  : #CC0000
+URxvt*color9  : #EF2929
 ! green
-*color2: #00CD00
-*color10: #00FF00
+URxvt*color2  : #4E9A06
+URxvt*color10 : #8AE234
 ! yellow
-*color3: #CDCD00
-*color11: #FFFF00
+URxvt*color3  : #C4A000
+URxvt*color11 : #FCE94F
 ! blue
-*color4: #3366cc
-*color12: #3366ff
+URxvt*color4  : #3465A4
+URxvt*color12 : #729FCF
 ! magenta
-*color5: #CD00CD
-*color13: #FF00FF
+URxvt*color5  : #75507B
+URxvt*color13 : #AD7FA8
 ! cyan
-*color6: #5E8D87
-*color14: #00FFFF
+URxvt*color6  : #06989A
+URxvt*color14 : #34E2E2
 ! white
-*color7: #6C7A80
-*color15: #FFFFFF
+URxvt*color7  : #D3D7CF
+URxvt*color15 : #EEEEEC
+
+URxvt.urlLauncher:      /usr/bin/google-chrome-stable
+URxvt.matcher.button:   1 
+
 
 URxvt.internalBorder:      0
 URxvt.externalBorder:      0
