@@ -1,6 +1,8 @@
-(configuration-layer/declare-layer
- '(theming :variables
-     theming-modifications
+;; (configuration-layer/declare-layer
+;;  '(theming :variables
+
+(setq-default 
+   theming-modifications
 
      '((gruvbox
 
@@ -14,7 +16,6 @@
         (powerline-inactive1 :foreground "#d5c4a1" :background "grey22")
         (powerline-active2 :foreground "#d5c4a1" :background "grey40")
         (powerline-inactive2 :foreground "#d5c4a1" :background "grey40")
-
 
         ;;Line number
         (linum-relative-current-face :background "#282828"))
@@ -37,7 +38,6 @@
        (monokai
 
         ; Modeline
-
         (header-line :background "#272822")
         (mode-line-inactive :foreground "#F8F8F0" :background "#49483E")
         (powerline-inactive1 :foreground "#F8F8F0" :background "#35331D")
@@ -64,4 +64,4 @@
         (lazy-highlight :background "#A19C70")
         (isearch :background "#74AD00")
         (git-gutter+-unchanged :background "#49483E")
-        (git-gutter:unchanged :background "#49483E")))))
+        (git-gutter:unchanged :background "#49483E"))))
