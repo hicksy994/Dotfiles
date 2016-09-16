@@ -17,8 +17,8 @@
      better-defaults
      emacs-lisp
      git
-     markdown
      org
+     erc
      rust
      java
      haskell
@@ -26,12 +26,12 @@
             c-c++-enable-clang-support t)
      gtags
      syntax-checking
-     ranger
      hicksy-theming
      )
 
    ;;Additional packages not included in layers.
-   dotspacemacs-additional-packages '(company-emacs-eclim
+   dotspacemacs-additional-packages '(
+                                      ;; company-emacs-eclim
                                       c-eldoc)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -79,7 +79,7 @@
    ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
    dotspacemacs-startup-recent-list-size 5
    ;; Default major mode of the scratch buffer (default `text-mode')
-   dotspacemacs-scratch-mode 'text-mode
+   dotspacemacs-scratch-mode 'org-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -87,6 +87,7 @@
                          solarized-dark
                          sanityinc-tomorrow-night
                          gruvbox)
+                         
                          
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state nil
@@ -229,3 +230,33 @@
 
 ; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(magit-pull-arguments nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-preview ((t (:background "#49483E"))))
+ '(company-template-field ((t (:background "#49483E"))))
+ '(company-tooltip ((t (:background "#49483E"))))
+ '(company-tooltip-annotation ((t (:background "#49483E"))))
+ '(git-gutter+-unchanged ((t (:background "#49483E"))))
+ '(git-gutter:unchanged ((t (:background "#49483E"))))
+ '(header-line ((t (:background "#272822"))))
+ '(helm-candidate-number ((t (:background "#49483E"))))
+ '(helm-lisp-show-completion ((t (:background "#49483E"))))
+ '(helm-selection ((t (:background "#49483E"))))
+ '(helm-selection-line ((t (:background "#49483E"))))
+ '(hl-line ((t (:background "#49483E"))))
+ '(isearch ((t (:background "#74AD00"))))
+ '(lazy-highlight ((t (:background "#A19C70"))))
+ '(linum ((t (:foreground "#75715E" :weight normal))))
+ '(linum-relative-current-face ((t (:background "#272822" :foreground "#75715E" :weight normal))))
+ '(mode-line-inactive ((t (:foreground "#F8F8F0" :background "#49483E"))))
+ '(powerline-inactive1 ((t (:foreground "#F8F8F0" :background "#35331D"))))
+ '(powerline-inactive2 ((t (:foreground "#F8F8F0" :background "#272822")))))
