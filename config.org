@@ -101,6 +101,19 @@
      "* TODO  %?")))
 #+END_SRC
 
+**** Create "open-todo" function
+#+BEGIN_SRC emacs-lisp
+  (defun open-todo()
+    (interactive)
+    "Open my todo.org file"
+    (find-file-existing "~/org/Todo.org"))
+#+END_SRC
+
+**** Create keybinding for "open-todo" function
+#+BEGIN_SRC emacs-lisp
+  (define-key evil-normal-state-map (kbd "SPC a o T") 'open-todo)
+#+END_SRC
+
 **** Use current window when editing a code snippet
 #+BEGIN_SRC emacs-lisp
 (setq org-src-window-setup 'current-window)
