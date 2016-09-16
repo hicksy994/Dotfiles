@@ -19,6 +19,7 @@
      git
      org
      erc
+     markdown
      rust
      java
      haskell
@@ -230,33 +231,3 @@
 
 ; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(magit-pull-arguments nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-preview ((t (:background "#49483E"))))
- '(company-template-field ((t (:background "#49483E"))))
- '(company-tooltip ((t (:background "#49483E"))))
- '(company-tooltip-annotation ((t (:background "#49483E"))))
- '(git-gutter+-unchanged ((t (:background "#49483E"))))
- '(git-gutter:unchanged ((t (:background "#49483E"))))
- '(header-line ((t (:background "#272822"))))
- '(helm-candidate-number ((t (:background "#49483E"))))
- '(helm-lisp-show-completion ((t (:background "#49483E"))))
- '(helm-selection ((t (:background "#49483E"))))
- '(helm-selection-line ((t (:background "#49483E"))))
- '(hl-line ((t (:background "#49483E"))))
- '(isearch ((t (:background "#74AD00"))))
- '(lazy-highlight ((t (:background "#A19C70"))))
- '(linum ((t (:foreground "#75715E" :weight normal))))
- '(linum-relative-current-face ((t (:background "#272822" :foreground "#75715E" :weight normal))))
- '(mode-line-inactive ((t (:foreground "#F8F8F0" :background "#49483E"))))
- '(powerline-inactive1 ((t (:foreground "#F8F8F0" :background "#35331D"))))
- '(powerline-inactive2 ((t (:foreground "#F8F8F0" :background "#272822")))))
