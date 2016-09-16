@@ -184,8 +184,8 @@
  (spacemacs/toggle-camel-case-motion-globally-on)
 #+END_SRC
 
-*** Set the home buffer as useful
+*** Set only helm buffers as useless
 #+BEGIN_SRC emacs-lisp
-  (push "\\*spacemacs\\*" spacemacs-useful-buffers-regexp)
+  (setq spacemacs-useless-buffers-regexp '("\\*helm\.\+\\*"))
 #+END_SRC
 
