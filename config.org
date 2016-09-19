@@ -148,6 +148,19 @@
 #+END_SRC
 
 ** Misc
+*** kill-buffer-and-window function
+#+BEGIN_SRC emacs-lisp
+  (defun kill-buffer-and-window()
+    (interactive)
+    "Kill the current buffer and the current window"
+    (image-dired-kill-buffer-and-window))
+#+END_SRC
+
+*** Set keybinding for kill-buffer-and-window function
+#+BEGIN_SRC emacs-lisp
+  (define-key evil-normal-state-map (kbd "SPC b D") 'kill-buffer-and-window)
+#+END_SRC
+
 *** Set dotspacemacs location to this file rather than the one that loads this file
 #+BEGIN_SRC emacs-lisp
 (setq dotspacemacs-filepath "~/.emacs.d/private/config.org")
