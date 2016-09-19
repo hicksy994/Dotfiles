@@ -32,11 +32,15 @@
 
    ;;Additional packages not included in layers.
    dotspacemacs-additional-packages '(
-                                      ;; company-emacs-eclim
                                       c-eldoc)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(vi-tilde-fringe
+                                    whitespace
+                                    spacemacs-whitespace-cleanup
+                                    hungry-delete
+                                    golden-ratio
+                                    indent-guide
                                     neotree
                                     evil-search-highlight-persist)
 
