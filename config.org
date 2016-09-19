@@ -101,19 +101,6 @@
      "* TODO  %?")))
 #+END_SRC
 
-**** Create "open-todo" function
-#+BEGIN_SRC emacs-lisp
-  (defun open-todo()
-    (interactive)
-    "Open my todo.org file"
-    (find-file-existing "~/org/Todo.org"))
-#+END_SRC
-
-**** Create keybinding for "open-todo" function
-#+BEGIN_SRC emacs-lisp
-  (define-key evil-normal-state-map (kbd "SPC a o T") 'open-todo)
-#+END_SRC
-
 **** Use current window when editing a code snippet
 #+BEGIN_SRC emacs-lisp
 (setq org-src-window-setup 'current-window)
@@ -147,8 +134,23 @@
   (lambda() (setq yas-dont-activate t)))
 #+END_SRC
 
-** Misc
-*** kill-buffer-and-window function
+** Functions
+*** Open todo file 
+**** Define "open-todo" 
+#+BEGIN_SRC emacs-lisp
+  (defun open-todo()
+    (interactive)
+    "Open my todo.org file"
+    (find-file-existing "~/org/Todo.org"))
+#+END_SRC
+
+**** Set keybinding for "open-todo" 
+#+BEGIN_SRC emacs-lisp
+  (define-key evil-normal-state-map (kbd "SPC a o T") 'open-todo)
+#+END_SRC
+
+*** Kill buffer and window 
+**** Define "kill-buffer-and-window" 
 #+BEGIN_SRC emacs-lisp
   (defun kill-buffer-and-window()
     (interactive)
@@ -156,16 +158,26 @@
     (image-dired-kill-buffer-and-window))
 #+END_SRC
 
-*** Set keybinding for kill-buffer-and-window function
+**** Set keybinding for "kill-buffer-and-window" 
 #+BEGIN_SRC emacs-lisp
   (define-key evil-normal-state-map (kbd "SPC b D") 'kill-buffer-and-window)
 #+END_SRC
 
-*** Set dotspacemacs location to this file rather than the one that loads this file
+*** Find config file
+**** Define "find-config-file"
 #+BEGIN_SRC emacs-lisp
-(setq dotspacemacs-filepath "~/.emacs.d/private/config.org")
+  (defun find-config-file()
+    (interactive)
+    "Open my config.org file"
+    (find-file-existing "~/.emacs.d/private/config.org"))
 #+END_SRC
 
+**** Set keybinding for "find-config-file" 
+#+BEGIN_SRC emacs-lisp
+  (define-key evil-normal-state-map (kbd "SPC f e c") 'find-config-file)
+#+END_SRC
+
+** Misc
 *** Set evil escape keymap to jk
 #+BEGIN_SRC emacs-lisp
 (setq-default evil-escape-key-sequence "jk")
