@@ -61,7 +61,5 @@
         (linum-relative-current-face :background "#272822" :foreground "#75715E" :weight normal)
 
         ;;misc
-        (lazy-highlight :background "#A19C70")
-        (isearch :background "#74AD00")
         (git-gutter+-unchanged :background "#49483E")
         (git-gutter:unchanged :background "#49483E"))))
