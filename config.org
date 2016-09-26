@@ -23,7 +23,7 @@
 *** Powerline
 **** Separator
 #+BEGIN_SRC emacs-lisp
-(setq powerline-default-separator 'slant)
+(setq powerline-default-separator 'utf-8)
 #+END_SRC
 
 **** Disable minor mode info
@@ -55,9 +55,9 @@
 
 ****** Turn on racer/company/eldoc
 #+BEGIN_SRC emacs-lisp
-(add-hook 'rust-mode-hook #'racer-mode)
-(add-hook 'racer-mode-hook #'company-mode)
-(add-hook 'racer-mode-hook #'eldoc-mode)
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'company-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
 #+END_SRC
 
 ****** Turn off path annotation from autocomplete
