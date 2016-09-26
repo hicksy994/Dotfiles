@@ -7,7 +7,13 @@
      '((gruvbox
 
         ;;Helm
-        (helm-source-header :background "#3c3836")
+        (helm-source-header :background "#3c3836" :weight bold)
+        (helm-buffer-file :foreground "#fdf4c1")
+        (helm-ff-file :foreground "#fdf4c1")
+        (helm-buffer-size :foreground "#fdf4c1")
+
+        ;;company
+        (company-preview :background "#504945")
 
         ;;Modeline
         (header-line :background "#282828")
@@ -18,7 +24,8 @@
         (powerline-inactive2 :foreground "#d5c4a1" :background "grey40")
 
         ;;Line number
-        (linum-relative-current-face :background "#282828"))
+        (linum :background "#282828" :foreground "#7c6f64" :weight normal)
+        (linum-relative-current-face :background "#282828" :foreground "#7c6f64" :weight normal))
 
        (solarized-dark
 
