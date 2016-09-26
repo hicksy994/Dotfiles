@@ -15,6 +15,9 @@
         ;;company
         (company-preview :background "#504945")
 
+        ;;erc
+        (erc-prompt-face :background "#282828" :foreground "fdf4c1")
+
         ;;Modeline
         (header-line :background "#282828")
         (mode-line-inactive :foreground "#d5c4a1" :background "#504945")
