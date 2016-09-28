@@ -134,6 +134,12 @@
   (lambda() (setq yas-dont-activate t)))
 #+END_SRC
 
+*** ERC mode
+**** Stop irc channels appearing in modeline of irrelevant buffers 
+#+BEGIN_SRC emacs-lisp
+  (setq spaceline-erc-track-p nil)
+#+END_SRC
+
 ** Functions
 *** Open todo file 
 **** Define "open-todo" 
