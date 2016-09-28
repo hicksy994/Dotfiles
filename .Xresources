@@ -22,7 +22,7 @@ URxvt.italicFont:          xft:Source Code Pro:pixelsize=13:italic
 URxvt.boldItalicFont:      xft:Source Code Pro:pixelsize=13:bold:italic
 URxvt.letterSpace:         -1
 
-!test
+!standard dark theme
 
 URxvt*background: #161719
 URxvt*foreground: #DEDEDE
@@ -54,6 +54,8 @@ URxvt*color14 : #34E2E2
 URxvt*color7  : #D3D7CF
 URxvt*color15 : #EEEEEC
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 URxvt.urlLauncher:      /usr/bin/google-chrome-stable
 URxvt.matcher.button:   1 
 
@@ -62,8 +64,6 @@ URxvt.internalBorder:      0
 URxvt.externalBorder:      0
 
 URxvt.scrollBar:           false
-
-URxvt*fading:              30
 
 URxvt.perl-ext-common:     matcher,resize-font,foo
 
