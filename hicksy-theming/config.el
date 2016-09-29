@@ -43,7 +43,8 @@
 
         ;;Helm
         (helm-selection :underline nil)
-        (helm-selection-line :underline nil))
+        (helm-selection-line :underline nil)
+        (helm-source-header :weight bold))
 
        (monokai
 
