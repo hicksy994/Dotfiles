@@ -18,8 +18,14 @@
      emacs-lisp
      git
      org
-     erc
      markdown
+     (erc :variables
+          erc-server-list
+            '(("irc.freenode.net"
+               :port "6697"
+               :ssl t
+               :nick "hicksy"
+               :password )))
      rust
      java
      haskell
@@ -36,11 +42,6 @@
 
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(vi-tilde-fringe
-                                    whitespace
-                                    spacemacs-whitespace-cleanup
-                                    hungry-delete
-                                    golden-ratio
-                                    indent-guide
                                     neotree
                                     evil-search-highlight-persist)
 
@@ -88,8 +89,8 @@
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(gruvbox
-                         monokai
+   dotspacemacs-themes '(monokai
+                         gruvbox
                          solarized-dark)
                          
                          
