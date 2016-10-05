@@ -1,3 +1,6 @@
+#+TITLE: Emacs Config
+#+OPTIONS: TOC:nil
+
 * Emacs configuration
 ** Theme settings
 *** Highlighting
@@ -23,7 +26,7 @@
 *** Powerline
 **** Separator
 #+BEGIN_SRC emacs-lisp
-(setq powerline-default-separator 'utf-8)
+(setq powerline-default-separator 'arrow)
 #+END_SRC
 
 **** Disable minor mode info
@@ -53,18 +56,6 @@
 (setq racer-rust-src-path "/usr/local/src/rust/src")
 #+END_SRC
 
-****** Turn on racer/company/eldoc
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'rust-mode-hook #'racer-mode)
-  (add-hook 'racer-mode-hook #'company-mode)
-  (add-hook 'racer-mode-hook #'eldoc-mode)
-#+END_SRC
-
-****** Turn off path annotation from autocomplete
-#+BEGIN_SRC emacs-lisp
-(setq company-racer-annotation-format "")
-#+END_SRC
-
 **** Java
 ***** Eclim
 ****** Set Eclim and Eclipse paths
@@ -79,6 +70,7 @@
 (org-babel-do-load-languages
  'org-babel-load-languages '((C . t)
                              (emacs-lisp . t)
+                             (haskell . t)
                              (java . t)))
 #+END_SRC
 
@@ -215,8 +207,27 @@
  (spacemacs/toggle-camel-case-motion-globally-on)
 #+END_SRC
 
-*** Set only helm buffers as useless
+*** Set some useless buffers
+**** Helm
 #+BEGIN_SRC emacs-lisp
-  (setq spacemacs-useless-buffers-regexp '("\\*helm\.\+\\*"))
+(setq spacemacs-useless-buffers-regexp '("\\*helm\.\+\\*"))
+#+END_SRC
+
+**** Flycheck errors
+#+BEGIN_SRC emacs-lisp
+(push "\\*Flycheck error messages\\*" spacemacs-useless-buffers-regexp)
+(with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*Flycheck error messages\\*"))
+#+END_SRC
+
+**** FAQ.org
+#+BEGIN_SRC emacs-lisp
+(push "FAQ.org" spacemacs-useless-buffers-regexp)
+(with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"FAQ.org"))
+#+END_SRC
+
+**** Help
+#+BEGIN_SRC emacs-lisp
+(push "\\*Help\\*" spacemacs-useless-buffers-regexp)
+(with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*Help\\*"))
 #+END_SRC
 
