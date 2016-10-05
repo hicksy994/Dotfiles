@@ -24,20 +24,20 @@
             '(("irc.freenode.net"
                :port "6697"
                :ssl t
-               :nick "hicksy"
-               :password )))
+               :nick "hicksy")))
      rust
      java
      haskell
      (c-c++ :variables
             c-c++-enable-clang-support t)
      gtags
-     syntax-checking
+     (syntax-checking :variables
+                      syntax-checking-enable-tooltips nil)
      hicksy-theming
      )
 
    ;;Additional packages not included in layers.
-   dotspacemacs-additional-packages '(
+   dotspacemacs-additional-packages '(groovy-mode
                                       c-eldoc)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -98,7 +98,8 @@
    dotspacemacs-colorize-cursor-according-to-state nil
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source code pro"
+   dotspacemacs-default-font '(;; "Source code pro"
+                               "Inconsolata"
                                :size 14 :weight normal
                                :width normal
                                :powerline-scale 1.1)
