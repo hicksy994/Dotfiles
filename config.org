@@ -231,3 +231,9 @@
 (with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*Help\\*"))
 #+END_SRC
 
+**** Magit-process
+#+BEGIN_SRC emacs-lisp
+(push "\\*magit-process" spacemacs-useless-buffers-regexp)
+(with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*magit-process"))
+#+END_SRC
+
