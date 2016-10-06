@@ -55,9 +55,10 @@ exec xbanish &
 exec xset s off &
 exec xset -dpms &
 exec xset s noblank &
-exec feh --bg-scale /home/hicksy/wallpapers/archwallpaper.png &
+exec feh --bg-scale /home/hicksy/wallpapers/sunset.png &
 exec nvidia-settings -l &
 exec xrandr --output DVI-D-0 --mode 1920x1080 --rate 144 &
 exec compton -f -D 3 &
+exec twmnd &
 
 exec i3
