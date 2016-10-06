@@ -43,6 +43,7 @@
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(vi-tilde-fringe
                                     neotree
+                                    saveplace
                                     evil-search-highlight-persist)
 
    ;;Delete packages not in additional-packages or a layer.
@@ -98,8 +99,7 @@
    dotspacemacs-colorize-cursor-according-to-state nil
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '(;; "Source code pro"
-                               "Inconsolata"
+   dotspacemacs-default-font '( "Inconsolata-g"
                                :size 14 :weight normal
                                :width normal
                                :powerline-scale 1.1)
