@@ -16,7 +16,7 @@
         (company-preview :background "#504945")
 
         ;;erc
-        (erc-prompt-face :background "#282828" :foreground "fdf4c1")
+        (erc-prompt-face :background "#282828" :foreground "#fdf4c1")
 
         ;;Modeline
         (header-line :background "#282828")
@@ -70,6 +70,10 @@
         ;;Line number
         (linum :foreground "#75715E" :weight normal)
         (linum-relative-current-face :background "#272822" :foreground "#75715E" :weight normal)
+
+        ;;org
+        (org-block-begin-line :background "#272822")
+        (org-block-end-line :background "#272822")
 
         ;;misc
         (git-gutter+-unchanged :background "#49483E")
