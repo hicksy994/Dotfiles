@@ -64,6 +64,9 @@
         ;;company
         (company-preview :background "#49483E")
         (company-tooltip :background "#49483E")
+        (company-tooltip-common :underline nil)
+        (company-preview-common :underline nil)
+        (company-tooltip-common-selection :underline nil)
         (company-template-field :background "#49483E")
         (company-tooltip-annotation :background "#49483E")
 
@@ -76,5 +79,6 @@
         (org-block-end-line :background "#272822")
 
         ;;misc
+        (lazy-highlight :background "gray")
         (git-gutter+-unchanged :background "#49483E")
         (git-gutter:unchanged :background "#49483E"))))
