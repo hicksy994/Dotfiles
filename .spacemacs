@@ -17,6 +17,7 @@
      better-defaults
      emacs-lisp
      git
+     github
      org
      markdown
      (erc :variables
