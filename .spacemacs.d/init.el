@@ -8,7 +8,7 @@
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layer-path '("~/.spacemacs.d/")
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
@@ -49,6 +49,7 @@
 
    ;;Delete packages not in additional-packages or a layer.
    dotspacemacs-delete-orphan-packages t))
+
 
 (defun dotspacemacs/init ()
   
@@ -100,7 +101,7 @@
    dotspacemacs-colorize-cursor-according-to-state nil
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("DejaVu Sans Mono for Powerline"
+   dotspacemacs-default-font '("DejaVu Sans Mono"
                                :size 14 :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -233,7 +234,7 @@
       "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no"))
 
 (defun dotspacemacs/user-config ()
-  (org-babel-load-file "~/.emacs.d/private/config.org"))
+  (org-babel-load-file "~/.spacemacs.d/config.org"))
 
 ; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
