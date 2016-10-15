@@ -1,5 +1,5 @@
 #font
-font pango: System San Francisco Display 10
+font pango: SFNS Display 11
 
 #movement
 set $up k
@@ -21,7 +21,7 @@ bindsym Mod4+d exec rofi -show run
 bindsym Mod4+Shift+q kill
 
 #lock screen
-bindsym Mod4+Shift+x exec i3lock -u -i ~/wallpapers/sunset.png
+bindsym Mod4+Shift+x exec i3lock -u -i ~/wallpapers/yosemite1920.png
 # change focus
 bindsym Mod4+$left focus left
 bindsym Mod4+$down focus down
