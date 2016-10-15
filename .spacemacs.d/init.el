@@ -17,6 +17,7 @@
      better-defaults
      emacs-lisp
      git
+     ranger
      github
      org
      markdown
@@ -39,6 +40,7 @@
 
    ;;Additional packages not included in layers.
    dotspacemacs-additional-packages '(groovy-mode
+                                      gradle-mode
                                       c-eldoc)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -104,7 +106,7 @@
    dotspacemacs-default-font '("DejaVu Sans Mono"
                                :size 14 :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
