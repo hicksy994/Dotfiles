@@ -49,7 +49,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 exec setxkbmap gb &
-exec mopidy &
 exec xrdb .Xresources &
 exec xbanish &
 exec xset s off &
