@@ -142,14 +142,13 @@ mode "resize" {
 
 bindsym Mod4+r mode "resize"
 
-# set $bg-color 	         #313131
 set $bg-color 	         #2f343f
-# set $inactive-bg-color   #313131
 set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
-set $active-border       #68a2ff
+set $active-border       #4E5E82
+# set $active-border       #68a2ff
 
 # window colors
 #                       border              background         text                 indicator
@@ -173,13 +172,13 @@ bar {
 		}	
 }
 
-#No title bars
-for_window [class="^.*"] border pixel 2
+# Window borders
+for_window [class="^.*"] border pixel 1
 
 #Gaps
 smart_borders on
-gaps inner 7     
-gaps outer 7
+gaps inner 0     
+gaps outer 0
 
 #volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 2 +1% && killall -SIGUSR1 i3status
