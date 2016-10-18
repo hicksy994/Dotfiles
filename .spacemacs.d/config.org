@@ -29,9 +29,10 @@
 (setq powerline-default-separator 'slant)
 #+END_SRC
 
-**** Disable minor mode info
+**** Disable minor modes and window purpose
 #+BEGIN_SRC emacs-lisp
 (spaceline-toggle-minor-modes-off)
+(spaceline-toggle-purpose-off)
 #+END_SRC
 
 ** Major mode settings

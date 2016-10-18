@@ -236,8 +236,7 @@
       "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no"))
 
 (defun dotspacemacs/user-config ()
-  (org-babel-load-file "~/.spacemacs.d/config.org")
-  (setq-default persp-auto-save-opt 0))
+  (org-babel-load-file "~/.spacemacs.d/config.org"))
 
 ; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
