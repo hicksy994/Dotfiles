@@ -30,6 +30,7 @@
      rust
      java
      haskell
+     html
      (c-c++ :variables
             c-c++-enable-clang-support t)
      gtags
@@ -98,12 +99,11 @@
                          gruvbox
                          solarized-dark)
                          
-                         
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state nil
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("DejaVu Sans Mono"
+   dotspacemacs-default-font '("Source Code Pro"
                                :size 14 :weight normal
                                :width normal
                                :powerline-scale 1)
@@ -240,3 +240,39 @@
 
 ; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (helm helm-core magit sourcerer-theme zonokai-theme zenburn-theme zen-and-art-theme ws-butler window-numbering which-key web-mode volatile-highlights uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme toml-mode toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stekene-theme spacemacs-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode seti-theme scss-mode sass-mode reverse-theme restart-emacs ranger rainbow-delimiters railscasts-theme racer quelpa purple-haze-theme pug-mode professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pastels-on-dark-theme paradox orgit organic-green-theme org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme naquadah-theme mwim mustang-theme move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow magit-gh-pulls macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme less-css-mode jbeans-theme jazz-theme ir-black-theme intero inkpot-theme info+ indent-guide ido-vertical-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-hoogle helm-gtags helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme haskell-snippets gruvbox-theme gruber-darker-theme groovy-mode grandshell-theme gradle-mode gotham-theme google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md ggtags gandalf-theme flycheck-rust flycheck-pos-tip flycheck-haskell flx-ido flatui-theme flatland-theme firebelly-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks emmet-mode elisp-slime-nav dumb-jump dracula-theme django-theme disaster define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-web company-statistics company-ghci company-ghc company-emacs-eclim company-cabal company-c-headers column-enforce-mode colorsarenice-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized cmm-mode cmake-mode clues-theme clean-aindent-mode clang-format cherry-blossom-theme cargo c-eldoc busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-preview ((t (:background "#49483E"))))
+ '(company-preview-common ((t (:underline nil))))
+ '(company-template-field ((t (:background "#49483E"))))
+ '(company-tooltip ((t (:background "#49483E"))))
+ '(company-tooltip-annotation ((t (:background "#49483E"))))
+ '(company-tooltip-common ((t (:underline nil))))
+ '(company-tooltip-common-selection ((t (:underline nil))))
+ '(git-gutter+-unchanged ((t (:background "#49483E"))))
+ '(git-gutter:unchanged ((t (:background "#49483E"))))
+ '(header-line ((t (:background "#272822"))))
+ '(helm-candidate-number ((t (:background "#49483E"))))
+ '(helm-lisp-show-completion ((t (:background "#49483E"))))
+ '(helm-selection ((t (:background "#49483E"))))
+ '(helm-selection-line ((t (:background "#49483E"))))
+ '(hl-line ((t (:background "#49483E"))))
+ '(lazy-highlight ((t (:background "gray"))))
+ '(linum ((t (:foreground "#75715E" :weight normal))))
+ '(linum-relative-current-face ((t (:background "#272822" :foreground "#75715E" :weight normal))))
+ '(mode-line-inactive ((t (:foreground "#F8F8F0" :background "#49483E"))))
+ '(org-block-begin-line ((t (:background "#272822"))))
+ '(org-block-end-line ((t (:background "#272822"))))
+ '(powerline-inactive1 ((t (:foreground "#F8F8F0" :background "#35331D"))))
+ '(powerline-inactive2 ((t (:foreground "#F8F8F0" :background "#272822")))))

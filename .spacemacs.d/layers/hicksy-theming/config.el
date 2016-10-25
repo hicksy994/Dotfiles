@@ -14,6 +14,9 @@
 
         ;;company
         (company-preview :background "#504945")
+        (company-tooltip-common :underline nil)
+        (company-preview-common :underline nil)
+        (company-tooltip-common-selection :underline nil)
 
         ;;erc
         (erc-prompt-face :background "#282828" :foreground "#fdf4c1")

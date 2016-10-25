@@ -26,7 +26,7 @@
 *** Powerline
 **** Separator
 #+BEGIN_SRC emacs-lisp
-(setq powerline-default-separator 'slant)
+(setq powerline-default-separator 'arrow)
 #+END_SRC
 
 **** Disable minor modes and window purpose
@@ -209,11 +209,6 @@
 #+BEGIN_SRC emacs-lisp
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome-stable")
-#+END_SRC
-
-*** Enable global camelCase motion
-#+BEGIN_SRC emacs-lisp
- (spacemacs/toggle-camel-case-motion-globally-on)
 #+END_SRC
 
 *** Set some useless buffers
