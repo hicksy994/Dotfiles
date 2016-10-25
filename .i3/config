@@ -147,8 +147,8 @@ set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
-set $active-border       #4E5E82
-# set $active-border       #68a2ff
+# set $active-border       #4E5E82
+set $active-border       #68a2ff
 
 # window colors
 #                       border              background         text                 indicator
@@ -159,7 +159,7 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 #bar
 bar {
-		status_command i3blocks -c ~/.i3/i3blocks.conf
+	status_command i3blocks -c ~/.i3/i3blocks.conf
     tray_output primary
 		position top
 		colors{
@@ -173,12 +173,12 @@ bar {
 }
 
 # Window borders
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 2
 
 #Gaps
 smart_borders on
-gaps inner 0     
-gaps outer 0
+gaps inner 5
+gaps outer 5
 
 #volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 2 +1% && killall -SIGUSR1 i3status
