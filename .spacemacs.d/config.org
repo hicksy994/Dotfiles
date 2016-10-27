@@ -84,7 +84,7 @@
 **** Turn on text wrapping
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook
-          (lambda() (visual-line-mode t)))
+          (lambda() (visual-line-mode t))) 
 #+END_SRC
 
 **** Org-Capture TODO template
@@ -188,6 +188,11 @@
 *** Set evil escape keymap to jk
 #+BEGIN_SRC emacs-lisp
 (setq-default evil-escape-key-sequence "jk")
+#+END_SRC
+
+*** Turn on truncate lines mode globally
+#+BEGIN_SRC emacs-lisp
+(set-default 'truncate-lines t)
 #+END_SRC
 
 *** Keep git info on modeline up to date
