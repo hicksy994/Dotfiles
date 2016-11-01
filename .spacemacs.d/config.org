@@ -251,3 +251,10 @@
 (push "Todo.org_archive" spacemacs-useless-buffers-regexp)
 (with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"Todo.org_archive"))
 #+END_SRC
+
+**** Eclim
+#+BEGIN_SRC emacs-lisp
+(push "\\*eclimd\\*" spacemacs-useless-buffers-regexp)
+(with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*eclimd\\*"))
+#+END_SRC
+
