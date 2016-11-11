@@ -173,12 +173,13 @@ bar {
 }
 
 # Window borders
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 2
 
 #Gaps
+smart_gaps on
 smart_borders on
-gaps inner 0
-gaps outer 0
+gaps inner 5
+gaps outer 5
 
 #volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 2 +1% && killall -SIGUSR1 i3status
