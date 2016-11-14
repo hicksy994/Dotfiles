@@ -65,6 +65,12 @@
       eclim-executable "/usr/lib/eclipse/eclim")
 #+END_SRC
 
+***** Set indent width
+#+BEGIN_SRC emacs-lisp
+ (add-hook 'java-mode-hook (lambda ()
+         (setq c-basic-offset 4)))
+#+END_SRC
+
 *** Org-mode
 **** Allow Babel to execute source blocks in certain languages
 #+BEGIN_SRC emacs-lisp
@@ -128,9 +134,14 @@
 #+END_SRC
 
 *** ERC mode
-**** Stop irc channels appearing in modeline of irrelevant buffers 
+**** Disable powerline tracking
 #+BEGIN_SRC emacs-lisp
-  (setq spaceline-erc-track-p nil)
+(setq spaceline-erc-track-p nil)
+#+END_SRC
+
+**** Hide some stuff
+#+BEGIN_SRC emacs-lisp
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
 #+END_SRC
 
 ** Functions
@@ -256,5 +267,7 @@
 #+BEGIN_SRC emacs-lisp
 (push "\\*eclimd\\*" spacemacs-useless-buffers-regexp)
 (with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*eclimd\\*"))
+(push "\\*eclimd: problems\\*" spacemacs-useless-buffers-regexp)
+(with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*eclimd: problems\\*"))
 #+END_SRC
 

@@ -79,6 +79,7 @@
 
         ;;org
         (org-block-begin-line :background "#272822")
+        (org-block :background "#272822")
         (org-block-end-line :background "#272822")
 
         ;;misc
