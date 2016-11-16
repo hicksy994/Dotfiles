@@ -134,6 +134,17 @@
 #+END_SRC
 
 *** ERC mode
+**** Set timestamp on left
+#+BEGIN_SRC emacs-lisp
+(setq erc-timestamp-only-if-changed-flag nil
+          erc-timestamp-format "%H:%M "
+          erc-fill-prefix "      "
+          erc-insert-timestamp-function 'erc-insert-timestamp-left)
+#+END_SRC
+**** Set length of lines before they get wrapped
+#+BEGIN_SRC emacs-lisp
+  (setq erc-fill-column 115)
+#+END_SRC
 **** Disable powerline tracking
 #+BEGIN_SRC emacs-lisp
 (setq spaceline-erc-track-p nil)

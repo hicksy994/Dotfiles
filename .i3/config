@@ -14,8 +14,8 @@ floating_modifier Mod4
 bindsym Mod4+Return exec urxvt
 
 # start yeganesh(dmenu)/rofi 
-bindsym Mod4+d exec dmenu= "$(dmenu_path | yeganesh -x -- -fn 'SFNS Display-12' -nb '#2f343f')"
-# bindsym Mod4+d exec rofi -show run
+# bindsym Mod4+d exec dmenu= "$(dmenu_path | yeganesh -x -- -fn 'SFNS Display-12' -nb '#2f343f')"
+bindsym Mod4+d exec rofi -show run
 
 # kill focused window
 bindsym Mod4+Shift+q kill
@@ -173,13 +173,13 @@ bar {
 }
 
 # Window borders
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 3
 
 #Gaps
 smart_gaps on
 smart_borders on
-gaps inner 5
-gaps outer 5
+gaps inner 7
+gaps outer 7
 
 #volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 2 +1% && killall -SIGUSR1 i3status

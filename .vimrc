@@ -20,11 +20,12 @@ inoremap jk <ESC>
 
 "256 colour terminal and colourscheme
 set t_Co=256
+colorscheme gruvbox
 
 "Vim-airline
 set laststatus=2
 set background=dark
-let g:airline_theme='wombat'
+let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}

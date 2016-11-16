@@ -37,8 +37,8 @@ main = do
           handleEventHook = fullscreenEventHook,
           layoutHook = avoidStruts $ smartBorders $  layoutHook defaultConfig,
           logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput = hPutStrLn xmproc,
-                          ppTitle = xmobarColor xmobarTitleColor "" . shorten 100,
+                        { ppOutput = hPutStrLn xmproc . pad,
+                          ppTitle = xmobarColor xmobarTitleColor "" . shorten 75,
                           ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "",
                           ppHidden = xmobarColor xmobarUnfocusedWorkspaceColor ""
                         },

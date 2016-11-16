@@ -8,8 +8,7 @@
 
         ;;Helm
         (helm-source-header :background "#3c3836" :weight bold)
-        (helm-buffer-file :foreground "#fdf4c1")
-        (helm-ff-file :foreground "#fdf4c1")
+        (helm-buffer-file :foreground "#fdf4c1") (helm-ff-file :foreground "#fdf4c1")
         (helm-buffer-size :foreground "#fdf4c1")
 
         ;;company
@@ -19,7 +18,8 @@
         (company-tooltip-common-selection :underline nil)
 
         ;;erc
-        (erc-prompt-face :background "#282828" :foreground "#fdf4c1")
+        (erc-prompt-face :background "#282828" :foreground "Green")
+        (erc-input-face :foreground "#fe8019")
 
         ;;Modeline
         (header-line :background "#282828")
