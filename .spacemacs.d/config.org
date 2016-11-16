@@ -1,21 +1,20 @@
 #+TITLE: Emacs Config
 #+OPTIONS: TOC:nil
 
-* Emacs configuration
-** Theme settings
-*** Highlighting
-**** Disable current line highlighting
+* Theme settings
+** Highlighting
+*** Disable current line highlighting
 #+BEGIN_SRC emacs-lisp
 (setq global-hl-line-mode nil)
 #+END_SRC
 
-**** Disable smartparens highlighting
+*** Disable smartparens highlighting
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'smartparens
   (show-smartparens-global-mode -1))
 #+END_SRC
 
-**** Disable highlighting on whitespace and new lines
+*** Disable highlighting on whitespace and new lines
 #+BEGIN_SRC emacs-lisp
 (setq sp-highlight-pair-overlay nil)
 (setq sp-highlight-wrap-overlay nil)
@@ -23,56 +22,56 @@
 (setq spacemacs-show-trailing-whitespace nil)
 #+END_SRC
 
-*** Powerline
-**** Separator
+** Powerline
+*** Separator
 #+BEGIN_SRC emacs-lisp
 (setq powerline-default-separator 'arrow)
 #+END_SRC
 
-**** Disable minor modes and window purpose
+*** Disable minor modes and window purpose
 #+BEGIN_SRC emacs-lisp
 (spaceline-toggle-minor-modes-off)
 (spaceline-toggle-purpose-off)
 #+END_SRC
 
-** Major mode settings
-*** Languages
-**** C/C++
-***** Enable eldoc-mode
+* Major mode settings
+** Languages
+*** C/C++
+**** Enable eldoc-mode
 #+BEGIN_SRC emacs-lisp
 (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
 (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode)
 #+END_SRC
 
-***** Set style for indentation
+**** Set style for indentation
 #+BEGIN_SRC emacs-lisp
 (setq c-default-style "k&r")
 #+END_SRC
 
-**** Rust
-***** Autocomplete 
-****** Set Racer and Rust source paths
+*** Rust
+**** Autocomplete 
+***** Set Racer and Rust source paths
 #+BEGIN_SRC emacs-lisp
 (setq racer-cmd "/usr/local/bin/racer")
 (setq racer-rust-src-path "/usr/local/src/rust/src")
 #+END_SRC
 
-**** Java
-***** Eclim
-****** Set Eclim and Eclipse paths
+*** Java
+**** Eclim
+***** Set Eclim and Eclipse paths
 #+BEGIN_SRC emacs-lisp
 (setq eclim-eclipse-dirs "/usr/lib/eclipse"
       eclim-executable "/usr/lib/eclipse/eclim")
 #+END_SRC
 
-***** Set indent width
+**** Set indent width
 #+BEGIN_SRC emacs-lisp
  (add-hook 'java-mode-hook (lambda ()
          (setq c-basic-offset 4)))
 #+END_SRC
 
-*** Org-mode
-**** Allow Babel to execute source blocks in certain languages
+** Org-mode
+*** Allow Babel to execute source blocks in certain languages
 #+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages
  'org-babel-load-languages '((C . t)
@@ -81,83 +80,83 @@
                              (java . t)))
 #+END_SRC
 
-**** Turn off line numbers 
+*** Turn off line numbers 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook
   (lambda() (linum-mode 0)))
 #+END_SRC
 
-**** Turn on text wrapping
+*** Turn on text wrapping
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook
           (lambda() (visual-line-mode t))) 
 #+END_SRC
 
-**** Org-Capture TODO template
+*** Org-Capture TODO template
 #+BEGIN_SRC emacs-lisp
 (setq org-capture-templates
   '(("t" "Todo" entry (file+headline "~/org/Todo.org" "Todo")
      "* TODO  %?")))
 #+END_SRC
 
-**** Use current window when editing a code snippet
+*** Use current window when editing a code snippet
 #+BEGIN_SRC emacs-lisp
 (setq org-src-window-setup 'current-window)
 #+END_SRC
 
-*** Conf-mode
-**** Enable line numbers
+** Conf-mode
+*** Enable line numbers
 #+BEGIN_SRC emacs-lisp
 (add-hook 'conf-mode-hook 'linum-mode)
 #+END_SRC
 
-**** Enable company-mode
+*** Enable company-mode
 #+BEGIN_SRC emacs-lisp
 (add-hook 'conf-mode-hook 'company-mode)
 #+END_SRC
 
-**** Enable smartparens-mode
+*** Enable smartparens-mode
 #+BEGIN_SRC emacs-lisp
 (add-hook 'conf-mode-hook 'smartparens-mode)
 #+END_SRC
 
-*** Term mode
-**** Set keybinding for killing command
+** Term mode
+*** Set keybinding for killing command
 #+BEGIN_SRC emacs-lisp
 (spacemacs/set-leader-keys-for-major-mode 'term-mode "q" 'term-kill-subjob)
 #+END_SRC
 
-**** Disable yasnippet
+*** Disable yasnippet
 #+BEGIN_SRC emacs-lisp
 (add-hook 'term-mode-hook
   (lambda() (setq yas-dont-activate t)))
 #+END_SRC
 
-*** ERC mode
-**** Set timestamp on left
+** ERC mode
+*** Set timestamp on left
 #+BEGIN_SRC emacs-lisp
 (setq erc-timestamp-only-if-changed-flag nil
           erc-timestamp-format "%H:%M "
           erc-fill-prefix "      "
           erc-insert-timestamp-function 'erc-insert-timestamp-left)
 #+END_SRC
-**** Set length of lines before they get wrapped
+*** Set length of lines before they get wrapped
 #+BEGIN_SRC emacs-lisp
   (setq erc-fill-column 115)
 #+END_SRC
-**** Disable powerline tracking
+*** Disable powerline tracking
 #+BEGIN_SRC emacs-lisp
 (setq spaceline-erc-track-p nil)
 #+END_SRC
 
-**** Hide some stuff
+*** Hide some stuff
 #+BEGIN_SRC emacs-lisp
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
 #+END_SRC
 
-** Functions
-*** Open todo file 
-**** Define "open-todo" 
+* Functions
+** Open todo file 
+*** Define "open-todo" 
 #+BEGIN_SRC emacs-lisp
   (defun open-todo()
     "Open my todo.org file."
@@ -165,13 +164,13 @@
     (find-file-existing "~/org/Todo.org"))
 #+END_SRC
 
-**** Set keybinding for "open-todo" 
+*** Set keybinding for "open-todo" 
 #+BEGIN_SRC emacs-lisp
   (define-key evil-normal-state-map (kbd "SPC a o T") 'open-todo)
 #+END_SRC
 
-*** Kill buffer and window 
-**** Define "kill-buffer-and-window" 
+** Kill buffer and window 
+*** Define "kill-buffer-and-window" 
 #+BEGIN_SRC emacs-lisp
   (defun kill-buffer-and-window()
     "Kill the current buffer and the current window."
@@ -179,12 +178,13 @@
     (image-dired-kill-buffer-and-window))
 #+END_SRC
 
-**** Set keybinding for "kill-buffer-and-window" 
+*** Set keybinding for "kill-buffer-and-window" 
 #+BEGIN_SRC emacs-lisp
   (define-key evil-normal-state-map (kbd "SPC b D") 'kill-buffer-and-window)
 #+END_SRC
-*** Find dotfile
-**** Define "spacemacs/find-dotfile
+
+** Find dotfile
+*** Define "spacemacs/find-dotfile
 #+BEGIN_SRC emacs-lisp
   (defun spacemacs/find-dotfile()
     "Open my dotfile."
@@ -192,8 +192,8 @@
     (find-file-existing "~/.spacemacs.d/init.el"))
 #+END_SRC
 
-*** Find config file
-**** Define "find-config-file"
+** Find config file
+*** Define "find-config-file"
 #+BEGIN_SRC emacs-lisp
   (defun find-config-file()
     "Open my config.org file."
@@ -201,80 +201,80 @@
     (find-file-existing "~/.spacemacs.d/config.org"))
 #+END_SRC
 
-**** Set keybinding for "find-config-file" 
+*** Set keybinding for "find-config-file" 
 #+BEGIN_SRC emacs-lisp
   (define-key evil-normal-state-map (kbd "SPC f e c") 'find-config-file)
 #+END_SRC
 
-** Misc
-*** Set evil escape keymap to jk
+* Misc
+** Set evil escape keymap to jk
 #+BEGIN_SRC emacs-lisp
 (setq-default evil-escape-key-sequence "jk")
 #+END_SRC
 
-*** Turn on truncate lines mode globally
+** Turn on truncate lines mode globally
 #+BEGIN_SRC emacs-lisp
 (set-default 'truncate-lines t)
 #+END_SRC
 
-*** Keep git info on modeline up to date
+** Keep git info on modeline up to date
 #+BEGIN_SRC emacs-lisp
 (setq auto-revert-check-vc-info t)
 #+END_SRC
 
-*** Disable lockfile creation
+** Disable lockfile creation
 #+BEGIN_SRC emacs-lisp
 (setq create-lockfiles nil)
 #+END_SRC
 
-*** Disable evil shift rounding
+** Disable evil shift rounding
 #+BEGIN_SRC emacs-lisp
 (setq-default evil-shift-round 'nil)
 #+END_SRC
 
-*** Set default browser
+** Set default browser
 #+BEGIN_SRC emacs-lisp
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome-stable")
 #+END_SRC
 
-*** Set some useless buffers
-**** Helm
+** Set some useless buffers
+*** Helm
 #+BEGIN_SRC emacs-lisp
 (setq spacemacs-useless-buffers-regexp '("\\*helm\.\+\\*"))
 #+END_SRC
 
-**** Flycheck errors
+*** Flycheck errors
 #+BEGIN_SRC emacs-lisp
 (push "\\*Flycheck error messages\\*" spacemacs-useless-buffers-regexp)
 (with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*Flycheck error messages\\*"))
 #+END_SRC
 
-**** FAQ.org
+*** FAQ.org
 #+BEGIN_SRC emacs-lisp
 (push "FAQ.org" spacemacs-useless-buffers-regexp)
 (with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"FAQ.org"))
 #+END_SRC
 
-**** Help
+*** Help
 #+BEGIN_SRC emacs-lisp
 (push "\\*Help\\*" spacemacs-useless-buffers-regexp)
 (with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*Help\\*"))
 #+END_SRC
 
-**** Magit-process
+*** Magit-process
 #+BEGIN_SRC emacs-lisp
 (push "\\*magit-process" spacemacs-useless-buffers-regexp)
 (with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*magit-process"))
 #+END_SRC
 
-**** Todo archive
+*** Todo archive
 #+BEGIN_SRC emacs-lisp
 (push "Todo.org_archive" spacemacs-useless-buffers-regexp)
 (with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"Todo.org_archive"))
 #+END_SRC
 
-**** Eclim
+*** Eclim
 #+BEGIN_SRC emacs-lisp
 (push "\\*eclimd\\*" spacemacs-useless-buffers-regexp)
 (with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*eclimd\\*"))
