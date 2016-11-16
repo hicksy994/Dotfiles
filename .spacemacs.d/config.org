@@ -1,8 +1,14 @@
-#+TITLE: Emacs Config
+#+TITLE: Emacs Configuration
 #+OPTIONS: TOC:nil
 
-* Theme settings
+This is my emacs config, written in a literate programming style in the form of an org mode document. It is (at the time of writing) split into 4 categories: Theming/Aesthetics, major modes, custom functions and miscellaneous settings.
+
+Note that as I am using spacemacs, this is not strictly my entire emacs configuration. There is also my spacemacs init file (containing my required layers/packages and some other fundemental spacemacs settings) which can be found [[https://github.com/hicksy994/Dotfiles/blob/master/.spacemacs.d/init.el][here]] and my custom theming layer which can be found [[https://github.com/hicksy994/Dotfiles/tree/master/.spacemacs.d/layers/hicksy-theming][here]]. I would like to include my spacemacs init file in this org document as well but whilst it is theoretically possible, at the current time it would be considered bad practise because of how spacemacs loads it's layers/packages. One day I hope to make this work nicely.
+
+* Theming/Aesthetics
+  This section contains aesthetic tweaks to emacs.
 ** Highlighting
+   I dont particularly like some of the spacemacs defaults when it comes to highlighting stuff.
 *** Disable current line highlighting
 #+BEGIN_SRC emacs-lisp
 (setq global-hl-line-mode nil)
@@ -23,6 +29,7 @@
 #+END_SRC
 
 ** Powerline
+   Tweaks to the default powerline settings.
 *** Separator
 #+BEGIN_SRC emacs-lisp
 (setq powerline-default-separator 'arrow)
@@ -35,6 +42,7 @@
 #+END_SRC
 
 * Major mode settings
+  Here is the meaty section of my config which contains configurations for my most commonly used major modes.
 ** Languages
 *** C/C++
 **** Enable eldoc-mode
@@ -43,7 +51,8 @@
 (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode)
 #+END_SRC
 
-**** Set style for indentation
+**** Set style
+     I like to use the "k&r" style by default. The GNU style is simply horrible.
 #+BEGIN_SRC emacs-lisp
 (setq c-default-style "k&r")
 #+END_SRC
@@ -51,6 +60,7 @@
 *** Rust
 **** Autocomplete 
 ***** Set Racer and Rust source paths
+      Racer autocomplete requires the racer executable and a copy of the rust source code.
 #+BEGIN_SRC emacs-lisp
 (setq racer-cmd "/usr/local/bin/racer")
 (setq racer-rust-src-path "/usr/local/src/rust/src")
@@ -59,6 +69,7 @@
 *** Java
 **** Eclim
 ***** Set Eclim and Eclipse paths
+      Eclim requires Eclipse and the eclim executable.
 #+BEGIN_SRC emacs-lisp
 (setq eclim-eclipse-dirs "/usr/lib/eclipse"
       eclim-executable "/usr/lib/eclipse/eclim")
@@ -71,7 +82,8 @@
 #+END_SRC
 
 ** Org-mode
-*** Allow Babel to execute source blocks in certain languages
+*** Org-babel languages
+    Here is the list of languages that org can execute and evaluate on the spot.
 #+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages
  'org-babel-load-languages '((C . t)
@@ -100,11 +112,13 @@
 #+END_SRC
 
 *** Use current window when editing a code snippet
+    I think it's nicer to use the current window when editing a source block rather than splitting and making a new one.
 #+BEGIN_SRC emacs-lisp
 (setq org-src-window-setup 'current-window)
 #+END_SRC
 
 ** Conf-mode
+   I edit a lot of conf files (i3 config for example) so I like to enable some modes when I am in conf-mode.
 *** Enable line numbers
 #+BEGIN_SRC emacs-lisp
 (add-hook 'conf-mode-hook 'linum-mode)
@@ -134,6 +148,7 @@
 
 ** ERC mode
 *** Set timestamp on left
+    I prefer to have IRC timestamps on the left, and also for each message to be timestamped.
 #+BEGIN_SRC emacs-lisp
 (setq erc-timestamp-only-if-changed-flag nil
           erc-timestamp-format "%H:%M "
@@ -145,16 +160,19 @@
   (setq erc-fill-column 115)
 #+END_SRC
 *** Disable powerline tracking
+    Whilst this is potentially a nice feature, I don't like my powerline getting all messy from IRC channels.
 #+BEGIN_SRC emacs-lisp
 (setq spaceline-erc-track-p nil)
 #+END_SRC
 
 *** Hide some stuff
+    Hides all the messages saying someone has joined or left the room.
 #+BEGIN_SRC emacs-lisp
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
 #+END_SRC
 
 * Functions
+  This is where my custom emacs-lisp functions are defined and keybindings set.
 ** Open todo file 
 *** Define "open-todo" 
 #+BEGIN_SRC emacs-lisp
@@ -170,6 +188,7 @@
 #+END_SRC
 
 ** Kill buffer and window 
+   Very often a buffer will open itself in a new window to the right of the current one (magit-status for example). Usually when this happens I only wan't to quickly interact with this buffer and then close it again, so I like the option of killing both the buffer and the window so I don't have to do both steps when this situation occurs.
 *** Define "kill-buffer-and-window" 
 #+BEGIN_SRC emacs-lisp
   (defun kill-buffer-and-window()
@@ -184,6 +203,7 @@
 #+END_SRC
 
 ** Find dotfile
+   As I am using a .spacemacs.d/ setup rather than a single .spacemacs file, I need emacs to know my dotfile has moved.
 *** Define "spacemacs/find-dotfile
 #+BEGIN_SRC emacs-lisp
   (defun spacemacs/find-dotfile()
@@ -193,6 +213,7 @@
 #+END_SRC
 
 ** Find config file
+   This function just finds and opens this file.
 *** Define "find-config-file"
 #+BEGIN_SRC emacs-lisp
   (defun find-config-file()
@@ -207,6 +228,7 @@
 #+END_SRC
 
 * Misc
+  Here are some miscellaneous settings that don't belong anywhere else. They are mostly self explanatory.
 ** Set evil escape keymap to jk
 #+BEGIN_SRC emacs-lisp
 (setq-default evil-escape-key-sequence "jk")
@@ -239,6 +261,7 @@
 #+END_SRC
 
 ** Set some useless buffers
+   There are many buffers that I do not want to see in my helm buffer list. These are typically buffers that open themselves up because they are needed for something else, but I rarely would ever want to view/edit the actual buffer that opens.
 *** Helm
 #+BEGIN_SRC emacs-lisp
 (setq spacemacs-useless-buffers-regexp '("\\*helm\.\+\\*"))
