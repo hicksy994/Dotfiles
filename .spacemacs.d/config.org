@@ -8,7 +8,7 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 * Theming/Aesthetics
   This section contains aesthetic tweaks to emacs.
 ** Highlighting
-   I don't particularly like some of the spacemacs defaults when it comes to highlighting stuff.
+   I dont particularly like some of the spacemacs defaults when it comes to highlighting stuff.
 *** Disable current line highlighting
 #+BEGIN_SRC emacs-lisp
 (setq global-hl-line-mode nil)

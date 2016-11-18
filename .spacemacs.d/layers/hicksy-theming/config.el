@@ -57,32 +57,27 @@
         (powerline-inactive1 :foreground "#F8F8F0" :background "#35331D")
         (powerline-inactive2 :foreground "#F8F8F0" :background "#272822")
 
-        ;;selection/helm
-        (hl-line :background "#49483E")
-        (helm-selection :background "#49483E")
-        (helm-selection-line :background "#49483E")
-        (helm-lisp-show-completion :background "#49483E")
-        (helm-candidate-number :background "#49483E")
+        ;; ;;selection/helm
+        ;; (hl-line :background "#49483E")
+        ;; (helm-selection :background "#49483E")
+        ;; (helm-selection-line :background "#49483E")
+        ;; (helm-lisp-show-completion :background "#49483E")
+        ;; (helm-candidate-number :background "#49483E")
 
-        ;;company
-        (company-preview :background "#49483E")
-        (company-tooltip :background "#49483E")
+        ;; ;;company
+        ;; (company-preview :background "#49483E")
+        ;; (company-tooltip :background "#49483E")
         (company-tooltip-common :underline nil)
         (company-preview-common :underline nil)
         (company-tooltip-common-selection :underline nil)
-        (company-template-field :background "#49483E")
-        (company-tooltip-annotation :background "#49483E")
+        ;; (company-template-field :background "#49483E")
+        ;; (company-tooltip-annotation :background "#49483E")
 
-        ;;Line number
+        ;; ;;Line number
         (linum :foreground "#75715E" :weight normal)
         (linum-relative-current-face :background "#272822" :foreground "#75715E" :weight normal)
 
-        ;;org
+        ;; ;;org
         (org-block-begin-line :background "#272822")
         (org-block :background "#272822")
-        (org-block-end-line :background "#272822")
-
-        ;;misc
-        (lazy-highlight :background "gray")
-        (git-gutter+-unchanged :background "#49483E")
-        (git-gutter:unchanged :background "#49483E"))))
+        (org-block-end-line :background "#272822"))))
