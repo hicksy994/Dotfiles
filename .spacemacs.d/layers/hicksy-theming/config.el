@@ -52,7 +52,7 @@
        (monokai
 
         ; Modeline
-        (header-line :background "#272822")
+        (header-line :background "#272822" :box nil)
         (mode-line-inactive :foreground "#F8F8F0" :background "#49483E")
         (powerline-inactive1 :foreground "#F8F8F0" :background "#35331D")
         (powerline-inactive2 :foreground "#F8F8F0" :background "#272822")
