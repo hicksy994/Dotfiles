@@ -82,7 +82,31 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 #+END_SRC
 
 ** Org-mode
-*** Org-babel languages
+*** Capture/Todo/Agenda
+**** Org-capture templates
+    #+BEGIN_SRC emacs-lisp
+      (setq org-capture-templates
+            '(("t" "Todo" entry (file"~/org/Todo.org")
+               "* TODO %?\n  %i\n  %a")))
+    #+END_SRC
+**** Set org-capture to open in insert mode
+    #+BEGIN_SRC emacs-lisp
+      (add-hook 'org-capture-mode-hook 'evil-insert-state)
+    #+END_SRC
+
+**** Set org-agenda file
+    #+BEGIN_SRC emacs-lisp
+      (setq org-agenda-files '("~/org/Todo.org"))
+    #+END_SRC
+
+**** Set Todo states
+    #+BEGIN_SRC emacs-lisp
+      (setq org-todo-keywords '((sequence "TODO" "WAITING" "IN-PROGRESS" "|" "DONE")))
+      (setq org-todo-keyword-faces '(("WAITING" . "deepskyblue1") ("IN-PROGRESS" . "yellow")))
+    #+END_SRC
+
+*** Notes/Papers
+**** Org-babel languages
     Here is the list of languages that org can execute and evaluate on the spot.
 #+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages
@@ -92,26 +116,19 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
                              (java . t)))
 #+END_SRC
 
-*** Turn off line numbers 
+**** Turn off line numbers 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook
   (lambda() (linum-mode 0)))
 #+END_SRC
 
-*** Turn on text wrapping
+**** Turn on text wrapping
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook
           (lambda() (visual-line-mode t))) 
 #+END_SRC
 
-*** Org-Capture TODO template
-#+BEGIN_SRC emacs-lisp
-(setq org-capture-templates
-  '(("t" "Todo" entry (file+headline "~/org/Todo.org" "Todo")
-     "* TODO  %?")))
-#+END_SRC
-
-*** Use current window when editing a code snippet
+**** Use current window when editing a code snippet
     I think it's nicer to use the current window when editing a source block rather than splitting and making a new one.
 #+BEGIN_SRC emacs-lisp
 (setq org-src-window-setup 'current-window)
@@ -233,6 +250,10 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 #+BEGIN_SRC emacs-lisp
 (setq-default evil-escape-key-sequence "jk")
 #+END_SRC
+** Turn on CamelCase motion globally 
+   #+BEGIN_SRC emacs-lisp
+     (spacemacs/toggle-camel-case-motion-globally-on)
+   #+END_SRC
 
 ** Turn on truncate lines mode globally
 #+BEGIN_SRC emacs-lisp
@@ -303,5 +324,20 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 (with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*eclimd\\*"))
 (push "\\*eclimd: problems\\*" spacemacs-useless-buffers-regexp)
 (with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*eclimd: problems\\*"))
+#+END_SRC
+
+*** Clang
+    
+#+BEGIN_SRC emacs-lisp
+(push "\\*clang-output\\*" spacemacs-useless-buffers-regexp)
+(with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*clang-output\\*"))
+(push "\\*clang-error\\*" spacemacs-useless-buffers-regexp)
+(with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*clang-error\\*"))
+#+END_SRC
+
+*** Calender
+#+BEGIN_SRC emacs-lisp
+(push "\\*calendar\\*" spacemacs-useless-buffers-regexp)
+(with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*calendar\\*"))
 #+END_SRC
 
