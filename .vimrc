@@ -41,7 +41,7 @@ let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
 
 "Completion colours - uncomment and change if colorscheme conflicts with completion colours.
 
-hi Pmenu        cterm=none ctermfg=White     ctermbg=Black
-hi PmenuSel     cterm=none ctermfg=Black     ctermbg=DarkGreen
-hi PmenuSbar    cterm=none ctermfg=none      ctermbg=Green
-hi PmenuThumb   cterm=none ctermfg=DarkGreen ctermbg=DarkGreen
+" hi Pmenu        cterm=none ctermfg=White     ctermbg=Black
+" hi PmenuSel     cterm=none ctermfg=Black     ctermbg=DarkGreen
+" hi PmenuSbar    cterm=none ctermfg=none      ctermbg=Green
+" hi PmenuThumb   cterm=none ctermfg=DarkGreen ctermbg=DarkGreen
