@@ -83,6 +83,30 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 
 ** Org-mode
 *** Capture/Todo/Agenda
+**** Set org-agenda file
+    #+BEGIN_SRC emacs-lisp
+      (setq org-agenda-files '("~/org/Todo.org"))
+    #+END_SRC
+
+**** Custom org-agenda with todos
+     This is a custom agenda that displays my full todo list along with this week's agenda
+     #+BEGIN_SRC emacs-lisp
+       (setq org-agenda-custom-commands
+             '(("d" "Agenda and Todos"
+                ((agenda "")
+                 (alltodo "")))))
+     #+END_SRC
+    
+**** Set org-agenda to open in the current window
+     #+BEGIN_SRC emacs-lisp
+       (setq org-agenda-window-setup 'current-window)
+     #+END_SRC
+
+**** Set Todo states
+    #+BEGIN_SRC emacs-lisp
+      (setq org-todo-keywords '((sequence "TODO" "WAITING" "IN-PROGRESS" "|" "DONE")))
+      (setq org-todo-keyword-faces '(("WAITING" . "deepskyblue1") ("IN-PROGRESS" . "yellow")))
+    #+END_SRC
 **** Org-capture templates
     #+BEGIN_SRC emacs-lisp
       (setq org-capture-templates
@@ -92,17 +116,6 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 **** Set org-capture to open in insert mode
     #+BEGIN_SRC emacs-lisp
       (add-hook 'org-capture-mode-hook 'evil-insert-state)
-    #+END_SRC
-
-**** Set org-agenda file
-    #+BEGIN_SRC emacs-lisp
-      (setq org-agenda-files '("~/org/Todo.org"))
-    #+END_SRC
-
-**** Set Todo states
-    #+BEGIN_SRC emacs-lisp
-      (setq org-todo-keywords '((sequence "TODO" "WAITING" "IN-PROGRESS" "|" "DONE")))
-      (setq org-todo-keyword-faces '(("WAITING" . "deepskyblue1") ("IN-PROGRESS" . "yellow")))
     #+END_SRC
 
 *** Notes/Papers
@@ -203,6 +216,21 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 #+BEGIN_SRC emacs-lisp
   (define-key evil-normal-state-map (kbd "SPC a o T") 'open-todo)
 #+END_SRC
+
+** Open custom org-agenda
+   I need a function/keybinding to open my custom org-agenda
+*** Define "org-agenda-custom"
+    #+BEGIN_SRC emacs-lisp
+      (defun org-agenda-custom (&optional arg)
+        "Open my custom org agenda"
+        (interactive "P")
+        (org-agenda arg "d"))
+    #+END_SRC
+
+*** Set keybinding for "org-agenda-custom"
+    #+BEGIN_SRC emacs-lisp
+      (define-key evil-normal-state-map (kbd "SPC a o A") 'org-agenda-custom)
+    #+END_SRC
 
 ** Kill buffer and window 
    Very often a buffer will open itself in a new window to the right of the current one (magit-status for example). Usually when this happens I only wan't to quickly interact with this buffer and then close it again, so I like the option of killing both the buffer and the window so I don't have to do both steps when this situation occurs.
