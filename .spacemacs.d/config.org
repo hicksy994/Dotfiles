@@ -102,6 +102,11 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
        (setq org-agenda-window-setup 'current-window)
      #+END_SRC
 
+**** Move cursor out of the way when opening agenda
+     #+BEGIN_SRC emacs-lisp
+       (add-hook 'org-agenda-mode-hook 'evil-goto-line)
+     #+END_SRC
+
 **** Set Todo states
     #+BEGIN_SRC emacs-lisp
       (setq org-todo-keywords '((sequence "TODO" "WAITING" "IN-PROGRESS" "|" "DONE")))

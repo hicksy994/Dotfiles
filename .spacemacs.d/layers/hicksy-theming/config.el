@@ -1,4 +1,4 @@
-;; (configuration-layer/declare-layer
+; (configuration-layer/declare-layer
 ;;  '(theming :variables
 
 (setq-default 
@@ -29,6 +29,11 @@
         (powerline-active2 :foreground "#d5c4a1" :background "grey40")
         (powerline-inactive2 :foreground "#d5c4a1" :background "grey40")
 
+        ;;org
+        (org-block-begin-line :foreground "#7c6f64")
+        (org-block :foreground "#fdf4c1")
+        (org-block-end-line :foreground "#7c6f64")
+
         ;;Line number
         (linum :background "#282828" :foreground "#7c6f64" :weight normal)
         (linum-relative-current-face :background "#282828" :foreground "#7c6f64" :weight normal))
@@ -57,21 +62,10 @@
         (powerline-inactive1 :foreground "#F8F8F0" :background "#35331D")
         (powerline-inactive2 :foreground "#F8F8F0" :background "#272822")
 
-        ;; ;;selection/helm
-        ;; (hl-line :background "#49483E")
-        ;; (helm-selection :background "#49483E")
-        ;; (helm-selection-line :background "#49483E")
-        ;; (helm-lisp-show-completion :background "#49483E")
-        ;; (helm-candidate-number :background "#49483E")
-
         ;; ;;company
-        ;; (company-preview :background "#49483E")
-        ;; (company-tooltip :background "#49483E")
         (company-tooltip-common :underline nil)
         (company-preview-common :underline nil)
         (company-tooltip-common-selection :underline nil)
-        ;; (company-template-field :background "#49483E")
-        ;; (company-tooltip-annotation :background "#49483E")
 
         ;; ;;Line number
         (linum :foreground "#75715E" :weight normal)
