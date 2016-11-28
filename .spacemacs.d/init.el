@@ -44,12 +44,13 @@
    ;;Additional packages not included in layers.
    dotspacemacs-additional-packages '(groovy-mode
                                       gradle-mode
+                                      meghanada
                                       c-eldoc)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(vi-tilde-fringe
-                                    neotree
                                     saveplace
+                                    neotree
                                     evil-search-highlight-persist)
 
    ;;Delete packages not in additional-packages or a layer.
@@ -97,9 +98,8 @@
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(
+   dotspacemacs-themes '(gruvbox
                          monokai
-                         gruvbox
                          darktooth
                          solarized-dark)
                          
