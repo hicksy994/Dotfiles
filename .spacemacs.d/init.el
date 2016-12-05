@@ -98,8 +98,8 @@
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(gruvbox
-                         monokai
+   dotspacemacs-themes '(monokai
+                         gruvbox
                          darktooth
                          solarized-dark)
                          
@@ -107,8 +107,8 @@
    dotspacemacs-colorize-cursor-according-to-state nil
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '(;; "DejaVu Sans Mono for Powerline"
-                               "Source Code Pro"
+   dotspacemacs-default-font '("DejaVu Sans Mono"
+                               ;; "Source Code Pro"
                                :size 14 :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -245,3 +245,9 @@
 
 ; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+)

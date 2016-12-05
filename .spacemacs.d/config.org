@@ -58,7 +58,7 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 #+END_SRC
 
 *** Rust
-**** Autocomplete 
+**** Racer 
 ***** Set Racer and Rust source paths
       Racer autocomplete requires the racer executable and a copy of the rust source code.
 #+BEGIN_SRC emacs-lisp
@@ -147,7 +147,7 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 #+END_SRC
 
 **** Use current window when editing a code snippet
-    I think it's nicer to use the current window when editing a source block rather than splitting and making a new one.
+     I think it's nicer to use the current window when editing a source block rather than splitting and making a new one.
 #+BEGIN_SRC emacs-lisp
 (setq org-src-window-setup 'current-window)
 #+END_SRC
