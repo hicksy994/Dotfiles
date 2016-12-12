@@ -179,7 +179,7 @@ bar {
 }
 
 # Window borders
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 3
 
 #Gaps
 # smart_gaps on
