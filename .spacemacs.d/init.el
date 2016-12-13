@@ -98,8 +98,8 @@
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai
-                         gruvbox
+   dotspacemacs-themes '(gruvbox
+                         monokai
                          darktooth
                          solarized-dark)
                          
@@ -107,8 +107,7 @@
    dotspacemacs-colorize-cursor-according-to-state nil
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("DejaVu Sans Mono"
-                               ;; "Source Code Pro"
+   dotspacemacs-default-font '("Source Code Pro"
                                :size 14 :weight normal
                                :width normal
                                :powerline-scale 1.1)
