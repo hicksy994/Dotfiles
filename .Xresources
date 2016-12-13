@@ -17,10 +17,10 @@ rofi.show-match: false
 
 !urxvt
 
-URxvt.font:                xft:DejaVu Sans Mono for Powerline:pixelsize=14
-URxvt.boldFont:            xft:DejaVu Sans Mono for Powerline:pixelsize=14:bold
-URxvt.italicFont:          xft:DejaVu Sans Mono for Powerline:pixelsize=14:italic
-URxvt.boldItalicFont:      xft:DejaVu Sans Mono for Powerline:pixelsize=14:bold:italic
+URxvt.font:                xft:Source Code Pro:pixelsize=14
+URxvt.boldFont:            xft:Source Code Pro:pixelsize=14:bold
+URxvt.italicFont:          xft:Source Code Pro:pixelsize=14:italic
+URxvt.boldItalicFont:      xft:Source Code Pro:pixelsize=14:bold:italic
 URxvt.letterSpace:         -1
 
 !standard dark theme
