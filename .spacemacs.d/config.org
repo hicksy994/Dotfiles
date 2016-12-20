@@ -345,6 +345,12 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 (with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*magit-process"))
 #+END_SRC
 
+*** Magit-diff
+#+BEGIN_SRC emacs-lisp
+(push "\\*magit-diff*" spacemacs-useless-buffers-regexp)
+(with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*magit-diff*"))
+#+END_SRC
+
 *** Todo archive
 #+BEGIN_SRC emacs-lisp
 (push "Todo.org_archive" spacemacs-useless-buffers-regexp)
