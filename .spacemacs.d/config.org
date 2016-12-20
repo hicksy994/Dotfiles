@@ -1,7 +1,7 @@
 #+TITLE: Emacs Configuration
 #+OPTIONS: TOC:nil
 
-This is my emacs config, written in a literate programming style in the form of an org mode document. It is (at the time of writing) split into 4 categories: Theming/Aesthetics, major modes, custom functions and miscellaneous settings.
+This is my emacs config, written in a literate programming style in the form of an org mode document. It is split into 4 categories: Theming/Aesthetics, major modes, custom functions and miscellaneous settings.
 
 Note that as I am using spacemacs, this is not strictly my entire emacs configuration. There is also my spacemacs init file (containing my required layers/packages and some other fundemental spacemacs settings) which can be found [[https://github.com/hicksy994/Dotfiles/blob/master/.spacemacs.d/init.el][here]] and my custom theming layer which can be found [[https://github.com/hicksy994/Dotfiles/tree/master/.spacemacs.d/layers/hicksy-theming][here]]. I would like to include my spacemacs init file in this org document as well but whilst it is theoretically possible, at the current time it would be considered bad practise because of how spacemacs loads it's layers/packages. One day I hope to make this work nicely.
 

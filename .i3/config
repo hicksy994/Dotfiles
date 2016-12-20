@@ -148,7 +148,7 @@ set $bg-color 	         #282828
 # set $bg-color 	         #2f343f
 set $inactive-bg-color   #282828
 # set $inactive-bg-color   #2f343f
-set $text-color          #ebdbb2
+set $text-color          #fdf4c1
 # set $text-color          #f3f4f5
 set $inactive-text-color #7c6f64
 # set $inactive-text-color #676E7D

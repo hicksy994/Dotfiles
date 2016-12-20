@@ -2,7 +2,7 @@
 
 rofi.color-enabled: true
 rofi.color-window: #282828, #282828, #282828
-rofi.color-normal: #282828, #ebdbb2, #282828, #504945, #ebdbb2
+rofi.color-normal: #282828, #ebdbb2, #282828, #504945, #fdf4c1
 ! rofi.color-window: #2f343f, #2f343f, #2f343f
 ! rofi.color-normal: #2f343f, #ffffff, #2f343f, #268bd2, #ffffff
 ! rofi.color-active: #2f343f, #268bd2, #2f343f, #268bd2, #205171
@@ -17,10 +17,10 @@ rofi.show-match: false
 
 !urxvt
 
-URxvt.font:                xft:Source Code Pro:pixelsize=14
-URxvt.boldFont:            xft:Source Code Pro:pixelsize=14:bold
-URxvt.italicFont:          xft:Source Code Pro:pixelsize=14:italic
-URxvt.boldItalicFont:      xft:Source Code Pro:pixelsize=14:bold:italic
+URxvt.font:                xft:Hack:pixelsize=14:antialias=true
+URxvt.boldFont:            xft:Hack:pixelsize=14:bold:antialias=true
+URxvt.italicFont:          xft:Hack:pixelsize=14:italic:antialias=true
+URxvt.boldItalicFont:      xft:Hack:pixelsize=14:bold:italic:antialias=true
 URxvt.letterSpace:         -1
 
 !standard dark theme
@@ -57,7 +57,7 @@ URxvt*colorUL: #86a2b0
 
 ! Gruvbox Theme
 *background: #282828
-*foreground: #ebdbb2
+*foreground: #fdf4c1
 ! Black + DarkGrey
 *color0:  #282828
 *color8:  #928374
