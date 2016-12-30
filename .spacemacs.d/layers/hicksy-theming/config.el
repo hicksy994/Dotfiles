@@ -8,7 +8,8 @@
 
         ;;Helm
         (helm-source-header :background "#3c3836" :weight bold)
-        (helm-buffer-file :foreground "#fdf4c1") (helm-ff-file :foreground "#fdf4c1")
+        (helm-buffer-file :foreground "#fdf4c1")
+        (helm-ff-file :foreground "#fdf4c1")
         (helm-buffer-size :foreground "#fdf4c1")
 
         ;;company
