@@ -85,7 +85,7 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 *** Capture/Todo/Agenda
 **** Set org-agenda file
     #+BEGIN_SRC emacs-lisp
-      (setq org-agenda-files '("~/org/Todo.org"))
+      (setq org-agenda-files '("~/org/"))
     #+END_SRC
 
 **** Custom org-agenda with todos
