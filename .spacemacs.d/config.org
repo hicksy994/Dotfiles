@@ -87,6 +87,18 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
     #+BEGIN_SRC emacs-lisp
       (setq org-agenda-files '("~/org/"))
     #+END_SRC
+**** Google Calender Sync
+***** Set Credentials
+      #+BEGIN_SRC emacs-lisp
+        (require 'org-gcal)
+        (org-babel-load-file "~/.orgcal.gpg")
+        (delete-file "~/.orgcal.el")
+      #+END_SRC
+
+***** Add hook for syncing
+      #+BEGIN_SRC emacs-lisp
+        (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync)))
+      #+END_SRC
 
 **** Custom org-agenda with todos
      This is a custom agenda that displays my full todo list along with this week's agenda
@@ -107,6 +119,11 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
        (setq org-deadline-warning-days 28)
      #+END_SRC
 
+**** Set default org agenda timespan to 2 weeks
+     #+BEGIN_SRC emacs-lisp
+       (setq org-agenda-span 14)
+     #+END_SRC
+
 **** Set Todo states
     #+BEGIN_SRC emacs-lisp
       (setq org-todo-keywords '((sequence "TODO" "WAITING" "IN-PROGRESS" "|" "DONE")))
@@ -116,8 +133,12 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
     #+BEGIN_SRC emacs-lisp
       (setq org-capture-templates
             '(("t" "Todo" entry (file"~/org/Todo.org")
-               "* TODO %?\n  %i\n  %a")))
+               "* TODO %?\n  %i\n  %a")
+
+              ("e" "Event" entry (file  "~/org/Calendar.org" )
+               "* %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")))
     #+END_SRC
+
 **** Set org-capture to open in insert mode
     #+BEGIN_SRC emacs-lisp
       (add-hook 'org-capture-mode-hook 'evil-insert-state)
@@ -157,6 +178,64 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
                            ("\\.mm\\'" . default)
                            ("\\.x?html?\\'" . "google-chrome-stable %s")
                            ("\\.pdf\\'" . "zathura %s")))
+    #+END_SRC
+
+** Mu4e
+*** Set mail directories
+    #+BEGIN_SRC emacs-lisp
+      (setq mu4e-maildir (expand-file-name "~/Maildir"))
+      (setq mu4e-drafts-folder "/[Gmail].Drafts")
+      (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+      (setq mu4e-trash-folder  "/[Gmail].Bin")
+    #+END_SRC
+
+*** Set interval between updates
+    #+BEGIN_SRC emacs-lisp
+      (setq mu4e-update-interval 60)
+    #+END_SRC
+*** Don't save messages to Sent messages
+    #+BEGIN_SRC emacs-lisp
+      (setq mu4e-sent-messages-behavior 'delete)
+    #+END_SRC
+
+*** Shortcuts
+    #+BEGIN_SRC emacs-lisp
+      (setq mu4e-maildir-shortcuts
+            '(("/INBOX"             . ?i)
+              ("/[Gmail].Sent Mail" . ?s)
+              ("/[Gmail].Bin"     . ?b)))
+    #+END_SRC
+
+*** Allow for updating mail using 'U' in the main view
+    #+BEGIN_SRC emacs-lisp
+      (setq mu4e-get-mail-command "offlineimap")
+    #+END_SRC
+
+*** Set name and address
+    #+BEGIN_SRC emacs-lisp
+      (setq
+       user-mail-address "hicksy994@gmail.com"
+       user-full-name  "James Hicks")
+    #+END_SRC
+
+*** Sending mail
+    #+BEGIN_SRC emacs-lisp
+      (setq message-send-mail-function 'smtpmail-send-it
+            starttls-use-gnutls t
+            smtpmail-starttls-credentials
+            '(("smtp.gmail.com" 587 nil nil))
+            smtpmail-auth-credentials
+            (expand-file-name "~/.authinfo.gpg")
+            smtpmail-default-smtp-server "smtp.gmail.com"
+            smtpmail-smtp-server "smtp.gmail.com"
+            smtpmail-smtp-service 587
+            smtpmail-debug-info t)
+    #+END_SRC
+
+*** Enable desktop notifications
+    #+BEGIN_SRC emacs-lisp
+      (with-eval-after-load 'mu4e-alert
+        (mu4e-alert-set-default-style 'notifications))
     #+END_SRC
 
 ** Conf-mode
