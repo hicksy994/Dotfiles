@@ -14,7 +14,7 @@ myScreensaver :: String
 myScreensaver = "i3lock -u -i ~/wallpapers/elcapitan.png"
 
 myLauncher :: String
-myLauncher = "$(dmenu_path | yeganesh -x -- -fn 'SFNS Display-12' -nb '#2f343f')"
+myLauncher = "$(dmenu_path | yeganesh -x -- -fn 'Droid Sans-12' -nb '#2f343f')"
 
 myFocusedBorderColor :: String
 myFocusedBorderColor = "#68a2ff"
@@ -32,10 +32,10 @@ main :: IO()
 main = do
     xmproc <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
 
-    xmonad $ defaultConfig
-        { manageHook = manageDocks <+> manageHook defaultConfig,
+    xmonad $ def
+        { manageHook = manageDocks <+> manageHook def,
           handleEventHook = fullscreenEventHook,
-          layoutHook = avoidStruts $ smartBorders $  layoutHook defaultConfig,
+          layoutHook = avoidStruts $ smartBorders $  layoutHook def,
           logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = hPutStrLn xmproc . pad,
                           ppTitle = xmobarColor xmobarTitleColor "" . shorten 75,
