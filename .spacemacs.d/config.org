@@ -119,11 +119,6 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
        (setq org-deadline-warning-days 28)
      #+END_SRC
 
-**** Set default org agenda timespan to 2 weeks
-     #+BEGIN_SRC emacs-lisp
-       (setq org-agenda-span 14)
-     #+END_SRC
-
 **** Set Todo states
     #+BEGIN_SRC emacs-lisp
       (setq org-todo-keywords '((sequence "TODO" "WAITING" "IN-PROGRESS" "|" "DONE")))
@@ -466,3 +461,8 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 (with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*calendar\\*"))
 #+END_SRC
 
+*** Mu4e process
+#+BEGIN_SRC emacs-lisp
+(push "\\*mu4e-proc\\*" spacemacs-useless-buffers-regexp)
+(with-eval-after-load 'helm (add-to-list 'helm-boring-buffer-regexp-list '"\\*mu4e-proc\\*"))
+#+END_SRC
