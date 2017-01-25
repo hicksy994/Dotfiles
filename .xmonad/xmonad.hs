@@ -19,8 +19,8 @@ myLauncher = "$(dmenu_path | yeganesh -x -- -fn 'Droid Sans-12' -nb '#2f343f')"
 myFocusedBorderColor :: String
 myFocusedBorderColor = "#68a2ff"
 
-myInactiveBorderColor :: String
-myInactiveBorderColor = "#2f343f"
+myNormalBorderColor :: String
+myNormalBorderColor = "#2f343f"
 
 xmobarTitleColor :: String
 xmobarTitleColor = "#68CDFF"
@@ -48,7 +48,7 @@ main = do
           modMask = mod4Mask,
           terminal = myTerminal,
           focusedBorderColor = myFocusedBorderColor,
-          normalBorderColor = myInactiveBorderColor
+          normalBorderColor = myNormalBorderColor
         }
         `additionalKeys`
         [ ((mod4Mask .|. shiftMask, xK_x), spawn myScreensaver),
