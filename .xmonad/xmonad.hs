@@ -25,6 +25,9 @@ myNormalBorderColor = "#2f343f"
 xmobarTitleColor :: String
 xmobarTitleColor = "#68CDFF"
 
+xmobarLayoutColor :: String
+xmobarLayoutColor = "#08CC38"
+
 xmobarCurrentWorkspaceColor :: String
 xmobarCurrentWorkspaceColor = "#f3f4f5"
 
@@ -42,6 +45,7 @@ main = do
           logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = hPutStrLn xmproc . pad,
                           ppTitle = xmobarColor xmobarTitleColor "" . shorten 75,
+                          ppLayout = xmobarColor xmobarLayoutColor "",
                           ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "",
                           ppHidden = xmobarColor xmobarUnfocusedWorkspaceColor ""
                         },
