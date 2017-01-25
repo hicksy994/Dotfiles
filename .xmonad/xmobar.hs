@@ -10,5 +10,5 @@ Config { font = "xft:Droid Sans:size=12"
                       ]
          , sepChar = "%"
          , alignSep = "}{"
-         , template = "%StdinReader% }{ <fc=#ffff66>%memory%</fc> | <fc=#068C27>%cpu%</fc> | <fc=#68CDFF>%date%</fc>" 
+         , template = "%StdinReader% }{ <fc=#ffff66>%memory%</fc> | <fc=#08CC38>%cpu%</fc> | <fc=#68CDFF>%date%</fc>" 
          }
