@@ -19,6 +19,9 @@ myLauncher = "$(dmenu_path | yeganesh -x -- -fn 'Droid Sans-12' -nb '#2f343f')"
 myFocusedBorderColor :: String
 myFocusedBorderColor = "#68a2ff"
 
+myInactiveBorderColor :: String
+myInactiveBorderColor = "#2f343f"
+
 xmobarTitleColor :: String
 xmobarTitleColor = "#68CDFF"
 
@@ -35,7 +38,7 @@ main = do
     xmonad $ def
         { manageHook = manageDocks <+> manageHook def,
           handleEventHook = fullscreenEventHook,
-          layoutHook = avoidStruts $ smartBorders $  layoutHook def,
+          layoutHook = avoidStruts $ smartBorders $ layoutHook def,
           logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = hPutStrLn xmproc . pad,
                           ppTitle = xmobarColor xmobarTitleColor "" . shorten 75,
@@ -44,7 +47,8 @@ main = do
                         },
           modMask = mod4Mask,
           terminal = myTerminal,
-          focusedBorderColor = myFocusedBorderColor
+          focusedBorderColor = myFocusedBorderColor,
+          normalBorderColor = myInactiveBorderColor
         }
         `additionalKeys`
         [ ((mod4Mask .|. shiftMask, xK_x), spawn myScreensaver),
