@@ -40,7 +40,8 @@ myWorkspaces =  map show [1::Int ..9]
 myManageHook = composeAll 
     [className =? "Google-chrome"  --> doShift "1",
      className =? "Emacs"          --> doShift "2",
-     className =? "Spotify"        --> doShift "4"]
+     className =? "Spotify"        --> doShift "4"
+    ]
 
 defaults = def
     { modMask = mod4Mask,
