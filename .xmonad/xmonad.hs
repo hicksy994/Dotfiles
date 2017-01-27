@@ -14,9 +14,7 @@ myScreensaver :: String
 myScreensaver = "i3lock -u -i ~/wallpapers/elcapitan.png"
 
 myLauncher :: String
--- myLauncher = "$(dmenu_path | yeganesh -x -- -fn 'Droid Sans-12' -nb '#2f343f')"
 myLauncher = "rofi -show run"
-
 
 myFocusedBorderColor :: String
 myFocusedBorderColor = "#68a2ff"
@@ -36,33 +34,48 @@ xmobarCurrentWorkspaceColor = "#f3f4f5"
 xmobarUnfocusedWorkspaceColor :: String
 xmobarUnfocusedWorkspaceColor = "#676E7D"
 
+myWorkspaces :: [String]
+myWorkspaces =  map show [1::Int ..9]
+
+myManageHook = composeAll 
+    [className =? "Google-chrome"  --> doShift "1",
+     className =? "Emacs"          --> doShift "2",
+     className =? "Spotify"        --> doShift "4"]
+
+defaults = def
+    { modMask = mod4Mask,
+      terminal = myTerminal,
+      workspaces = myWorkspaces,
+      focusedBorderColor = myFocusedBorderColor,
+      normalBorderColor = myNormalBorderColor,
+      manageHook = manageDocks <+> myManageHook,
+      handleEventHook = fullscreenEventHook,
+      layoutHook = avoidStruts $ smartBorders $ layoutHook def
+    }
+
+myKeys =
+    [ ((mod4Mask .|. shiftMask, xK_x), spawn myScreensaver),
+      ((mod4Mask, xK_d), spawn myLauncher),
+      ((0, 0x1008FF13), spawn "pactl set-sink-volume 2 +1%"),
+      ((0, 0x1008FF11), spawn "pactl set-sink-volume 2 -1%"),
+      ((0, 0x1008FF12), spawn "pactl set-sink-mute 2 toggle"),
+      ((0, 0x1008FF17), spawn "~/Scripts/sp next"),
+      ((0, 0x1008FF16), spawn "~/Scripts/sp prev"),
+      ((0, 0x1008FF14), spawn "~/Scripts/sp play")
+    ]
+
 main :: IO()
 main = do
     xmproc <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
 
-    xmonad $ def
-        { manageHook = manageDocks <+> manageHook def,
-          handleEventHook = fullscreenEventHook,
-          layoutHook = avoidStruts $ smartBorders $ layoutHook def,
-          logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput = hPutStrLn xmproc . pad,
-                          ppTitle = xmobarColor xmobarTitleColor "" . shorten 75,
-                          ppLayout = xmobarColor xmobarLayoutColor "",
-                          ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "",
-                          ppHidden = xmobarColor xmobarUnfocusedWorkspaceColor ""
-                        },
-          modMask = mod4Mask,
-          terminal = myTerminal,
-          focusedBorderColor = myFocusedBorderColor,
-          normalBorderColor = myNormalBorderColor
+    xmonad $ defaults
+        { logHook = dynamicLogWithPP xmobarPP
+            { ppOutput = hPutStrLn xmproc . pad,
+              ppTitle = xmobarColor xmobarTitleColor "" . shorten 75,
+              ppLayout = xmobarColor xmobarLayoutColor "",
+              ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "",
+              ppHidden = xmobarColor xmobarUnfocusedWorkspaceColor ""
+            }
         }
         `additionalKeys`
-        [ ((mod4Mask .|. shiftMask, xK_x), spawn myScreensaver),
-          ((mod4Mask, xK_d), spawn myLauncher),
-          ((0, 0x1008FF13), spawn "pactl set-sink-volume 2 +1%"),
-          ((0, 0x1008FF11), spawn "pactl set-sink-volume 2 -1%"),
-          ((0, 0x1008FF12), spawn "pactl set-sink-mute 2 toggle"),
-          ((0, 0x1008FF17), spawn "~/Scripts/sp next"),
-          ((0, 0x1008FF16), spawn "~/Scripts/sp prev"),
-          ((0, 0x1008FF14), spawn "~/Scripts/sp play")
-        ]
+        myKeys
