@@ -81,6 +81,16 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
          (setq c-basic-offset 4)))
 #+END_SRC
 
+*** Haskell
+**** REPL
+***** Stop REPL from getting stuck
+#+BEGIN_SRC emacs-lisp
+  (when (configuration-layer/package-usedp 'haskell)
+    (add-hook 'haskell-interactive-mode-hook
+              (lambda ()
+                (setq-local evil-move-cursor-back nil))))
+#+END_SRC
+
 ** Org-mode
 *** Capture/Todo/Agenda
 **** Set org-agenda file
