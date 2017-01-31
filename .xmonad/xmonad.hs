@@ -38,9 +38,10 @@ myWorkspaces :: [String]
 myWorkspaces =  map show [1::Int ..9]
 
 myManageHook = composeAll 
-    [className =? "Google-chrome"  --> doShift "1",
-     className =? "Emacs"          --> doShift "2",
-     className =? "Spotify"        --> doShift "4"
+    [className =? "Google-chrome"        --> doShift "1",
+     className =? "Emacs"                --> doShift "2",
+     className =? "Spotify"              --> doShift "4",
+     className =? "Qemu-system-x86_64"   --> doFloat
     ]
 
 defaults = def
