@@ -11,7 +11,7 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
    I dont particularly like some of the spacemacs defaults when it comes to highlighting stuff.
 *** Disable current line highlighting
 #+BEGIN_SRC emacs-lisp
-(setq global-hl-line-mode nil)
+  (setq global-hl-line-mode nil)
 #+END_SRC
 
 *** Disable smartparens highlighting
@@ -32,7 +32,7 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
    Tweaks to the default powerline settings.
 *** Separator
 #+BEGIN_SRC emacs-lisp
-(setq powerline-default-separator 'arrow)
+(setq powerline-default-separator 'slant)
 #+END_SRC
 
 *** Disable minor modes and window purpose
@@ -65,6 +65,17 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 (setq racer-cmd "/usr/local/bin/racer")
 (setq racer-rust-src-path "/usr/local/src/rust/src")
 #+END_SRC
+
+**** Rustfmt
+***** Set rustfmt executable path
+      #+BEGIN_SRC emacs-lisp
+        (setq rust-rustfmt-bin "~/.cargo/bin/rustfmt")
+      #+END_SRC
+
+***** Enable auto formatting on save
+      #+BEGIN_SRC emacs-lisp
+        (setq rust-format-on-save t)
+      #+END_SRC
 
 *** Java
 **** Eclim
@@ -374,10 +385,6 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 #+BEGIN_SRC emacs-lisp
 (setq-default evil-escape-key-sequence "jk")
 #+END_SRC
-** Turn on CamelCase motion globally 
-   #+BEGIN_SRC emacs-lisp
-     (spacemacs/toggle-camel-case-motion-globally-on)
-   #+END_SRC
 
 ** Turn on truncate lines mode globally
 #+BEGIN_SRC emacs-lisp

@@ -19,6 +19,8 @@
      git
      version-control
      ranger
+     (mu4e :variables
+           mu4e-enable-notifications t)
      github
      org
      markdown
@@ -33,7 +35,9 @@
                :nick "hicksy")))
      rust
      java
+     asm
      haskell
+     python
      html
      yaml
      (c-c++ :variables
@@ -45,7 +49,8 @@
      )
 
    ;;Additional packages not included in layers.
-   dotspacemacs-additional-packages '(groovy-mode
+   dotspacemacs-additional-packages '(org-gcal
+                                      groovy-mode
                                       gradle-mode
                                       meghanada
                                       c-eldoc)

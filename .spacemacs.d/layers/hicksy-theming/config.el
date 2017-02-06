@@ -57,22 +57,26 @@
 
        (monokai
 
-        ; Modeline
+        ;; Modeline
         (header-line :background "#272822" :box nil)
         (mode-line-inactive :foreground "#F8F8F0" :background "#49483E")
         (powerline-inactive1 :foreground "#F8F8F0" :background "#35331D")
         (powerline-inactive2 :foreground "#F8F8F0" :background "#272822")
 
-        ;; ;;company
+        ;;company
         (company-tooltip-common :underline nil)
         (company-preview-common :underline nil)
         (company-tooltip-common-selection :underline nil)
 
-        ;; ;;Line number
+        ;;Line number
         (linum :foreground "#75715E" :weight normal)
         (linum-relative-current-face :background "#272822" :foreground "#75715E" :weight normal)
 
-        ;; ;;org
+        ;;org
         (org-block-begin-line :background "#272822")
         (org-block :background "#272822")
-        (org-block-end-line :background "#272822"))))
+        (org-block-end-line :background "#272822")
+
+
+        ;;mu4e
+        (mu4e-maildirs-extension-maildir-hl-face :foreground "#F8F8F2"))))
