@@ -1,5 +1,6 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.NoBorders
@@ -52,7 +53,8 @@ defaults = def
       normalBorderColor = myNormalBorderColor,
       manageHook = manageDocks <+> myManageHook,
       handleEventHook = fullscreenEventHook,
-      layoutHook = avoidStruts $ smartBorders $ layoutHook def
+      layoutHook = avoidStruts $ smartBorders $ layoutHook def,
+      startupHook = setWMName "LG3D"
     }
 
 myKeys =
