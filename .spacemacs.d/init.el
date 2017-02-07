@@ -19,8 +19,6 @@
      git
      version-control
      ranger
-     (mu4e :variables
-           mu4e-enable-notifications t)
      github
      org
      markdown
