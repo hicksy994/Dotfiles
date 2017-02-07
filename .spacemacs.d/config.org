@@ -52,7 +52,7 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
 #+END_SRC
 
 **** Set style
-     I like to use the "k&r" style by default. The GNU style is simply horrible.
+     I like to use the "k&r" style by default.
 #+BEGIN_SRC emacs-lisp
 (setq c-default-style "k&r")
 #+END_SRC
