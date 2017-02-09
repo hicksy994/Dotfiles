@@ -58,8 +58,12 @@ defaults = def
     }
 
 myKeys =
-    [ ((mod4Mask .|. shiftMask, xK_x), spawn myScreensaver),
+    [ ((mod4Mask, xK_x), spawn myScreensaver),
       ((mod4Mask, xK_d), spawn myLauncher),
+      ((mod4Mask, xK_t), spawn myTerminal),
+      ((mod4Mask, xK_e), spawn "emacs"),
+      ((mod4Mask, xK_c), spawn "google-chrome-stable"),
+      ((mod4Mask, xK_s), spawn "spotify"),
       ((0, 0x1008FF13), spawn "pactl set-sink-volume 2 +1%"),
       ((0, 0x1008FF11), spawn "pactl set-sink-volume 2 -1%"),
       ((0, 0x1008FF12), spawn "pactl set-sink-mute 2 toggle"),
