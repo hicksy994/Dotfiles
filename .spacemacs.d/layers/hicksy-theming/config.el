@@ -77,6 +77,5 @@
         (org-block :background "#272822")
         (org-block-end-line :background "#272822")
 
-
         ;;mu4e
         (mu4e-maildirs-extension-maildir-hl-face :foreground "#F8F8F2"))))

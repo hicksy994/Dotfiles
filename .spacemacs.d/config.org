@@ -32,7 +32,7 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
    Tweaks to the default powerline settings.
 *** Separator
 #+BEGIN_SRC emacs-lisp
-(setq powerline-default-separator 'slant)
+(setq powerline-default-separator 'arrow)
 #+END_SRC
 
 *** Disable minor modes and window purpose
