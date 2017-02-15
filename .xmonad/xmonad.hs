@@ -35,13 +35,12 @@ xmobarLayoutColor :: String
 xmobarLayoutColor = "#08CC38"
 
 xmobarCurrentWorkspaceColor :: String
-xmobarCurrentWorkspaceColor = "#f3f4f5"
+xmobarCurrentWorkspaceColor = "#68CDFF"
 
 xmobarUnfocusedWorkspaceColor :: String
 xmobarUnfocusedWorkspaceColor = "#676E7D"
 
 myWorkspaces :: [String]
--- myWorkspaces =  map show [1::Int ..9]
 myWorkspaces = ["\62056 Chrome ", "\61729 Emacs ", "\61728 Urxvt ", "\61884 Spotify "] ++  map show [5::Int ..9]
 
 myManageHook = composeAll 
