@@ -1,4 +1,4 @@
-Config { font = "xft:Droid Sans:size=12"
+Config { font = "xft:Droid Sans:size=12,FontAwesome:size=12"
          , borderColor = "#2f343f"
          , overrideRedirect = False
          , bgColor = "#2f343f"

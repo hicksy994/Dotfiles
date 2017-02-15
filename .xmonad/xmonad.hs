@@ -41,12 +41,13 @@ xmobarUnfocusedWorkspaceColor :: String
 xmobarUnfocusedWorkspaceColor = "#676E7D"
 
 myWorkspaces :: [String]
-myWorkspaces =  map show [1::Int ..9]
+-- myWorkspaces =  map show [1::Int ..9]
+myWorkspaces = ["\62056 Chrome ", "\61729 Emacs ", "\61728 Urxvt ", "\61884 Spotify "] ++  map show [5::Int ..9]
 
 myManageHook = composeAll 
-    [ className =? "Google-chrome"        --> doShift "1"
-    , className =? "Emacs"                --> doShift "2"
-    , className =? "Spotify"              --> doShift "4"
+    [ className =? "Google-chrome"        --> doShift "\62056 Chrome "
+    , className =? "Emacs"                --> doShift "\61729 Emacs "
+    , className =? "Spotify"              --> doShift "\61884 Spotify "
     , className =? "Qemu-system-x86_64"   --> doFloat
     ]
     
@@ -90,7 +91,7 @@ main = do
     xmonad $ docks $ defaults
         { logHook = dynamicLogWithPP xmobarPP
             { ppOutput = hPutStrLn xmproc . pad
-            , ppTitle = xmobarColor xmobarTitleColor "" . shorten 40
+            , ppTitle = xmobarColor xmobarTitleColor "" . shorten 30
             , ppLayout = xmobarColor xmobarLayoutColor ""
             , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
             , ppHidden = xmobarColor xmobarUnfocusedWorkspaceColor ""
