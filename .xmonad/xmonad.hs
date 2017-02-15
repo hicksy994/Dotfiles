@@ -4,6 +4,8 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Spacing
+import XMonad.Layout.Named
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
@@ -12,7 +14,7 @@ myTerminal :: String
 myTerminal = "urxvt"
 
 myScreensaver :: String
-myScreensaver = "i3lock -u -i ~/wallpapers/elcapitan.png"
+myScreensaver = "i3lock -u -i ~/wallpapers/sunset.png"
 
 myLauncher :: String
 myLauncher = "rofi -show run"
@@ -22,6 +24,9 @@ myFocusedBorderColor = "#68a2ff"
 
 myNormalBorderColor :: String
 myNormalBorderColor = "#2f343f"
+
+myBorderWidth :: Dimension
+myBorderWidth = 2
 
 xmobarTitleColor :: String
 xmobarTitleColor = "#68CDFF"
@@ -39,49 +44,56 @@ myWorkspaces :: [String]
 myWorkspaces =  map show [1::Int ..9]
 
 myManageHook = composeAll 
-    [className =? "Google-chrome"        --> doShift "1",
-     className =? "Emacs"                --> doShift "2",
-     className =? "Spotify"              --> doShift "4",
-     className =? "Qemu-system-x86_64"   --> doFloat
+    [ className =? "Google-chrome"        --> doShift "1"
+    , className =? "Emacs"                --> doShift "2"
+    , className =? "Spotify"              --> doShift "4"
+    , className =? "Qemu-system-x86_64"   --> doFloat
     ]
-
-defaults = def
-    { modMask = mod4Mask,
-      terminal = myTerminal,
-      workspaces = myWorkspaces,
-      focusedBorderColor = myFocusedBorderColor,
-      normalBorderColor = myNormalBorderColor,
-      manageHook = manageDocks <+> myManageHook,
-      handleEventHook = fullscreenEventHook,
-      layoutHook = avoidStruts $ smartBorders $ layoutHook def,
-      startupHook = setWMName "LG3D"
-    }
-
+    
 myKeys =
-    [ ((mod4Mask, xK_x), spawn myScreensaver),
-      ((mod4Mask, xK_d), spawn myLauncher),
-      ((mod4Mask, xK_e), spawn "emacs"),
-      ((mod4Mask, xK_c), spawn "google-chrome-stable"),
-      ((mod4Mask, xK_s), spawn "spotify"),
-      ((0, 0x1008FF13), spawn "pactl set-sink-volume 2 +1%"),
-      ((0, 0x1008FF11), spawn "pactl set-sink-volume 2 -1%"),
-      ((0, 0x1008FF12), spawn "pactl set-sink-mute 2 toggle"),
-      ((0, 0x1008FF17), spawn "~/Scripts/sp next"),
-      ((0, 0x1008FF16), spawn "~/Scripts/sp prev"),
-      ((0, 0x1008FF14), spawn "~/Scripts/sp play")
+    [ ((mod4Mask, xK_x), spawn myScreensaver)
+    , ((mod4Mask, xK_d), spawn myLauncher)
+    , ((mod4Mask, xK_e), spawn "emacs")
+    , ((mod4Mask, xK_c), spawn "google-chrome-stable")
+    , ((mod4Mask, xK_s), spawn "spotify")
+    , ((0, 0x1008FF13), spawn "pactl set-sink-volume 2 +1%")
+    , ((0, 0x1008FF11), spawn "pactl set-sink-volume 2 -1%")
+    , ((0, 0x1008FF12), spawn "pactl set-sink-mute 2 toggle")
+    , ((0, 0x1008FF17), spawn "~/Scripts/sp next")
+    , ((0, 0x1008FF16), spawn "~/Scripts/sp prev")
+    , ((0, 0x1008FF14), spawn "~/Scripts/sp play")
     ]
+    
+myLayout = avoidStruts (tall ||| Mirror tall ||| Full)
+  where
+    tall = named "Tall" (spacingWithEdge 5 $ Tall nmaster delta ratio)
+    nmaster = 1
+    ratio = 1/2
+    delta = 1/100
+    
+defaults = def
+    { modMask = mod4Mask
+    , terminal = myTerminal
+    , workspaces = myWorkspaces
+    , focusedBorderColor = myFocusedBorderColor
+    , normalBorderColor = myNormalBorderColor
+    , borderWidth = myBorderWidth
+    , manageHook = manageDocks <+> myManageHook
+    , handleEventHook = fullscreenEventHook
+    , layoutHook = smartBorders $ myLayout
+    , startupHook = setWMName "LG3D"
+    }
 
 main :: IO()
 main = do
     xmproc <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
-
-    xmonad $ defaults
+    xmonad $ docks $ defaults
         { logHook = dynamicLogWithPP xmobarPP
-            { ppOutput = hPutStrLn xmproc . pad,
-              ppTitle = xmobarColor xmobarTitleColor "" . shorten 75,
-              ppLayout = xmobarColor xmobarLayoutColor "",
-              ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "",
-              ppHidden = xmobarColor xmobarUnfocusedWorkspaceColor ""
+            { ppOutput = hPutStrLn xmproc . pad
+            , ppTitle = xmobarColor xmobarTitleColor "" . shorten 40
+            , ppLayout = xmobarColor xmobarLayoutColor ""
+            , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
+            , ppHidden = xmobarColor xmobarUnfocusedWorkspaceColor ""
             }
         }
         `additionalKeys`
