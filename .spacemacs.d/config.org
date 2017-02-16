@@ -354,6 +354,11 @@ Note that as I am using spacemacs, this is not strictly my entire emacs configur
       browse-url-generic-program "google-chrome-stable")
 #+END_SRC
 
+** Remap '/' to normal vim behavior (fixes spacemacs bug/overlook)
+   #+BEGIN_SRC emacs-lisp
+     (define-key evil-normal-state-map (kbd "/") 'evil-search-forward)
+   #+END_SRC
+
 ** Set some useless buffers
    There are many buffers that I do not want to see in my helm buffer list. These are typically buffers that open themselves up because they are needed for something else, but I rarely would ever want to view/edit the actual buffer that opens.
 *** Helm
