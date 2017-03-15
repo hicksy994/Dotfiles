@@ -1,0 +1,417 @@
+#+TITLE: Emacs Config
+
+* Package Management
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+
+  (setq package-enable-at-startup nil)
+  (package-initialize)
+#+END_SRC
+
+* Better Defaults
+#+BEGIN_SRC emacs-lisp
+  (use-package better-defaults
+    :ensure t)
+#+END_SRC
+
+* Keybindings
+** Evil
+  Config for evil-mode and related packages. Note that evil mode itself is enabled last to avoid problems with evil-leader in initial buffers
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :ensure t
+    :init 
+#+END_SRC
+
+  Set some evil-leader keybindings.
+#+BEGIN_SRC emacs-lisp
+  ;;Define some functions to help with setting keybindings
+
+  (defun open-conf()
+    "Open my config file"
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
+
+  (defun kill-buffer-and-window ()
+    "Kill the current buffer and window in one step"
+    (interactive)
+    (kill-this-buffer)
+    (evil-window-delete))
+
+  ;;Set keybindings that follow the leader key
+  (use-package evil-leader
+    :ensure t
+    :init
+    (global-evil-leader-mode)
+    (evil-leader/set-leader "<SPC>")
+    (evil-leader/set-key
+    "g" 'magit-status
+    "bb" 'helm-mini
+    "bd" 'kill-this-buffer
+    "ff" 'helm-find-files
+    "pp" 'helm-projectile
+    "pf" 'helm-projectile-find-file
+    "fc" 'open-conf
+    "TAB" 'evil-buffer
+    "bD" 'kill-buffer-and-window))
+#+END_SRC
+
+  Set evil escape key, using the evil-escape package.
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-escape
+    :ensure t
+    :init
+    (evil-escape-mode)
+    (setq evil-escape-key-sequence "jk"))
+#+END_SRC
+
+  Disable evil shift rounding.
+#+BEGIN_SRC emacs-lisp
+  (setq-default evil-shift-round 'nil)
+#+END_SRC
+
+  Easy commenting with evil-commentary.
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-commentary
+    :ensure t
+    :init (evil-commentary-mode))
+#+END_SRC
+
+  Finally enable evil-mode.
+#+BEGIN_SRC emacs-lisp
+  (evil-mode))
+#+END_SRC
+  
+** General keybindings
+   Splitting and focusing in one step.
+#+BEGIN_SRC emacs-lisp
+  (defun evil-window-vsplit-and-focus ()
+    "Split window vertically and move right to focus it"
+    (interactive)
+    (evil-window-vsplit)
+    (other-window 1))
+
+  (defun evil-window-split-and-focus ()
+    "Split window vertically and move right to focus it"
+    (interactive)
+    (evil-window-split)
+    (other-window 1))
+
+  (define-key evil-normal-state-map (kbd "C-w C-v") 'evil-window-vsplit-and-focus)
+  (define-key evil-normal-state-map (kbd "C-w C-s") 'evil-window-split-and-focus)
+#+END_SRC
+
+* Theme 
+** Monokai Theme 
+#+BEGIN_SRC emacs-lisp
+  (use-package monokai-theme
+    :ensure t
+    :init (load-theme 'monokai t))
+#+END_SRC
+
+  Customise theme by setting faces.
+#+BEGIN_SRC emacs-lisp
+  (custom-theme-set-faces
+   'monokai
+
+   '(header-line ((t (:background "#272822" :box nil))))
+   '(mode-line-inactive ((t (:foreground "#F8F8F0" :background "#49483E" :box (:line-width 1 :color "#64645E")))))
+   '(powerline-inactive1 ((t (:foreground "#F8F8F0" :background "#35331D"))))
+   '(powerline-inactive2 ((t (:foreground "#F8F8F0" :background "#272822"))))
+
+   '(company-tooltip-commmon ((t (:underline nil))))
+   '(company-preview-commmon ((t (:underline nil))))
+   '(company-tooltip-commmon-selection ((t (:underline nil))))
+
+   '(show-paren-match ((t (:foreground "#ff0000"))))
+
+   '(linum ((t (:foreground "#75715E" :background "#272822" :weight normal))))
+   '(linum-relative-current-face ((t (:foreground "#75715E" :background "#272822" :weight normal))))
+   
+   '(org-block-begin-line ((t (:foreground "#75715E" :background "#272822"))))
+   '(org-block-background ((t (:background "#272822"))))
+   '(org-block-end-line ((t (:foreground "#75715E" :background "#272822")))))
+#+END_SRC
+
+** Spaceline
+  An excellent powerline-based mode line.
+#+BEGIN_SRC emacs-lisp
+  (use-package spaceline
+    :ensure t
+    :init
+    (require 'spaceline-config)
+    (spaceline-spacemacs-theme)
+    (spaceline-helm-mode t)
+    (spaceline-info-mode t)
+    (spaceline-toggle-minor-modes-off)
+    (spaceline-toggle-purpose-off)
+#+END_SRC
+
+  Set the status colour to be based off the current evil-state.
+#+BEGIN_SRC emacs-lisp
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state))
+#+END_SRC
+
+* Helm
+#+BEGIN_SRC emacs-lisp
+    (use-package helm
+      :ensure t
+      :init
+      (helm-mode)
+      (setq helm-display-header-line nil)
+      (helm-autoresize-mode)
+      (setq helm-autoresize-max-height 30)
+      (setq helm-autoresize-min-height 30)
+      (global-set-key (kbd "M-x") 'helm-M-x)
+      (define-key helm-map (kbd "C-j") 'helm-next-line)
+      (define-key helm-map (kbd "C-k") 'helm-previous-line)
+      (define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
+      (define-key helm-find-files-map (kbd "C-l") 'helm-execute-persistent-action)
+      (define-key helm-map (kbd "C-l") 'helm-execute-persistent-action)
+      (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+      (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
+
+      (use-package helm-describe-modes
+        :ensure t
+        :init (global-set-key [remap describe-mode] #'helm-describe-modes))
+
+      (use-package helm-make
+        :ensure t))
+#+END_SRC
+  
+* Company
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :init
+    (global-company-mode)
+    (setq-default company-require-match 'nil))
+#+END_SRC
+
+* Magit
+  (And evil-magit for the vim-goodness inside magit buffers)
+#+BEGIN_SRC emacs-lisp
+    (use-package magit
+      :ensure t
+      :init
+      (use-package evil-magit
+        :ensure t)
+      (setq auto-revert-check-vc-info t))
+#+END_SRC
+
+* Projectile
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure t
+    :init
+    (use-package helm-projectile
+      :ensure t)
+    (projectile-mode))
+#+END_SRC
+
+* Org
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
+#+END_SRC
+
+  Enable syntax highlighting for org-mode source blocks.
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-fontify-natively t)
+#+END_SRC
+
+  Edit source block in current window rather than splitting.
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-window-setup 'current-window)
+#+END_SRC
+
+  Use evil-org-mode for nice evil keybindings in org-mode.
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/plugins/evil-org-mode")
+  (use-package evil-org
+    :ensure t)
+#+END_SRC
+
+  Set all headings to be the same height/weight.
+#+BEGIN_SRC emacs-lisp
+  (defun my/org-mode-hook ()
+    "Stop the org-level headers from increasing in height relative to the other text."
+    (dolist (face '(org-level-1
+                    org-level-2
+                    org-level-3
+                    org-level-4
+                    org-level-5))
+      (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
+
+  (add-hook 'org-mode-hook 'my/org-mode-hook)
+#+END_SRC
+
+  Set applications for running stuff.
+#+BEGIN_SRC emacs-lisp
+  (setq org-file-apps '((auto-mode . emacs)
+                       ("\\.mm\\'" . default)
+                       ("\\.x?html?\\'" . "google-chrome-stable %s")
+                       ("\\.pdf\\'" . "zathura %s")))
+#+END_SRC
+
+* Java
+** Packages
+  Setup Eclim.
+#+BEGIN_SRC emacs-lisp
+  (use-package company-emacs-eclim
+    :ensure
+    :init
+    (setq eclim-eclipse-dirs "/usr/lib/eclipse"
+          eclim-executable "/usr/lib/eclipse/eclim")
+    (company-emacs-eclim-setup)
+    (add-hook 'java-mode-hook (lambda() (eclim-mode))))
+#+END_SRC
+
+  Setup Gradle.
+#+BEGIN_SRC emacs-lisp
+  (use-package gradle-mode
+    :ensure t
+    :init
+    (use-package groovy-mode
+      :ensure t)
+    (add-hook 'java-mode-hook (lambda() (gradle-mode))))
+#+END_SRC
+
+** Keybindings
+#+BEGIN_SRC emacs-lisp
+  (defun completing-dot()
+    "Insert a dot and then show completions"
+    (interactive "*")
+    (company-abort)
+    (insert ".")
+    (company-complete))
+
+  (evil-define-key 'insert java-mode-map
+    (kbd ".") 'completing-dot)
+#+END_SRC
+   
+* ERC
+  Set the timestamp to be on the left and set every message to be timestamped
+#+BEGIN_SRC emacs-lisp
+  (setq erc-timestamp-only-if-changed-flag nil
+            erc-timestamp-format "%H:%M "
+            erc-fill-prefix "      "
+            erc-insert-timestamp-function 'erc-insert-timestamp-left)
+#+END_SRC
+
+  Hide messages about people joining/leaving the room
+#+BEGIN_SRC emacs-lisp
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
+#+END_SRC
+
+* Misc
+** Compilation
+   Compile in a nice small window at the bottom of the screen.
+#+BEGIN_SRC emacs-lisp
+  (defun my-compilation-hook ()
+    (when (not (get-buffer-window "*compilation*"))
+      (save-selected-window
+        (save-excursion
+          (let* ((w (split-window-vertically))
+                 (h (window-height w)))
+            (select-window w)
+            (switch-to-buffer "*compilation*")
+            (shrink-window (- h 25)))))))
+  (add-hook 'compilation-mode-hook 'my-compilation-hook)
+#+END_SRC
+
+   Remove 'g' to recompile keybinding
+#+BEGIN_SRC emacs-lisp
+  (define-key compilation-mode-map (kbd "g") 'nil)
+#+END_SRC
+** Smartparens
+#+BEGIN_SRC emacs-lisp
+  (use-package smartparens
+    :ensure t
+    :init
+    (add-hook 'prog-mode-hook 'smartparens-mode)
+    (use-package evil-smartparens
+      :ensure t
+      :init (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)))
+#+END_SRC
+
+   Remove "'" pair in emacs-lisp mode.
+#+BEGIN_SRC emacs-lisp
+  (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+#+END_SRC
+
+   Disable highlighting in pairs.
+#+BEGIN_SRC emacs-lisp
+  (setq sp-highlight-pair-overlay nil)
+  (setq sp-highlight-wrap-overlay nil)
+  (setq sp-highlight-wrap-tag-overlay nil)
+#+END_SRC
+
+** Rainbow Delimiters
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :init
+    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+    ;;(show-paren-mode -1))
+#+END_SRC
+
+** Relative Line Numbers
+  In programming modes, I want relative line numbers enabled.
+#+BEGIN_SRC emacs-lisp
+  (use-package linum-relative
+    :ensure t
+    :init
+    (add-hook 'prog-mode-hook 'linum-relative-mode)
+#+END_SRC
+
+  Setting the symbol for the current line as the empty string means that I can see the absolute line number for that line only.
+#+BEGIN_SRC emacs-lisp
+  (setq linum-relative-current-symbol ""))
+#+END_SRC
+
+** Smooth Scrolling
+#+BEGIN_SRC emacs-lisp
+  (use-package smooth-scrolling
+    :ensure t
+    :config
+    (setq scroll-step 1)
+    (setq scroll-conservatively 10000)
+    (do-smooth-scroll))
+#+END_SRC
+
+** Bell
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore)
+#+END_SRC
+
+** Scratch Buffer
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-screen 't)
+  (setq initial-major-mode 'org-mode)
+  (setq initial-scratch-message '"")
+#+END_SRC
+
+** Disable lockfile creation
+#+BEGIN_SRC emacs-lisp
+  (setq create-lockfiles nil)
+#+END_SRC
+
+** Fonts
+   Set default font.
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'default nil :font "Roboto Mono for Powerline")
+  (set-frame-font "Roboto Mono for Powerline" nil t)
+#+END_SRC
+   
+* TODOs
+** DONE Helm Navigation Keys
+** DONE Projectile
+** DONE Anything misc left in spacemacs config
+** TODO Java
+** TODO Company Navigation Keys
