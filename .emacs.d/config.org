@@ -20,7 +20,7 @@
 
 * Keybindings
 ** Evil
-  Config for evil-mode and related packages. Note that evil mode itself is enabled last to avoid problems with evil-leader in initial buffers
+  Config for evil-mode and related packages. Note that evil mode itself is enabled last to avoid problems with evil-leader in initial buffers.
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :ensure t
@@ -57,7 +57,8 @@
     "pf" 'helm-projectile-find-file
     "fc" 'open-conf
     "TAB" 'evil-buffer
-    "bD" 'kill-buffer-and-window))
+    "bD" 'kill-buffer-and-window
+    ",cr" 'recompile))
 #+END_SRC
 
   Set evil escape key, using the evil-escape package.
@@ -293,6 +294,14 @@
 
   (evil-define-key 'insert java-mode-map
     (kbd ".") 'completing-dot)
+
+  (evil-leader/set-key-for-mode 'java-mode
+    ",cc" 'gradle-build
+    ",cx" 'gradle-execute
+    ",ct" 'gradle-test
+    ",ds" 'start-eclimd
+    ",dk" 'stop-eclimd
+    ",gg" 'eclim-java-find-declaration)
 #+END_SRC
    
 * ERC
@@ -325,10 +334,44 @@
   (add-hook 'compilation-mode-hook 'my-compilation-hook)
 #+END_SRC
 
+   Close compilation after 2 seconds, if successful.
+#+BEGIN_SRC emacs-lisp
+  (setq compilation-finish-function
+    (lambda (buf str)
+      (if (null (string-match ".*exited abnormally.*" str))
+          ;;no errors, make the compilation window go away in a few seconds
+          (progn
+            (run-at-time
+             "2 sec" nil 'delete-windows-on
+             (get-buffer-create "*compilation*"))
+            (message "No Compilation Errors!")))))
+#+END_SRC
+
+   Scroll to first error
+#+BEGIN_SRC emacs-lisp
+  (setq compilation-scroll-output 'first-error)
+#+END_SRC
+
    Remove 'g' to recompile keybinding
 #+BEGIN_SRC emacs-lisp
   (define-key compilation-mode-map (kbd "g") 'nil)
 #+END_SRC
+
+** Help
+   Open help in a small window like with compilation
+#+BEGIN_SRC emacs-lisp
+  (defun my-help-hook ()
+    (when (not (get-buffer-window "*Help*"))
+      (save-selected-window
+        (save-excursion
+          (let* ((w (split-window-vertically))
+                 (h (window-height w)))
+            (select-window w)
+            (switch-to-buffer "*Help*")
+            (shrink-window (- h 25)))))))
+  (add-hook 'help-mode-hook 'my-help-hook)
+#+END_SRC
+
 ** Smartparens
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
@@ -385,9 +428,23 @@
     (do-smooth-scroll))
 #+END_SRC
 
+** Which Key
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :ensure t
+    :init
+    (which-key-mode)
+    (setq which-key-idle-delay 1.5))
+#+END_SRC
+
 ** Bell
 #+BEGIN_SRC emacs-lisp
   (setq ring-bell-function 'ignore)
+#+END_SRC
+
+** Set Browser
+#+BEGIN_SRC emacs-lisp
+  (setq browse-url-generic-program "google-chrome-stable")
 #+END_SRC
 
 ** Scratch Buffer
