@@ -24,7 +24,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :ensure t
-    :init 
+    :config 
 #+END_SRC
 
   Set some evil-leader keybindings.
@@ -45,7 +45,7 @@
   ;;Set keybindings that follow the leader key
   (use-package evil-leader
     :ensure t
-    :init
+    :config
     (global-evil-leader-mode)
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
@@ -65,7 +65,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package evil-escape
     :ensure t
-    :init
+    :config
     (evil-escape-mode)
     (setq evil-escape-key-sequence "jk"))
 #+END_SRC
@@ -79,7 +79,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package evil-commentary
     :ensure t
-    :init (evil-commentary-mode))
+    :config (evil-commentary-mode))
 #+END_SRC
 
   Finally enable evil-mode.
@@ -104,6 +104,12 @@
 
   (define-key evil-normal-state-map (kbd "C-w C-v") 'evil-window-vsplit-and-focus)
   (define-key evil-normal-state-map (kbd "C-w C-s") 'evil-window-split-and-focus)
+
+#+END_SRC
+
+   Indent from normal mode.
+#+BEGIN_SRC emacs-lisp
+  (define-key evil-normal-state-map (kbd "TAB") 'c-indent-line-or-region)
 #+END_SRC
 
 * Theme 
@@ -111,7 +117,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package monokai-theme
     :ensure t
-    :init (load-theme 'monokai t))
+    :config (load-theme 'monokai t))
 #+END_SRC
 
   Customise theme by setting faces.
@@ -124,14 +130,20 @@
    '(powerline-inactive1 ((t (:foreground "#F8F8F0" :background "#35331D"))))
    '(powerline-inactive2 ((t (:foreground "#F8F8F0" :background "#272822"))))
 
-   '(company-tooltip-commmon ((t (:underline nil))))
-   '(company-preview-commmon ((t (:underline nil))))
-   '(company-tooltip-commmon-selection ((t (:underline nil))))
-
    '(show-paren-match ((t (:foreground "#ff0000"))))
+
+   '(company-tooltip-common ((t (:underline nil))))
+   '(company-preview-common ((t (:underline nil))))
+   '(company-tooltip-common-selection ((t (:underline nil))))
 
    '(linum ((t (:foreground "#75715E" :background "#272822" :weight normal))))
    '(linum-relative-current-face ((t (:foreground "#75715E" :background "#272822" :weight normal))))
+
+   '(flycheck-error((t (:underline (:style wave :color "#ff0000")))))
+   '(flycheck-warning((t (:underline (:style wave)))))
+
+   '(eclim-problems-highlight-error-face ((t (:underline (:style wave)))))
+   '(eclim-problems-highlight-warning-face ((t (:underline (:style wave)))))
    
    '(org-block-begin-line ((t (:foreground "#75715E" :background "#272822"))))
    '(org-block-background ((t (:background "#272822"))))
@@ -143,7 +155,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package spaceline
     :ensure t
-    :init
+    :config
     (require 'spaceline-config)
     (spaceline-spacemacs-theme)
     (spaceline-helm-mode t)
@@ -161,7 +173,7 @@
 #+BEGIN_SRC emacs-lisp
     (use-package helm
       :ensure t
-      :init
+      :config
       (helm-mode)
       (setq helm-display-header-line nil)
       (helm-autoresize-mode)
@@ -178,7 +190,7 @@
 
       (use-package helm-describe-modes
         :ensure t
-        :init (global-set-key [remap describe-mode] #'helm-describe-modes))
+        :config (global-set-key [remap describe-mode] #'helm-describe-modes))
 
       (use-package helm-make
         :ensure t))
@@ -188,12 +200,34 @@
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
-    :init
+    :config
     (global-company-mode)
     (setq-default company-require-match 'nil))
 
   (define-key company-active-map (kbd "C-j") 'company-select-next)
   (define-key company-active-map (kbd "C-k") 'company-select-previous)
+
+  (defun completing-dot()
+    "Insert a dot and then show completions"
+    (interactive "*")
+    (company-abort)
+    (insert ".")
+    (company-complete))
+
+  ;; For some reason doing this for prog-mode-map doesn't work, so you have to do this...
+
+  (evil-define-key 'insert java-mode-map
+    (kbd ".") 'completing-dot)
+
+  (evil-define-key 'insert haskell-mode-map
+    (kbd ".") 'completing-dot)
+#+END_SRC
+
+* Flycheck
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :config (setq flycheck-indication-mode nil))
 #+END_SRC
 
 * Magit
@@ -201,7 +235,7 @@
 #+BEGIN_SRC emacs-lisp
     (use-package magit
       :ensure t
-      :init
+      :config
       (use-package evil-magit
         :ensure t)
       (setq auto-revert-check-vc-info t))
@@ -211,7 +245,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
-    :init
+    :config
     (use-package helm-projectile
       :ensure t)
     (projectile-mode))
@@ -221,7 +255,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
     :ensure t
-    :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
+    :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
 #+END_SRC
 
   Enable syntax highlighting for org-mode source blocks.
@@ -239,6 +273,12 @@
   (add-to-list 'load-path "~/.emacs.d/plugins/evil-org-mode")
   (use-package evil-org
     :ensure t)
+#+END_SRC
+
+  Enter in normal mode to open links
+#+BEGIN_SRC emacs-lisp
+  (evil-define-key 'normal org-mode-map
+    (kbd "RET") 'evil-org-open-links)
 #+END_SRC
 
   Set all headings to be the same height/weight.
@@ -263,24 +303,44 @@
                        ("\\.pdf\\'" . "zathura %s")))
 #+END_SRC
 
+** Todo/Agenda
+   Set location of agenda files.
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files '("~/org/"))
+#+END_SRC
+
+   Open agenda in current window.
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-window-setup 'current-window)
+#+END_SRC
+
+   Add some custom todo states
+#+BEGIN_SRC emacs-lisp
+  (setq org-todo-keywords '((sequence "TODO" "WAITING" "IN-PROGRESS" "|" "DONE")))
+  (setq org-todo-keyword-faces '(("WAITING" . "deepskyblue1") ("IN-PROGRESS" . "yellow")))
+#+END_SRC
+
 * Java
 ** Packages
   Setup Eclim.
 #+BEGIN_SRC emacs-lisp
-  (use-package company-emacs-eclim
-    :ensure
-    :init
+  (use-package eclim
+    :ensure t
+    :config
     (setq eclim-eclipse-dirs "/usr/lib/eclipse"
           eclim-executable "/usr/lib/eclipse/eclim")
-    (company-emacs-eclim-setup)
-    (add-hook 'java-mode-hook (lambda() (eclim-mode))))
+    (use-package company-emacs-eclim
+      :ensure t
+      :config (company-emacs-eclim-setup)
+    (add-hook 'java-mode-hook (lambda() (eclim-mode)))))
 #+END_SRC
+
 
   Setup Gradle.
 #+BEGIN_SRC emacs-lisp
   (use-package gradle-mode
     :ensure t
-    :init
+    :config
     (use-package groovy-mode
       :ensure t)
     (add-hook 'java-mode-hook (lambda() (gradle-mode))))
@@ -288,16 +348,6 @@
 
 ** Keybindings
 #+BEGIN_SRC emacs-lisp
-  (defun completing-dot()
-    "Insert a dot and then show completions"
-    (interactive "*")
-    (company-abort)
-    (insert ".")
-    (company-complete))
-
-  (evil-define-key 'insert java-mode-map
-    (kbd ".") 'completing-dot)
-
   (evil-leader/set-key-for-mode 'java-mode
     ",cc" 'gradle-build
     ",cx" 'gradle-execute
@@ -306,7 +356,49 @@
     ",dk" 'stop-eclimd
     ",gg" 'eclim-java-find-declaration)
 #+END_SRC
-   
+
+* Haskell
+** Packages
+#+BEGIN_SRC emacs-lisp
+  (use-package haskell-mode
+    :ensure t
+    :config
+    (use-package ghc
+      :ensure t
+      :config
+      (autoload 'ghc-init "ghc" nil t)
+      (autoload 'ghc-debug "ghc" nil t)
+      (add-hook 'haskell-mode-hook (lambda () (ghc-init))))
+    (use-package company-ghc
+      :ensure t
+      :config (add-to-list 'company-backends 'company-ghc))
+    (use-package company-ghci
+      :ensure t
+      :config (add-to-list 'company-backends 'company-ghci))
+    (use-package flycheck-haskell
+      :ensure t
+      :config
+      (eval-after-load 'flycheck
+        '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)))
+    (use-package helm-ghc
+      :ensure t)
+    (use-package helm-ghc
+      :ensure t)
+
+    (add-hook 'haskell-mode-hook (lambda () (flycheck-mode)))
+
+    ;;Stop the repl getting stuck
+    (add-hook 'haskell-interactive-mode-hook
+              (lambda ()
+                (setq-local evil-move-cursor-back nil))))
+#+END_SRC
+
+* Markdown
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode+
+    :ensure t)
+#+END_SRC
+
 * ERC
   Set the timestamp to be on the left and set every message to be timestamped
 #+BEGIN_SRC emacs-lisp
@@ -323,20 +415,6 @@
 
 * Misc
 ** Compilation
-   Compile in a nice small window at the bottom of the screen.
-#+BEGIN_SRC emacs-lisp
-  (defun my-compilation-hook ()
-    (when (not (get-buffer-window "*compilation*"))
-      (save-selected-window
-        (save-excursion
-          (let* ((w (split-window-vertically))
-                 (h (window-height w)))
-            (select-window w)
-            (switch-to-buffer "*compilation*")
-            (shrink-window (- h 25)))))))
-  (add-hook 'compilation-mode-hook 'my-compilation-hook)
-#+END_SRC
-
    Close compilation after 2 seconds, if successful.
 #+BEGIN_SRC emacs-lisp
   (setq compilation-finish-function
@@ -359,31 +437,25 @@
 #+BEGIN_SRC emacs-lisp
   (define-key compilation-mode-map (kbd "g") 'nil)
 #+END_SRC
-
-** Help
-   Open help in a small window like with compilation
+   
+** Popwin
 #+BEGIN_SRC emacs-lisp
-  (defun my-help-hook ()
-    (when (not (get-buffer-window "*Help*"))
-      (save-selected-window
-        (save-excursion
-          (let* ((w (split-window-vertically))
-                 (h (window-height w)))
-            (select-window w)
-            (switch-to-buffer "*Help*")
-            (shrink-window (- h 25)))))))
-  (add-hook 'help-mode-hook 'my-help-hook)
+  (use-package popwin
+    :ensure t
+    :config
+    (popwin-mode)
+    (setq popwin:popup-window-height 25))
 #+END_SRC
 
 ** Smartparens
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
     :ensure t
-    :init
+    :config
     (add-hook 'prog-mode-hook 'smartparens-mode)
     (use-package evil-smartparens
       :ensure t
-      :init (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)))
+      :config (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)))
 #+END_SRC
 
    Remove "'" pair in emacs-lisp mode.
@@ -398,11 +470,23 @@
   (setq sp-highlight-wrap-tag-overlay nil)
 #+END_SRC
 
+   Insert a new line and indent after opening brace.
+#+BEGIN_SRC emacs-lisp
+  (defun my-create-newline-and-enter-sexp (&rest _ignored)
+    "Open a new brace or bracket expression, with relevant newlines and indent. "
+    (newline)
+    (indent-according-to-mode)
+    (forward-line -1)
+    (indent-according-to-mode))
+
+  (sp-pair "{" nil :post-handlers '((my-create-newline-and-enter-sexp "RET")))
+#+END_SRC 
+
 ** Rainbow Delimiters
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
     :ensure t
-    :init
+    :config
     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
     ;;(show-paren-mode -1))
 #+END_SRC
@@ -412,13 +496,20 @@
 #+BEGIN_SRC emacs-lisp
   (use-package linum-relative
     :ensure t
-    :init
+    :config
     (add-hook 'prog-mode-hook 'linum-relative-mode)
 #+END_SRC
 
   Setting the symbol for the current line as the empty string means that I can see the absolute line number for that line only.
 #+BEGIN_SRC emacs-lisp
   (setq linum-relative-current-symbol ""))
+#+END_SRC
+
+** Help in echo area
+#+BEGIN_SRC emacs-lisp
+  (setq help-at-pt-display-when-idle t)
+  (setq help-at-pt-timer-delay 0.1)
+  (help-at-pt-set-timer)
 #+END_SRC
 
 ** Smooth Scrolling
@@ -435,7 +526,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :ensure t
-    :init
+    :config
     (which-key-mode)
     (setq which-key-idle-delay 1.5))
 #+END_SRC
@@ -447,14 +538,19 @@
 
 ** Set Browser
 #+BEGIN_SRC emacs-lisp
-  (setq browse-url-generic-program "google-chrome-stable")
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "google-chrome-stable")
 #+END_SRC
 
 ** Scratch Buffer
 #+BEGIN_SRC emacs-lisp
-  (setq inhibit-startup-screen 't)
   (setq initial-major-mode 'org-mode)
   (setq initial-scratch-message '"")
+#+END_SRC
+
+** Open Todo file on startup
+#+BEGIN_SRC emacs-lisp
+  (setq initial-buffer-choice "~/org/Todo.org")
 #+END_SRC
 
 ** Disable lockfile creation
@@ -469,9 +565,3 @@
   (set-frame-font "Roboto Mono for Powerline" nil t)
 #+END_SRC
    
-* TODOs
-** DONE Helm Navigation Keys
-** DONE Projectile
-** DONE Anything misc left in spacemacs config
-** TODO Java
-** DONE Company Navigation Keys
