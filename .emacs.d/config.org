@@ -139,11 +139,11 @@
    '(linum ((t (:foreground "#75715E" :background "#272822" :weight normal))))
    '(linum-relative-current-face ((t (:foreground "#75715E" :background "#272822" :weight normal))))
 
-   '(flycheck-error((t (:underline (:style wave :color "#ff0000")))))
-   '(flycheck-warning((t (:underline (:style wave)))))
+   '(flycheck-error((t (:underline (:color "#ff0000" :style wave )))))
+   '(flycheck-warning((t (:underline (:color "#ffff00" :style wave)))))
 
-   '(eclim-problems-highlight-error-face ((t (:underline (:style wave)))))
-   '(eclim-problems-highlight-warning-face ((t (:underline (:style wave)))))
+   '(eclim-problems-highlight-error-face((t (:underline (:color "#ff0000" :style wave)))))
+   '(eclim-problems-highlight-warning-face((t (:underline (:color "#ffff00" :style wave)))))
    
    '(org-block-begin-line ((t (:foreground "#75715E" :background "#272822"))))
    '(org-block-background ((t (:background "#272822"))))
@@ -205,6 +205,7 @@
     (setq-default company-require-match 'nil))
 
   (define-key company-active-map (kbd "C-j") 'company-select-next)
+  (define-key company-active-map (kbd "TAB") 'company-select-next)
   (define-key company-active-map (kbd "C-k") 'company-select-previous)
 
   (defun completing-dot()
@@ -221,13 +222,15 @@
 
   (evil-define-key 'insert haskell-mode-map
     (kbd ".") 'completing-dot)
+
+  (evil-define-key 'insert c++-mode-map
+    (kbd ".") 'completing-dot)
 #+END_SRC
 
 * Flycheck
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
-    :ensure t
-    :config (setq flycheck-indication-mode nil))
+    :ensure t)
 #+END_SRC
 
 * Magit
@@ -320,9 +323,55 @@
   (setq org-todo-keyword-faces '(("WAITING" . "deepskyblue1") ("IN-PROGRESS" . "yellow")))
 #+END_SRC
 
+* C/C++
+** Packages
+#+BEGIN_SRC emacs-lisp
+  (use-package cc-mode
+    :ensure t)
+
+  (use-package cmake-mode
+    :ensure t)
+
+  (use-package company-c-headers
+    :ensure t
+    :config (add-to-list 'company-backends 'company-c-headers))
+
+  (use-package c-eldoc
+    :ensure t
+    :config 
+    (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
+    (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode))
+
+  (use-package helm-gtags
+    :ensure t
+    :config (setq helm-gtags-update-interval-second 'nil))
+#+END_SRC
+
+** Keybindings
+#+BEGIN_SRC emacs-lisp
+  (evil-leader/set-key-for-mode 'c-mode
+    ",cc" 'helm-make-projectile
+    ",gg" 'helm-gtags-find-tag-from-here
+    ",gc" 'helm-gtags-create-tags
+    ",ga" 'projectile-find-other-file
+    ",gA" 'projectile-find-other-file-other-window)
+
+  (evil-leader/set-key-for-mode 'c++-mode
+    ",cc" 'helm-make-projectile
+    ",gg" 'helm-gtags-find-tag-from-here
+    ",gc" 'helm-gtags-create-tags
+    ",ga" 'projectile-find-other-file
+    ",gA" 'projectile-find-other-file-other-window)
+#+END_SRC
+
+** Misc
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'c-mode-hook (lambda() (flycheck-mode)))
+#+END_SRC
+
 * Java
 ** Packages
-  Setup Eclim.
+   Setup Eclim.
 #+BEGIN_SRC emacs-lisp
   (use-package eclim
     :ensure t
@@ -356,6 +405,12 @@
     ",dk" 'stop-eclimd
     ",gg" 'eclim-java-find-declaration)
 #+END_SRC
+  
+** Misc
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'java-mode-hook (lambda() (c-set-style "java")))
+
+#+END_SRC
 
 * Haskell
 ** Packages
@@ -387,6 +442,8 @@
 
     (add-hook 'haskell-mode-hook (lambda () (flycheck-mode)))
 
+    (setq haskell-interactive-popup-errors 'nil)
+
     ;;Stop the repl getting stuck
     (add-hook 'haskell-interactive-mode-hook
               (lambda ()
@@ -395,7 +452,7 @@
 
 * Markdown
 #+BEGIN_SRC emacs-lisp
-  (use-package markdown-mode+
+  (use-package markdown-mode
     :ensure t)
 #+END_SRC
 
@@ -415,7 +472,7 @@
 
 * Misc
 ** Compilation
-   Close compilation after 2 seconds, if successful.
+   Close compilation after 3 seconds, if successful.
 #+BEGIN_SRC emacs-lisp
   (setq compilation-finish-function
     (lambda (buf str)
@@ -423,9 +480,9 @@
           ;;no errors, make the compilation window go away in a few seconds
           (progn
             (run-at-time
-             "2 sec" nil 'delete-windows-on
+             "3 sec" nil 'delete-windows-on
              (get-buffer-create "*compilation*"))
-            (message "No Compilation Errors!")))))
+            (message "Compilation successful")))))
 #+END_SRC
 
    Scroll to first error
@@ -433,9 +490,10 @@
   (setq compilation-scroll-output 'first-error)
 #+END_SRC
 
-   Remove 'g' to recompile keybinding
+   Remove some unused keybindings in compilation mode.
 #+BEGIN_SRC emacs-lisp
   (define-key compilation-mode-map (kbd "g") 'nil)
+  (define-key compilation-mode-map (kbd "h") 'nil)
 #+END_SRC
    
 ** Popwin
@@ -488,7 +546,6 @@
     :ensure t
     :config
     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
-    ;;(show-paren-mode -1))
 #+END_SRC
 
 ** Relative Line Numbers
@@ -503,6 +560,11 @@
   Setting the symbol for the current line as the empty string means that I can see the absolute line number for that line only.
 #+BEGIN_SRC emacs-lisp
   (setq linum-relative-current-symbol ""))
+#+END_SRC
+
+** Default Style
+#+BEGIN_SRC emacs-lisp
+  (setq c-default-style "linux")
 #+END_SRC
 
 ** Help in echo area
