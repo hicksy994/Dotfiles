@@ -4,8 +4,6 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Spacing
-import XMonad.Layout.Named
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
@@ -14,7 +12,7 @@ myTerminal :: String
 myTerminal = "urxvt"
 
 myScreensaver :: String
-myScreensaver = "i3lock -u -i ~/wallpapers/sunset.png"
+myScreensaver = "i3lock -u -i ~/wallpapers/elcapitan.png"
 
 myLauncher :: String
 myLauncher = "rofi -show run"
@@ -41,12 +39,12 @@ xmobarUnfocusedWorkspaceColor :: String
 xmobarUnfocusedWorkspaceColor = "#676E7D"
 
 myWorkspaces :: [String]
-myWorkspaces = ["\62056 Chrome ", "\61729 Emacs ", "\61728 Urxvt ", "\61884 Spotify "] ++  map show [5::Int ..9]
+myWorkspaces = map show [1::Int ..9]
 
 myManageHook = composeAll 
-    [ className =? "Google-chrome"        --> doShift "\62056 Chrome "
-    , className =? "Emacs"                --> doShift "\61729 Emacs "
-    , className =? "Spotify"              --> doShift "\61884 Spotify "
+    [ className =? "Google-chrome"        --> doShift "1"
+    , className =? "Emacs"                --> doShift "2"
+    , className =? "Spotify"              --> doShift "4"
     , className =? "Qemu-system-x86_64"   --> doFloat
     ]
     
@@ -63,14 +61,7 @@ myKeys =
     , ((0, 0x1008FF16), spawn "~/Scripts/sp prev")
     , ((0, 0x1008FF14), spawn "~/Scripts/sp play")
     ]
-    
-myLayout = avoidStruts (tall ||| Mirror tall ||| Full)
-  where
-    tall = named "Tall" (spacingWithEdge 5 $ Tall nmaster delta ratio)
-    nmaster = 1
-    ratio = 1/2
-    delta = 1/100
-    
+
 defaults = def
     { modMask = mod4Mask
     , terminal = myTerminal
@@ -80,7 +71,7 @@ defaults = def
     , borderWidth = myBorderWidth
     , manageHook = manageDocks <+> myManageHook
     , handleEventHook = fullscreenEventHook
-    , layoutHook = smartBorders $ myLayout
+    , layoutHook = smartBorders $ avoidStruts $ layoutHook def
     , startupHook = setWMName "LG3D"
     }
 
