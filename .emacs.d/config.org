@@ -306,6 +306,12 @@
                        ("\\.pdf\\'" . "zathura %s")))
 #+END_SRC
 
+  Turn on visual line mode in org
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook (lambda() (visual-line-mode)))
+#+END_SRC
+
+
 ** Todo/Agenda
    Set location of agenda files.
 #+BEGIN_SRC emacs-lisp
@@ -403,6 +409,8 @@
     ",ct" 'gradle-test
     ",ds" 'start-eclimd
     ",dk" 'stop-eclimd
+    ",ec" 'eclim-problems-correct
+    ",eb" 'eclim-problems
     ",gg" 'eclim-java-find-declaration)
 #+END_SRC
   
@@ -471,18 +479,20 @@
 #+END_SRC
 
 * Misc
-** Compilation
-   Close compilation after 3 seconds, if successful.
+** Recentf
 #+BEGIN_SRC emacs-lisp
-  (setq compilation-finish-function
-    (lambda (buf str)
-      (if (null (string-match ".*exited abnormally.*" str))
-          ;;no errors, make the compilation window go away in a few seconds
-          (progn
-            (run-at-time
-             "3 sec" nil 'delete-windows-on
-             (get-buffer-create "*compilation*"))
-            (message "Compilation successful")))))
+  (recentf-mode 1)
+#+END_SRC
+** Compilation
+
+   Use ANSI colours in compilation.
+#+BEGIN_SRC emacs-lisp
+  (require 'ansi-color)
+  (defun colorize-compilation-buffer ()
+    (let ((inhibit-read-only t))
+      (ansi-color-apply-on-region (point-min) (point-max))))
+
+  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 #+END_SRC
 
    Scroll to first error
@@ -565,6 +575,7 @@
 ** Default Style
 #+BEGIN_SRC emacs-lisp
   (setq c-default-style "linux")
+  (setq c-basic-offset 4)
 #+END_SRC
 
 ** Help in echo area
