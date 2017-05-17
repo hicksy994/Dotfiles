@@ -146,7 +146,7 @@
    '(eclim-problems-highlight-warning-face((t (:underline (:color "#ffff00" :style wave)))))
    
    '(org-block-begin-line ((t (:foreground "#75715E" :background "#272822"))))
-   '(org-block-background ((t (:background "#272822"))))
+   '(org-block((t (:background "#272822"))))
    '(org-block-end-line ((t (:foreground "#75715E" :background "#272822")))))
 #+END_SRC
 
@@ -175,21 +175,38 @@
     :ensure t
     :config
     (helm-mode)
+#+END_SRC
+** Appearance
+#+BEGIN_SRC emacs-lisp
+
     (setq helm-display-header-line nil)
     (helm-autoresize-mode)
     (setq helm-autoresize-max-height 30)
     (setq helm-autoresize-min-height 30)
+#+END_SRC
+** Keybindings
+#+BEGIN_SRC emacs-lisp
     (global-set-key (kbd "M-x") 'helm-M-x)
     (define-key helm-map (kbd "C-j") 'helm-next-line)
     (define-key helm-map (kbd "C-k") 'helm-previous-line)
     (define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
     (define-key helm-find-files-map (kbd "C-l") 'helm-execute-persistent-action)
     (define-key helm-map (kbd "C-l") 'helm-execute-persistent-action)
+    (define-key helm-map (kbd "C-h") 'helm-find-files-up-one-level)
+    (define-key helm-read-file-map (kbd "C-l") 'helm-execute-persistent-action)
+    (define-key helm-read-file-map (kbd "C-h") 'helm-find-files-up-one-level)
     (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
     (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
+#+END_SRC
+** Set boring buffers
+#+BEGIN_SRC emacs-lisp
     (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*Help")
     (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*Flycheck")
-
+    (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*magit-process")
+    (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*magit-diff")
+#+END_SRC
+** Use other related packages
+#+BEGIN_SRC emacs-lisp
     (use-package helm-describe-modes
       :ensure t
       :config (global-set-key [remap describe-mode] #'helm-describe-modes))
@@ -236,14 +253,18 @@
 #+END_SRC
 
 * Magit
-  (And evil-magit for the vim-goodness inside magit buffers)
 #+BEGIN_SRC emacs-lisp
-    (use-package magit
+  (use-package magit
+    :ensure t
+    :config
+    (use-package evil-magit
+      :ensure t)
+    (use-package magithub
       :ensure t
+      :after magit
       :config
-      (use-package evil-magit
-        :ensure t)
-      (setq auto-revert-check-vc-info t))
+      (magithub-feature-autoinject t))
+    (setq auto-revert-check-vc-info t))
 #+END_SRC
 
 * Projectile
