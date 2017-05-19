@@ -21,7 +21,7 @@ myFocusedBorderColor :: String
 myFocusedBorderColor = "#68a2ff"
 
 myNormalBorderColor :: String
-myNormalBorderColor = "#2f343f"
+myNormalBorderColor = "#22262E"
 
 myBorderWidth :: Dimension
 myBorderWidth = 2
@@ -42,10 +42,7 @@ myWorkspaces :: [String]
 myWorkspaces = map show [1::Int ..9]
 
 myManageHook = composeAll 
-    [ className =? "Google-chrome"        --> doShift "1"
-    , className =? "Emacs"                --> doShift "2"
-    , className =? "Spotify"              --> doShift "4"
-    , className =? "Qemu-system-x86_64"   --> doFloat
+    [ className =? "Qemu-system-x86_64"   --> doFloat
     ]
     
 myKeys =

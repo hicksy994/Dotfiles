@@ -1,7 +1,7 @@
 Config { font = "xft:Droid Sans:size=11,FontAwesome:size=11"
          , borderColor = "#2f343f"
          , overrideRedirect = False
-         , bgColor = "#2f343f"
+         , bgColor = "#22262E"
          , fgColor = "#f3f4f5"
          -- , commands = [Run Date "%a %_d %b %Y  %H:%M:%S " "date" 10,
                        -- Run Memory ["-t","Mem: <usedratio>%"] 10,
