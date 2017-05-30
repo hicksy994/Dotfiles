@@ -260,11 +260,12 @@ Create and set variable for switching between helm/ivy
         "ff" 'counsel-find-file
         "pp" 'counsel-projectile
         "pf" 'counsel-projectile-find-file
+        "ps" 'counsel-projectile-ag
         "s" 'swiper
         "bb" 'ivy-switch-buffer)
       (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
       (global-set-key (kbd "M-x") 'counsel-M-x)
-      (define-key ivy-minibuffer-map (kbd "C-h") 'ivy-backward-delete-char)
+      (define-key ivy-minibuffer-map (kbd "C-h") 'counsel-up-directory)
       (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-partial-or-done)
       (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line))))
 #+END_SRC
