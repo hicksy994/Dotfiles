@@ -169,7 +169,7 @@
 #+END_SRC
 
 * Helm and Ivy
-Create and set variable for switching between helm/ivy  
+Create and set variable for switching between helm/ivy
 #+BEGIN_SRC emacs-lisp
   (setq my-completion-framework "ivy")
 #+END_SRC
@@ -246,6 +246,7 @@ Create and set variable for switching between helm/ivy
       (setq ivy-re-builders-alist
             '((ivy-switch-buffer . ivy--regex-plus)
               (t . ivy--regex-fuzzy)))
+      (setq ivy-ignore-buffers '("\\` " "\\`\\*magit-process" "\\`\\*magit-diff" "\\`\\*Flycheck"))
 
       (use-package counsel
         :ensure t)
