@@ -1,4 +1,4 @@
-#+TITLE: Emacs Config
+#+Title: Emacs Config
 
 * Package Management
 #+BEGIN_SRC emacs-lisp
@@ -246,7 +246,7 @@ Create and set variable for switching between helm/ivy
       (setq ivy-re-builders-alist
             '((ivy-switch-buffer . ivy--regex-plus)
               (t . ivy--regex-fuzzy)))
-    
+
       (use-package counsel
         :ensure t)
       (use-package counsel-projectile
@@ -263,6 +263,7 @@ Create and set variable for switching between helm/ivy
         "s" 'swiper
         "bb" 'ivy-switch-buffer)
       (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
+      (global-set-key (kbd "M-x") 'counsel-M-x)
       (define-key ivy-minibuffer-map (kbd "C-h") 'ivy-backward-delete-char)
       (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-partial-or-done)
       (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line))))
@@ -558,6 +559,11 @@ Create and set variable for switching between helm/ivy
 ** Recentf
 #+BEGIN_SRC emacs-lisp
   (recentf-mode 1)
+#+END_SRC
+** Smex
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :ensure t)
 #+END_SRC
 ** Compilation
 
