@@ -50,11 +50,7 @@
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
     "g" 'magit-status
-    "bb" 'helm-mini
     "bd" 'kill-this-buffer
-    "ff" 'helm-find-files
-    "pp" 'helm-projectile
-    "pf" 'helm-projectile-find-file
     "fc" 'open-conf
     "TAB" 'evil-buffer
     "bD" 'kill-buffer-and-window
@@ -169,52 +165,100 @@
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state))
 #+END_SRC
 
-* Helm
+* Helm and Ivy
+Create and set variable for switching between helm/ivy  
 #+BEGIN_SRC emacs-lisp
+  (setq my-completion-framework "ivy")
+#+END_SRC
+** Helm
+#+BEGIN_SRC emacs-lisp
+  (cond ((string= my-completion-framework "helm")
   (use-package helm
     :ensure t
     :config
     (helm-mode)
 #+END_SRC
-** Appearance
-#+BEGIN_SRC emacs-lisp
+*** Appearance
+ #+BEGIN_SRC emacs-lisp
 
-    (setq helm-display-header-line nil)
-    (helm-autoresize-mode)
-    (setq helm-autoresize-max-height 30)
-    (setq helm-autoresize-min-height 30)
-#+END_SRC
-** Keybindings
+     (setq helm-display-header-line nil)
+     (helm-autoresize-mode)
+     (setq helm-autoresize-max-height 30)
+     (setq helm-autoresize-min-height 30)
+ #+END_SRC
+*** Set boring buffers
+ #+BEGIN_SRC emacs-lisp
+     (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*Help")
+     (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*Flycheck")
+     (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*magit-process")
+     (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*magit-diff")
+ #+END_SRC
+*** Use other related packages
+ #+BEGIN_SRC emacs-lisp
+   (use-package helm-describe-modes
+     :ensure t
+     :config (global-set-key [remap describe-mode] #'helm-describe-modes))
+
+   (use-package helm-ag
+     :ensure t)
+
+   (use-package helm-swoop
+     :ensure t
+     :config 
+     (define-key evil-normal-state-map (kbd "/") 'helm-swoop-without-pre-input))
+
+   (use-package helm-make
+     :ensure t)
+ #+END_SRC
+
+*** Keybindings
+ #+BEGIN_SRC emacs-lisp
+   (evil-leader/set-key
+     "ff" 'helm-find-files
+     "pp" 'helm-projectile
+     "pf" 'helm-projectile-find-file
+     "bb" 'helm-mini)
+   (global-set-key (kbd "M-x") 'helm-M-x)
+   (define-key helm-map (kbd "C-j") 'helm-next-line)
+   (define-key helm-map (kbd "C-k") 'helm-previous-line)
+   (define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
+   (define-key helm-find-files-map (kbd "C-l") 'helm-execute-persistent-action)
+   (define-key helm-map (kbd "C-l") 'helm-execute-persistent-action)
+   (define-key helm-map (kbd "C-h") 'helm-find-files-up-one-level)
+   (define-key helm-read-file-map (kbd "C-l") 'helm-execute-persistent-action)
+   (define-key helm-read-file-map (kbd "C-h") 'helm-find-files-up-one-level)
+   (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)))
+ #+END_SRC
+
+** Ivy
 #+BEGIN_SRC emacs-lisp
-    (global-set-key (kbd "M-x") 'helm-M-x)
-    (define-key helm-map (kbd "C-j") 'helm-next-line)
-    (define-key helm-map (kbd "C-k") 'helm-previous-line)
-    (define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
-    (define-key helm-find-files-map (kbd "C-l") 'helm-execute-persistent-action)
-    (define-key helm-map (kbd "C-l") 'helm-execute-persistent-action)
-    (define-key helm-map (kbd "C-h") 'helm-find-files-up-one-level)
-    (define-key helm-read-file-map (kbd "C-l") 'helm-execute-persistent-action)
-    (define-key helm-read-file-map (kbd "C-h") 'helm-find-files-up-one-level)
-    (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
-    (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-#+END_SRC
-** Set boring buffers
-#+BEGIN_SRC emacs-lisp
-    (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*Help")
-    (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*Flycheck")
-    (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*magit-process")
-    (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*magit-diff")
-#+END_SRC
-** Use other related packages
-#+BEGIN_SRC emacs-lisp
-    (use-package helm-describe-modes
+  ((string= my-completion-framework "ivy")
+    (use-package ivy
       :ensure t
-      :config (global-set-key [remap describe-mode] #'helm-describe-modes))
+      :config
+      (ivy-mode)
+      (setq ivy-height 10)
+      (setq ivy-use-virtual-buffers t)
+      (use-package counsel
+        :ensure t)
+      (use-package counsel-projectile
+        :ensure t)
+      (use-package swiper
+        :ensure t)
 
-    (use-package helm-make
-      :ensure t))
+      (evil-leader/set-key
+        "ff" 'counsel-find-file
+        "pp" 'counsel-projectile
+        "pf" 'counsel-projectile-find-file
+        "bb" 'ivy-switch-buffer)
+      (define-key evil-normal-state-map (kbd "/") 'swiper)
+      (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
+      (define-key ivy-minibuffer-map (kbd "C-h") 'ivy-backward-delete-char)
+      (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-partial-or-done)
+      (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line))))
 #+END_SRC
-  
+
 * Company
 #+BEGIN_SRC emacs-lisp
   (use-package company
@@ -259,11 +303,6 @@
     :config
     (use-package evil-magit
       :ensure t)
-    (use-package magithub
-      :ensure t
-      :after magit
-      :config
-      (magithub-feature-autoinject t))
     (setq auto-revert-check-vc-info t))
 #+END_SRC
 
@@ -499,6 +538,11 @@
   Hide messages about people joining/leaving the room
 #+BEGIN_SRC emacs-lisp
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
+#+END_SRC
+
+  Set length of lines before they are split
+#+BEGIN_SRC emacs-lisp
+  (setq erc-fill-column 200)
 #+END_SRC
 
 * Misc
