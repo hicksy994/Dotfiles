@@ -140,7 +140,10 @@
 
    '(eclim-problems-highlight-error-face((t (:underline (:color "#ff0000" :style wave)))))
    '(eclim-problems-highlight-warning-face((t (:underline (:color "#ffff00" :style wave)))))
-   
+
+   '(ivy-minibuffer-match-face-2((t (:foreground "#9257FF" :underline t))))
+   '(ivy-current-match((t (:background "#64645E", :weight normal))))
+
    '(org-block-begin-line ((t (:foreground "#75715E" :background "#272822"))))
    '(org-block((t (:background "#272822"))))
    '(org-block-end-line ((t (:foreground "#75715E" :background "#272822")))))
@@ -204,8 +207,7 @@ Create and set variable for switching between helm/ivy
 
    (use-package helm-swoop
      :ensure t
-     :config 
-     (define-key evil-normal-state-map (kbd "/") 'helm-swoop-without-pre-input))
+     :config)
 
    (use-package helm-make
      :ensure t)
@@ -217,6 +219,7 @@ Create and set variable for switching between helm/ivy
      "ff" 'helm-find-files
      "pp" 'helm-projectile
      "pf" 'helm-projectile-find-file
+     "s" 'helm-swoop-without-pre-input
      "bb" 'helm-mini)
    (global-set-key (kbd "M-x") 'helm-M-x)
    (define-key helm-map (kbd "C-j") 'helm-next-line)
@@ -240,10 +243,16 @@ Create and set variable for switching between helm/ivy
       (ivy-mode)
       (setq ivy-height 10)
       (setq ivy-use-virtual-buffers t)
+      (setq ivy-re-builders-alist
+            '((ivy-switch-buffer . ivy--regex-plus)
+              (t . ivy--regex-fuzzy)))
+    
       (use-package counsel
         :ensure t)
       (use-package counsel-projectile
-        :ensure t)
+        :ensure t
+        :config
+        (counsel-projectile-on))
       (use-package swiper
         :ensure t)
 
@@ -251,8 +260,8 @@ Create and set variable for switching between helm/ivy
         "ff" 'counsel-find-file
         "pp" 'counsel-projectile
         "pf" 'counsel-projectile-find-file
+        "s" 'swiper
         "bb" 'ivy-switch-buffer)
-      (define-key evil-normal-state-map (kbd "/") 'swiper)
       (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
       (define-key ivy-minibuffer-map (kbd "C-h") 'ivy-backward-delete-char)
       (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-partial-or-done)
