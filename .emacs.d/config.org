@@ -49,6 +49,7 @@
     (global-evil-leader-mode)
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
+    "!" 'shell-command
     "g" 'magit-status
     "bd" 'kill-this-buffer
     "fc" 'open-conf
@@ -176,10 +177,11 @@ Create and set variable for switching between helm/ivy
 ** Helm
 #+BEGIN_SRC emacs-lisp
   (cond ((string= my-completion-framework "helm")
-  (use-package helm
-    :ensure t
-    :config
-    (helm-mode)
+    (use-package helm
+      :ensure t
+      :config
+      (helm-mode)
+    
 #+END_SRC
 *** Appearance
  #+BEGIN_SRC emacs-lisp
@@ -242,10 +244,10 @@ Create and set variable for switching between helm/ivy
       :config
       (ivy-mode)
       (setq ivy-height 10)
+      (setq ivy-count-format "")
       (setq ivy-use-virtual-buffers t)
-      (setq ivy-re-builders-alist
-            '((ivy-switch-buffer . ivy--regex-plus)
-              (t . ivy--regex-fuzzy)))
+      (setq helm-make-completion-method 'ivy)
+      (setq ivy-extra-directories 'nil)
       (setq ivy-ignore-buffers '("\\` " "\\`\\*magit-process" "\\`\\*magit-diff" "\\`\\*Flycheck"))
 
       (use-package counsel
