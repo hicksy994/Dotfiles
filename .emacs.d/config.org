@@ -109,45 +109,71 @@
   (define-key evil-normal-state-map (kbd "TAB") 'c-indent-line-or-region)
 #+END_SRC
 
-* Theme 
-** Monokai Theme 
+* Themes
+Customize themes by setting face attributes
+** Monokai
+ #+BEGIN_SRC emacs-lisp
+   (use-package monokai-theme
+     :ensure t
+     :defer t
+     :config
+     (custom-theme-set-faces
+      'monokai
+   
+      '(header-line ((t (:background "#272822" :box nil))))
+      '(mode-line-inactive ((t (:foreground "#F8F8F0" :background "#49483E" :box (:line-width 1 :color "#64645E")))))
+      '(powerline-inactive1 ((t (:foreground "#F8F8F0" :background "#35331D"))))
+      '(powerline-inactive2 ((t (:foreground "#F8F8F0" :background "#272822"))))
+   
+      '(show-paren-match ((t (:foreground "#ff0000"))))
+   
+      '(company-tooltip-common ((t (:underline nil))))
+      '(company-preview-common ((t (:underline nil))))
+      '(company-tooltip-common-selection ((t (:underline nil))))
+   
+      '(linum ((t (:foreground "#75715E" :background "#272822" :weight normal))))
+      '(linum-relative-current-face ((t (:foreground "#75715E" :background "#272822" :weight normal))))
+   
+      '(flycheck-error((t (:underline (:color "#ff0000" :style wave )))))
+      '(flycheck-warning((t (:underline (:color "#ffff00" :style wave)))))
+   
+      '(eclim-problems-highlight-error-face((t (:underline (:color "#ff0000" :style wave)))))
+      '(eclim-problems-highlight-warning-face((t (:underline (:color "#ffff00" :style wave)))))
+   
+      '(ivy-minibuffer-match-face-2((t (:foreground "#9257FF" :underline t))))
+      '(ivy-current-match((t (:background "#64645E", :weight normal))))
+   
+      '(org-block-begin-line ((t (:foreground "#75715E" :background "#272822"))))
+      '(org-block((t (:background "#272822"))))
+      '(org-block-end-line ((t (:foreground "#75715E" :background "#272822"))))))
+ #+END_SRC
+
+** Gruvbox
 #+BEGIN_SRC emacs-lisp
-  (use-package monokai-theme
+  (use-package gruvbox-theme
     :ensure t
-    :config (load-theme 'monokai t))
-#+END_SRC
+    :config
+    (load-theme 'gruvbox t)
+    (custom-theme-set-faces
+     'gruvbox
 
-  Customise theme by setting faces.
-#+BEGIN_SRC emacs-lisp
-  (custom-theme-set-faces
-   'monokai
+     '(header-line ((t(:background "#282828"))))
+     '(mode-line-inactive ((t(:foreground "#d5c4a1" :background "#504945"))))
+     '(powerline-active1 ((t(:foreground "#d5c4a1" :background "grey22"))))
+     '(powerline-inactive1 ((t(:foreground "#d5c4a1" :background "grey22"))))
+     '(powerline-active2 ((t(:foreground "#d5c4a1" :background "grey40"))))
+     '(powerline-inactive2 ((t(:foreground "#d5c4a1" :background "grey40"))))
 
-   '(header-line ((t (:background "#272822" :box nil))))
-   '(mode-line-inactive ((t (:foreground "#F8F8F0" :background "#49483E" :box (:line-width 1 :color "#64645E")))))
-   '(powerline-inactive1 ((t (:foreground "#F8F8F0" :background "#35331D"))))
-   '(powerline-inactive2 ((t (:foreground "#F8F8F0" :background "#272822"))))
+     '(org-block-begin-line ((t(:foreground "#7c6f64"))))
+     '(org-block ((t(:foreground "#fdf4c1"))))
+     '(org-block-end-line ((t(:foreground "#7c6f64"))))
 
-   '(show-paren-match ((t (:foreground "#ff0000"))))
+     '(show-paren-match ((t (:foreground "#ff0000" :background "#282828"))))
 
-   '(company-tooltip-common ((t (:underline nil))))
-   '(company-preview-common ((t (:underline nil))))
-   '(company-tooltip-common-selection ((t (:underline nil))))
+     '(ivy-current-match((t (:background "#504945"))))
 
-   '(linum ((t (:foreground "#75715E" :background "#272822" :weight normal))))
-   '(linum-relative-current-face ((t (:foreground "#75715E" :background "#272822" :weight normal))))
-
-   '(flycheck-error((t (:underline (:color "#ff0000" :style wave )))))
-   '(flycheck-warning((t (:underline (:color "#ffff00" :style wave)))))
-
-   '(eclim-problems-highlight-error-face((t (:underline (:color "#ff0000" :style wave)))))
-   '(eclim-problems-highlight-warning-face((t (:underline (:color "#ffff00" :style wave)))))
-
-   '(ivy-minibuffer-match-face-2((t (:foreground "#9257FF" :underline t))))
-   '(ivy-current-match((t (:background "#64645E", :weight normal))))
-
-   '(org-block-begin-line ((t (:foreground "#75715E" :background "#272822"))))
-   '(org-block((t (:background "#272822"))))
-   '(org-block-end-line ((t (:foreground "#75715E" :background "#272822")))))
+     '(linum ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))
+     '(linum-relative-current-face ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))))
 #+END_SRC
 
 ** Spaceline
@@ -577,11 +603,13 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (recentf-mode 1)
 #+END_SRC
+
 ** Smex
 #+BEGIN_SRC emacs-lisp
   (use-package smex
     :ensure t)
 #+END_SRC
+
 ** Compilation
 
    Use ANSI colours in compilation.
