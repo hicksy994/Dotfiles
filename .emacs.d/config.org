@@ -248,7 +248,7 @@ Create and set variable for switching between helm/ivy
       (setq ivy-use-virtual-buffers t)
       (setq helm-make-completion-method 'ivy)
       (setq ivy-extra-directories 'nil)
-      (setq ivy-ignore-buffers '("\\` " "\\`\\*magit-process" "\\`\\*magit-diff" "\\`\\*Flycheck"))
+      (setq ivy-ignore-buffers '("\\` " "\\`\\*magit-process" "\\`\\*magit-diff" "\\`\\*Flycheck" "\\`\\*Shell Command Output"))
 
       (use-package counsel
         :ensure t)
@@ -331,36 +331,67 @@ Create and set variable for switching between helm/ivy
 #+END_SRC
 
 * Org
+** Todo/Agenda
+Set location of agenda files.
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files '("~/org/"))
+#+END_SRC
+
+Open agenda in current window.
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-window-setup 'current-window)
+#+END_SRC
+
+Add some custom todo states
+#+BEGIN_SRC emacs-lisp
+  (setq org-todo-keywords '((sequence "TODO" "WAITING" "IN-PROGRESS" "|" "DONE")))
+  (setq org-todo-keyword-faces '(("WAITING" . "deepskyblue1") ("IN-PROGRESS" . "yellow")))
+#+END_SRC
+** Capture
+Create custom capture templates.
+#+BEGIN_SRC emacs-lisp
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file"~/org/Todo.org")
+           "* TODO %?  %i\n  %a")))
+#+END_SRC
+
+Open capture in insert mode.
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
+#+END_SRC
+
+** Misc
+Use org bullets package to get pretty bullets.
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
     :ensure t
     :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
 #+END_SRC
 
-  Enable syntax highlighting for org-mode source blocks.
+Enable syntax highlighting for org-mode source blocks.
 #+BEGIN_SRC emacs-lisp
   (setq org-src-fontify-natively t)
 #+END_SRC
 
-  Edit source block in current window rather than splitting.
+Edit source block in current window rather than splitting.
 #+BEGIN_SRC emacs-lisp
   (setq org-src-window-setup 'current-window)
 #+END_SRC
 
-  Use evil-org-mode for nice evil keybindings in org-mode.
+Use evil-org-mode for nice evil keybindings in org-mode.
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/plugins/evil-org-mode")
   (use-package evil-org
     :ensure t)
 #+END_SRC
 
-  Enter in normal mode to open links
+Enter in normal mode to open links
 #+BEGIN_SRC emacs-lisp
   (evil-define-key 'normal org-mode-map
     (kbd "RET") 'evil-org-open-links)
 #+END_SRC
 
-  Set all headings to be the same height/weight.
+Set all headings to be the same height/weight.
 #+BEGIN_SRC emacs-lisp
   (defun my/org-mode-hook ()
     "Stop the org-level headers from increasing in height relative to the other text."
@@ -374,7 +405,7 @@ Create and set variable for switching between helm/ivy
   (add-hook 'org-mode-hook 'my/org-mode-hook)
 #+END_SRC
 
-  Set applications for running stuff.
+Set applications for running stuff.
 #+BEGIN_SRC emacs-lisp
   (setq org-file-apps '((auto-mode . emacs)
                        ("\\.mm\\'" . default)
@@ -382,27 +413,9 @@ Create and set variable for switching between helm/ivy
                        ("\\.pdf\\'" . "zathura %s")))
 #+END_SRC
 
-  Turn on visual line mode in org
+Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook (lambda() (visual-line-mode)))
-#+END_SRC
-
-
-** Todo/Agenda
-   Set location of agenda files.
-#+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files '("~/org/"))
-#+END_SRC
-
-   Open agenda in current window.
-#+BEGIN_SRC emacs-lisp
-  (setq org-agenda-window-setup 'current-window)
-#+END_SRC
-
-   Add some custom todo states
-#+BEGIN_SRC emacs-lisp
-  (setq org-todo-keywords '((sequence "TODO" "WAITING" "IN-PROGRESS" "|" "DONE")))
-  (setq org-todo-keyword-faces '(("WAITING" . "deepskyblue1") ("IN-PROGRESS" . "yellow")))
 #+END_SRC
 
 * C/C++
