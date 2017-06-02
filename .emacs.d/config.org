@@ -115,34 +115,35 @@ Customize themes by setting face attributes
  #+BEGIN_SRC emacs-lisp
    (use-package monokai-theme
      :ensure t
-     :defer t
+     ;;:defer t
      :config
+     (load-theme 'monokai t)
      (custom-theme-set-faces
       'monokai
-   
+
       '(header-line ((t (:background "#272822" :box nil))))
       '(mode-line-inactive ((t (:foreground "#F8F8F0" :background "#49483E" :box (:line-width 1 :color "#64645E")))))
       '(powerline-inactive1 ((t (:foreground "#F8F8F0" :background "#35331D"))))
       '(powerline-inactive2 ((t (:foreground "#F8F8F0" :background "#272822"))))
-   
+
       '(show-paren-match ((t (:foreground "#ff0000"))))
-   
+
       '(company-tooltip-common ((t (:underline nil))))
       '(company-preview-common ((t (:underline nil))))
       '(company-tooltip-common-selection ((t (:underline nil))))
-   
+
       '(linum ((t (:foreground "#75715E" :background "#272822" :weight normal))))
       '(linum-relative-current-face ((t (:foreground "#75715E" :background "#272822" :weight normal))))
-   
+
       '(flycheck-error((t (:underline (:color "#ff0000" :style wave )))))
       '(flycheck-warning((t (:underline (:color "#ffff00" :style wave)))))
-   
+
       '(eclim-problems-highlight-error-face((t (:underline (:color "#ff0000" :style wave)))))
       '(eclim-problems-highlight-warning-face((t (:underline (:color "#ffff00" :style wave)))))
-   
+
       '(ivy-minibuffer-match-face-2((t (:foreground "#9257FF" :underline t))))
       '(ivy-current-match((t (:background "#64645E", :weight normal))))
-   
+
       '(org-block-begin-line ((t (:foreground "#75715E" :background "#272822"))))
       '(org-block((t (:background "#272822"))))
       '(org-block-end-line ((t (:foreground "#75715E" :background "#272822"))))))
@@ -152,8 +153,9 @@ Customize themes by setting face attributes
 #+BEGIN_SRC emacs-lisp
   (use-package gruvbox-theme
     :ensure t
+    :defer t
     :config
-    (load-theme 'gruvbox t)
+    ;;(load-theme 'gruvbox t)
     (custom-theme-set-faces
      'gruvbox
 
@@ -274,7 +276,13 @@ Create and set variable for switching between helm/ivy
       (setq ivy-use-virtual-buffers t)
       (setq helm-make-completion-method 'ivy)
       (setq ivy-extra-directories 'nil)
-      (setq ivy-ignore-buffers '("\\` " "\\`\\*magit-process" "\\`\\*magit-diff" "\\`\\*Flycheck" "\\`\\*Shell Command Output"))
+      (setq ivy-ignore-buffers '("\\` "
+                                 "\\`\\*magit-process"
+                                 "\\`\\*magit-diff"
+                                 "\\`\\*Flycheck"
+                                 "\\`\\*Shell Command Output"
+                                 "\\`\\*rdm"
+                                 "\\`\\*RTags Log"))
 
       (use-package counsel
         :ensure t)
@@ -414,7 +422,7 @@ Use evil-org-mode for nice evil keybindings in org-mode.
 Enter in normal mode to open links
 #+BEGIN_SRC emacs-lisp
   (evil-define-key 'normal org-mode-map
-    (kbd "RET") 'evil-org-open-links)
+    (kbd "RET") 'org-open-at-point)
 #+END_SRC
 
 Set all headings to be the same height/weight.
@@ -453,6 +461,17 @@ Turn on visual line mode in org
   (use-package cmake-mode
     :ensure t)
 
+  (use-package rtags
+    :ensure t)
+
+  (use-package cmake-ide
+    :ensure t
+    :config
+    (require 'rtags)
+    (cmake-ide-setup)
+    (setq cmake-ide-build-dir "build/"))
+
+
   (use-package company-c-headers
     :ensure t
     :config (add-to-list 'company-backends 'company-c-headers))
@@ -472,15 +491,13 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (evil-leader/set-key-for-mode 'c-mode
     ",cc" 'helm-make-projectile
-    ",gg" 'helm-gtags-find-tag-from-here
-    ",gc" 'helm-gtags-create-tags
+    ",gg" 'rtags-find-symbol-at-point
     ",ga" 'projectile-find-other-file
     ",gA" 'projectile-find-other-file-other-window)
 
   (evil-leader/set-key-for-mode 'c++-mode
     ",cc" 'helm-make-projectile
-    ",gg" 'helm-gtags-find-tag-from-here
-    ",gc" 'helm-gtags-create-tags
+    ",gg" 'rtags-find-symbol-at-point
     ",ga" 'projectile-find-other-file
     ",gA" 'projectile-find-other-file-other-window)
 #+END_SRC
@@ -599,6 +616,17 @@ Turn on visual line mode in org
 #+END_SRC
 
 * Misc
+** Fonts
+   Set default font.
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'default nil :font "Roboto Mono for Powerline")
+  (set-frame-font "Roboto Mono for Powerline" nil t)
+#+END_SRC
+
+** Safe Local Variables
+#+BEGIN_SRC emacs-lisp
+  (put 'helm-make-build-dir 'safe-local-variable 'stringp)
+#+END_SRC
 ** Recentf
 #+BEGIN_SRC emacs-lisp
   (recentf-mode 1)
@@ -757,12 +785,5 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (setq create-lockfiles nil)
   (setq make-backup-files nil)
-#+END_SRC
-
-** Fonts
-   Set default font.
-#+BEGIN_SRC emacs-lisp
-  (set-face-attribute 'default nil :font "Roboto Mono for Powerline")
-  (set-frame-font "Roboto Mono for Powerline" nil t)
 #+END_SRC
    
