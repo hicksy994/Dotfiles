@@ -110,72 +110,79 @@
 #+END_SRC
 
 * Themes
-Customize themes by setting face attributes
+** Set Varaiable for easily choosing theme
+#+BEGIN_SRC emacs-lisp
+(setq my-theme 'gruvbox)
+#+END_SRC
 ** Monokai
  #+BEGIN_SRC emacs-lisp
-   (use-package monokai-theme
-     :ensure t
-     ;;:defer t
-     :config
-     (load-theme 'monokai t)
-     (custom-theme-set-faces
-      'monokai
+   (cond ((string= my-theme 'monokai)
+          (use-package monokai-theme
+            :ensure t
+            :config
+            (load-theme 'monokai t)
+            (custom-theme-set-faces
+             'monokai
+          
+             '(header-line ((t (:background "#272822" :box nil))))
+             '(mode-line-inactive ((t (:foreground "#F8F8F0" :background "#49483E" :box (:line-width 1 :color "#64645E")))))
+             '(powerline-inactive1 ((t (:foreground "#F8F8F0" :background "#35331D"))))
+             '(powerline-inactive2 ((t (:foreground "#F8F8F0" :background "#272822"))))
+    
+             '(show-paren-match ((t (:foreground "#ff0000"))))
+          
+             '(company-tooltip-common ((t (:underline nil))))
+             '(company-preview-common ((t (:underline nil))))
+             '(company-tooltip-common-selection ((t (:underline nil))))
+          
+             '(linum ((t (:foreground "#75715E" :background "#272822" :weight normal))))
+             '(linum-relative-current-face ((t (:foreground "#75715E" :background "#272822" :weight normal))))
+          
+             '(flycheck-error((t (:underline (:color "#ff0000" :style wave )))))
+             '(flycheck-warning((t (:underline (:color "#ffff00" :style wave)))))
+          
+             '(eclim-problems-highlight-error-face((t (:underline (:color "#ff0000" :style wave)))))
+             '(eclim-problems-highlight-warning-face((t (:underline (:color "#ffff00" :style wave)))))
+          
+             '(ivy-minibuffer-match-face-2((t (:foreground "#9257FF" :underline t))))
 
-      '(header-line ((t (:background "#272822" :box nil))))
-      '(mode-line-inactive ((t (:foreground "#F8F8F0" :background "#49483E" :box (:line-width 1 :color "#64645E")))))
-      '(powerline-inactive1 ((t (:foreground "#F8F8F0" :background "#35331D"))))
-      '(powerline-inactive2 ((t (:foreground "#F8F8F0" :background "#272822"))))
-
-      '(show-paren-match ((t (:foreground "#ff0000"))))
-
-      '(company-tooltip-common ((t (:underline nil))))
-      '(company-preview-common ((t (:underline nil))))
-      '(company-tooltip-common-selection ((t (:underline nil))))
-
-      '(linum ((t (:foreground "#75715E" :background "#272822" :weight normal))))
-      '(linum-relative-current-face ((t (:foreground "#75715E" :background "#272822" :weight normal))))
-
-      '(flycheck-error((t (:underline (:color "#ff0000" :style wave )))))
-      '(flycheck-warning((t (:underline (:color "#ffff00" :style wave)))))
-
-      '(eclim-problems-highlight-error-face((t (:underline (:color "#ff0000" :style wave)))))
-      '(eclim-problems-highlight-warning-face((t (:underline (:color "#ffff00" :style wave)))))
-
-      '(ivy-minibuffer-match-face-2((t (:foreground "#9257FF" :underline t))))
-      '(ivy-current-match((t (:background "#64645E", :weight normal))))
-
-      '(org-block-begin-line ((t (:foreground "#75715E" :background "#272822"))))
-      '(org-block((t (:background "#272822"))))
-      '(org-block-end-line ((t (:foreground "#75715E" :background "#272822"))))))
+             '(org-block-begin-line ((t (:foreground "#75715E" :background "#272822"))))
+             '(org-block((t (:background "#272822"))))
+             '(org-block-end-line ((t (:foreground "#75715E" :background "#272822")))))))
  #+END_SRC
 
 ** Gruvbox
 #+BEGIN_SRC emacs-lisp
-  (use-package gruvbox-theme
-    :ensure t
-    :defer t
-    :config
-    ;;(load-theme 'gruvbox t)
-    (custom-theme-set-faces
-     'gruvbox
+  ((string= my-theme 'gruvbox)
+   (use-package gruvbox-theme
+     :ensure t
+     :config
+     (load-theme 'gruvbox t)
+     (custom-theme-set-faces
+      'gruvbox
 
-     '(header-line ((t(:background "#282828"))))
-     '(mode-line-inactive ((t(:foreground "#d5c4a1" :background "#504945"))))
-     '(powerline-active1 ((t(:foreground "#d5c4a1" :background "grey22"))))
-     '(powerline-inactive1 ((t(:foreground "#d5c4a1" :background "grey22"))))
-     '(powerline-active2 ((t(:foreground "#d5c4a1" :background "grey40"))))
-     '(powerline-inactive2 ((t(:foreground "#d5c4a1" :background "grey40"))))
+      '(header-line ((t(:background "#282828"))))
+      '(mode-line-inactive ((t(:foreground "#d5c4a1" :background "#504945"))))
+      '(powerline-active1 ((t(:foreground "#d5c4a1" :background "grey22"))))
+      '(powerline-inactive1 ((t(:foreground "#d5c4a1" :background "grey22"))))
+      '(powerline-active2 ((t(:foreground "#d5c4a1" :background "grey40"))))
+      '(powerline-inactive2 ((t(:foreground "#d5c4a1" :background "grey40"))))
 
-     '(org-block-begin-line ((t(:foreground "#7c6f64"))))
-     '(org-block ((t(:foreground "#fdf4c1"))))
-     '(org-block-end-line ((t(:foreground "#7c6f64"))))
+      '(company-preview ((t(:background "#504945"))))
+      '(company-tooltip-common ((t(:underline nil))))
+      '(company-preview-common ((t(:underline nil))))
+      '(company-tooltip-common-selection ((t(:underline nil))))
 
-     '(show-paren-match ((t (:foreground "#ff0000" :background "#282828"))))
+      '(org-block-begin-line ((t(:foreground "#7c6f64"))))
+      '(org-block ((t(:foreground "#fdf4c1"))))
+      '(org-block-end-line ((t(:foreground "#7c6f64"))))
 
-     '(ivy-current-match((t (:background "#504945"))))
+      '(show-paren-match ((t (:foreground "#ff0000" :background "#282828"))))
 
-     '(linum ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))
-     '(linum-relative-current-face ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))))
+      '(ivy-current-match((t (:background "#504945"))))
+
+      '(linum ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))
+      '(linum-relative-current-face ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))))))
 #+END_SRC
 
 ** Spaceline
@@ -200,11 +207,11 @@ Customize themes by setting face attributes
 * Helm and Ivy
 Create and set variable for switching between helm/ivy
 #+BEGIN_SRC emacs-lisp
-  (setq my-completion-framework "ivy")
+  (setq my-completion-framework 'ivy)
 #+END_SRC
 ** Helm
 #+BEGIN_SRC emacs-lisp
-  (cond ((string= my-completion-framework "helm")
+  (cond ((string= my-completion-framework 'helm)
     (use-package helm
       :ensure t
       :config
@@ -266,7 +273,7 @@ Create and set variable for switching between helm/ivy
 
 ** Ivy
 #+BEGIN_SRC emacs-lisp
-  ((string= my-completion-framework "ivy")
+  ((string= my-completion-framework 'ivy)
     (use-package ivy
       :ensure t
       :config
@@ -276,6 +283,7 @@ Create and set variable for switching between helm/ivy
       (setq ivy-use-virtual-buffers t)
       (setq helm-make-completion-method 'ivy)
       (setq ivy-extra-directories 'nil)
+      (setq projectile-completion-system 'ivy)
       (setq ivy-ignore-buffers '("\\` "
                                  "\\`\\*magit-process"
                                  "\\`\\*magit-diff"
@@ -348,6 +356,7 @@ Create and set variable for switching between helm/ivy
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :ensure t
+    :defer t
     :config
     (use-package evil-magit
       :ensure t)
@@ -358,6 +367,7 @@ Create and set variable for switching between helm/ivy
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
+    :defer t
     :config
     (use-package helm-projectile
       :ensure t)
@@ -456,10 +466,12 @@ Turn on visual line mode in org
 ** Packages
 #+BEGIN_SRC emacs-lisp
   (use-package cc-mode
-    :ensure t)
+    :ensure t
+    :defer t)
 
   (use-package cmake-mode
-    :ensure t)
+    :ensure t
+    :defer t)
 
   (use-package rtags
     :ensure t)
@@ -471,20 +483,25 @@ Turn on visual line mode in org
     (cmake-ide-setup)
     (setq cmake-ide-build-dir "build/"))
 
+  (use-package cmake-ide
+    :ensure t
+    :config
+    (require 'rtags)
+    (cmake-ide-setup)
+    (setq cmake-ide-build-dir "build/"))
+
 
   (use-package company-c-headers
     :ensure t
+    :defer t
     :config (add-to-list 'company-backends 'company-c-headers))
 
   (use-package c-eldoc
     :ensure t
+    :defer t
     :config 
     (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
     (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode))
-
-  (use-package helm-gtags
-    :ensure t
-    :config (setq helm-gtags-update-interval-second 'nil))
 #+END_SRC
 
 ** Keybindings
@@ -513,11 +530,13 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (use-package eclim
     :ensure t
+    :defer t
     :config
     (setq eclim-eclipse-dirs "/usr/lib/eclipse"
           eclim-executable "/usr/lib/eclipse/eclim")
     (use-package company-emacs-eclim
       :ensure t
+      :defer t
       :config (company-emacs-eclim-setup)
     (add-hook 'java-mode-hook (lambda() (eclim-mode)))))
 #+END_SRC
@@ -527,9 +546,11 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (use-package gradle-mode
     :ensure t
+    :defer t
     :config
     (use-package groovy-mode
-      :ensure t)
+      :ensure t
+      :defer t)
     (add-hook 'java-mode-hook (lambda() (gradle-mode))))
 #+END_SRC
 
@@ -557,6 +578,7 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (use-package haskell-mode
     :ensure t
+    :defer t
     :config
     (use-package ghc
       :ensure t
@@ -629,6 +651,11 @@ Turn on visual line mode in org
 #+END_SRC
 ** Recentf
 #+BEGIN_SRC emacs-lisp
+  (setq recentf-exclude '("^/var/folders\\.*"
+                          "COMMIT_EDITMSG\\'"
+                          ".*-autoloads\\.el\\'"
+                          "[/\\]\\.elpa/"
+                          ))
   (recentf-mode 1)
 #+END_SRC
 
