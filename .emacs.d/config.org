@@ -281,6 +281,7 @@ Create and set variable for switching between helm/ivy
       (setq ivy-height 10)
       (setq ivy-count-format "")
       (setq ivy-use-virtual-buffers t)
+      (setq ivy-virtual-abbreviate 'full)
       (setq helm-make-completion-method 'ivy)
       (setq ivy-extra-directories 'nil)
       (setq projectile-completion-system 'ivy)
@@ -493,7 +494,6 @@ Turn on visual line mode in org
 
   (use-package company-c-headers
     :ensure t
-    :defer t
     :config (add-to-list 'company-backends 'company-c-headers))
 
   (use-package c-eldoc
@@ -813,4 +813,12 @@ Turn on visual line mode in org
   (setq create-lockfiles nil)
   (setq make-backup-files nil)
 #+END_SRC
-   
+
+** Prevent emacs asking about running processes when quitting   
+#+BEGIN_SRC emacs-lisp
+  (require 'cl-lib)
+  (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
+    "Prevent annoying \"Active processes exist\" query when you quit Emacs."
+    (cl-letf (((symbol-function #'process-list) (lambda ())))
+      ad-do-it))
+#+END_SRC
