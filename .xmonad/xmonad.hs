@@ -46,7 +46,7 @@ myManageHook = composeAll
     ]
     
 myKeys =
-    [ ((mod4Mask, xK_x), spawn myScreensaver)
+    [ ((mod4Mask .|. shiftMask, xK_x), spawn myScreensaver)
     , ((mod4Mask, xK_d), spawn myLauncher)
     , ((mod4Mask, xK_e), spawn "emacs")
     , ((mod4Mask, xK_c), spawn "google-chrome-stable")
@@ -78,7 +78,7 @@ main = do
     xmonad $ docks $ defaults
         { logHook = dynamicLogWithPP xmobarPP
             { ppOutput = hPutStrLn xmproc . pad
-            , ppTitle = xmobarColor xmobarTitleColor "" . shorten 30
+            , ppTitle = xmobarColor xmobarTitleColor "" . shorten 75
             , ppLayout = xmobarColor xmobarLayoutColor ""
             , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
             , ppHidden = xmobarColor xmobarUnfocusedWorkspaceColor ""
