@@ -15,7 +15,8 @@ myScreensaver :: String
 myScreensaver = "i3lock -u -i ~/wallpapers/elcapitan.png"
 
 myLauncher :: String
-myLauncher = "rofi -show run"
+-- myLauncher = "rofi -show run
+myLauncher = "$(dmenu_path |yeganesh -x -- -fn 'Droid Sans-11' -nb '#22262E')"
 
 myFocusedBorderColor :: String
 myFocusedBorderColor = "#68a2ff"
