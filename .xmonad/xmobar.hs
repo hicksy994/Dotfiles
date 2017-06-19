@@ -1,11 +1,8 @@
 Config { font = "xft:Droid Sans:size=11,FontAwesome:size=11"
-         , borderColor = "#2f343f"
+         , borderColor = "#22262E"
          , overrideRedirect = False
          , bgColor = "#22262E"
          , fgColor = "#f3f4f5"
-         -- , commands = [Run Date "%a %_d %b %Y  %H:%M:%S " "date" 10,
-                       -- Run Memory ["-t","Mem: <usedratio>%"] 10,
-                       -- Run Cpu ["-L","3","-H","50"] 10,
          , commands = [Run Memory ["-t","<usedratio>%"] 10
                       ,Run Cpu ["-t", "<total>%", "-L","3","-H","50"] 10
                       ,Run CoreTemp ["-t", "<core0>°"] 50
