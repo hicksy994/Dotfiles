@@ -308,7 +308,8 @@ Create and set variable for switching between helm/ivy
         "pf" 'counsel-projectile-find-file
         "ps" 'counsel-projectile-ag
         "s" 'swiper
-        "bb" 'ivy-switch-buffer)
+        "bb" 'ivy-switch-buffer
+        "bw" 'ivy-switch-buffer-other-window)
       (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
       (global-set-key (kbd "M-x") 'counsel-M-x)
       (define-key ivy-minibuffer-map (kbd "C-h") 'counsel-up-directory)
@@ -484,13 +485,6 @@ Turn on visual line mode in org
     (cmake-ide-setup)
     (setq cmake-ide-build-dir "build/"))
 
-  (use-package cmake-ide
-    :ensure t
-    :config
-    (require 'rtags)
-    (cmake-ide-setup)
-    (setq cmake-ide-build-dir "build/"))
-
 
   (use-package company-c-headers
     :ensure t
@@ -508,12 +502,14 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (evil-leader/set-key-for-mode 'c-mode
     ",cc" 'helm-make-projectile
+    ",cm" 'cmake-ide-run-cmake
     ",gg" 'rtags-find-symbol-at-point
     ",ga" 'projectile-find-other-file
     ",gA" 'projectile-find-other-file-other-window)
 
   (evil-leader/set-key-for-mode 'c++-mode
     ",cc" 'helm-make-projectile
+    ",cm" 'cmake-ide-run-cmake
     ",gg" 'rtags-find-symbol-at-point
     ",ga" 'projectile-find-other-file
     ",gA" 'projectile-find-other-file-other-window)
