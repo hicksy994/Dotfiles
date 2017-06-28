@@ -20,42 +20,11 @@
 
 * Keybindings
 ** Evil
-  Config for evil-mode and related packages. Note that evil mode itself is enabled last to avoid problems with evil-leader in initial buffers.
+  Config for evil-mode and related packages.
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :ensure t
     :config 
-#+END_SRC
-
-  Set some evil-leader keybindings.
-#+BEGIN_SRC emacs-lisp
-  ;;Define some functions to help with setting keybindings
-
-  (defun open-conf()
-    "Open my config file"
-    (interactive)
-    (find-file "~/.emacs.d/config.org"))
-
-  (defun kill-buffer-and-window ()
-    "Kill the current buffer and window in one step"
-    (interactive)
-    (kill-this-buffer)
-    (evil-window-delete))
-
-  ;;Set keybindings that follow the leader key
-  (use-package evil-leader
-    :ensure t
-    :config
-    (global-evil-leader-mode)
-    (evil-leader/set-leader "<SPC>")
-    (evil-leader/set-key
-    "!" 'shell-command
-    "g" 'magit-status
-    "bd" 'kill-this-buffer
-    "fc" 'open-conf
-    "TAB" 'evil-buffer
-    "bD" 'kill-buffer-and-window
-    ",cr" 'recompile))
 #+END_SRC
 
   Set evil escape key, using the evil-escape package.
@@ -83,8 +52,43 @@
 #+BEGIN_SRC emacs-lisp
   (evil-mode))
 #+END_SRC
-  
-** General keybindings
+
+** Functions
+   Define some functions to help with setting keybindings
+#+BEGIN_SRC emacs-lisp
+  (defun open-config-file()
+    "Open my config file"
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
+
+  (defun kill-buffer-and-window ()
+    "Kill the current buffer and window in one step"
+    (interactive)
+    (kill-this-buffer)
+    (evil-window-delete))
+#+END_SRC
+
+** General
+General helps assign leader keys for different modes
+
+#+BEGIN_SRC emacs-lisp
+  (setq my-leader "SPC")
+  (define-key evil-motion-state-map (kbd ",") 'nil)
+  (setq my-major-mode-leader ",")
+  (use-package general
+    :ensure t
+    :config
+    (setq general-default-keymaps 'evil-normal-state-map)
+    (general-define-key :prefix my-leader
+                        "!" 'shell-command
+                        "g" 'magit-status
+                        "bd" 'kill-this-buffer
+                        "fc" 'open-config-file
+                        "TAB" 'evil-buffer
+                        "bD" 'kill-buffer-and-window))
+#+END_SRC
+
+** Misc Keybindings
    Splitting and focusing in one step.
 #+BEGIN_SRC emacs-lisp
   (defun evil-window-vsplit-and-focus ()
@@ -252,12 +256,13 @@ Create and set variable for switching between helm/ivy
 
 *** Keybindings
  #+BEGIN_SRC emacs-lisp
-   (evil-leader/set-key
-     "ff" 'helm-find-files
-     "pp" 'helm-projectile
-     "pf" 'helm-projectile-find-file
-     "s" 'helm-swoop-without-pre-input
-     "bb" 'helm-mini)
+   (general-define-key :prefix my-leader
+                       "ff" 'helm-find-files
+                       "pp" 'helm-projectile
+                       "pf" 'helm-projectile-find-file
+                       "s" 'helm-swoop-without-pre-input
+                       "bb" 'helm-mini)
+
    (global-set-key (kbd "M-x") 'helm-M-x)
    (define-key helm-map (kbd "C-j") 'helm-next-line)
    (define-key helm-map (kbd "C-k") 'helm-previous-line)
@@ -302,14 +307,15 @@ Create and set variable for switching between helm/ivy
       (use-package swiper
         :ensure t)
 
-      (evil-leader/set-key
-        "ff" 'counsel-find-file
-        "pp" 'counsel-projectile
-        "pf" 'counsel-projectile-find-file
-        "ps" 'counsel-projectile-ag
-        "s" 'swiper
-        "bb" 'ivy-switch-buffer
-        "bw" 'ivy-switch-buffer-other-window)
+      (general-define-key :prefix my-leader
+                          "ff" 'counsel-find-file
+                          "pp" 'counsel-projectile
+                          "pf" 'counsel-projectile-find-file
+                          "ps" 'counsel-projectile-ag
+                          "s" 'swiper
+                          "bb" 'ivy-switch-buffer
+                          "bw" 'ivy-switch-buffer-other-window)
+
       (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
       (global-set-key (kbd "M-x") 'counsel-M-x)
       (define-key ivy-minibuffer-map (kbd "C-h") 'counsel-up-directory)
@@ -500,19 +506,13 @@ Turn on visual line mode in org
 
 ** Keybindings
 #+BEGIN_SRC emacs-lisp
-  (evil-leader/set-key-for-mode 'c-mode
-    ",cc" 'helm-make-projectile
-    ",cm" 'cmake-ide-run-cmake
-    ",gg" 'rtags-find-symbol-at-point
-    ",ga" 'projectile-find-other-file
-    ",gA" 'projectile-find-other-file-other-window)
-
-  (evil-leader/set-key-for-mode 'c++-mode
-    ",cc" 'helm-make-projectile
-    ",cm" 'cmake-ide-run-cmake
-    ",gg" 'rtags-find-symbol-at-point
-    ",ga" 'projectile-find-other-file
-    ",gA" 'projectile-find-other-file-other-window)
+  (general-define-key :prefix my-major-mode-leader
+                      :keymaps '(c-mode-map c++-mode-map)
+                      "cc" 'helm-make-projectile
+                      "cm" 'cmake-ide-run-cmake
+                      "gg" 'rtags-find-symbol-at-point
+                      "ga" 'projectile-find-other-file
+                      "gA" 'projectile-find-other-file-other-window)
 #+END_SRC
 
 ** Misc
@@ -526,13 +526,11 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (use-package eclim
     :ensure t
-    :defer t
     :config
     (setq eclim-eclipse-dirs "/usr/lib/eclipse"
           eclim-executable "/usr/lib/eclipse/eclim")
     (use-package company-emacs-eclim
       :ensure t
-      :defer t
       :config (company-emacs-eclim-setup)
     (add-hook 'java-mode-hook (lambda() (eclim-mode)))))
 #+END_SRC
@@ -542,25 +540,24 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (use-package gradle-mode
     :ensure t
-    :defer t
     :config
     (use-package groovy-mode
-      :ensure t
-      :defer t)
+      :ensure t)
     (add-hook 'java-mode-hook (lambda() (gradle-mode))))
 #+END_SRC
 
 ** Keybindings
 #+BEGIN_SRC emacs-lisp
-  (evil-leader/set-key-for-mode 'java-mode
-    ",cc" 'gradle-build
-    ",cx" 'gradle-execute
-    ",ct" 'gradle-test
-    ",ds" 'start-eclimd
-    ",dk" 'stop-eclimd
-    ",ec" 'eclim-problems-correct
-    ",eb" 'eclim-problems
-    ",gg" 'eclim-java-find-declaration)
+  (general-define-key :prefix my-major-mode-leader
+                      :keymaps 'java-mode-mapk
+                      "cc" 'gradle-build
+                      "cx" 'gradle-execute
+                      "ct" 'gradle-test
+                      "ds" 'start-eclimd
+                      "dk" 'stop-eclimd
+                      "ec" 'eclim-problems-correct
+                      "eb" 'eclim-problems
+                      "gg" 'eclim-java-find-declaration)
 #+END_SRC
   
 ** Misc
