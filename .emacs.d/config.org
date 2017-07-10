@@ -18,101 +18,6 @@
     :ensure t)
 #+END_SRC
 
-* Keybindings
-** Evil
-  Config for evil-mode and related packages.
-#+BEGIN_SRC emacs-lisp
-  (use-package evil
-    :ensure t
-    :config 
-#+END_SRC
-
-  Set evil escape key, using the evil-escape package.
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-escape
-    :ensure t
-    :config
-    (evil-escape-mode)
-    (setq evil-escape-key-sequence "jk"))
-#+END_SRC
-
-  Disable evil shift rounding.
-#+BEGIN_SRC emacs-lisp
-  (setq-default evil-shift-round 'nil)
-#+END_SRC
-
-  Easy commenting with evil-commentary.
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-commentary
-    :ensure t
-    :config (evil-commentary-mode))
-#+END_SRC
-
-  Finally enable evil-mode.
-#+BEGIN_SRC emacs-lisp
-  (evil-mode))
-#+END_SRC
-
-** Functions
-   Define some functions to help with setting keybindings
-#+BEGIN_SRC emacs-lisp
-  (defun open-config-file()
-    "Open my config file"
-    (interactive)
-    (find-file "~/.emacs.d/config.org"))
-
-  (defun kill-buffer-and-window ()
-    "Kill the current buffer and window in one step"
-    (interactive)
-    (kill-this-buffer)
-    (evil-window-delete))
-#+END_SRC
-
-** General
-General helps assign leader keys for different modes
-
-#+BEGIN_SRC emacs-lisp
-  (setq my-leader "SPC")
-  (define-key evil-motion-state-map (kbd ",") 'nil)
-  (setq my-major-mode-leader ",")
-  (use-package general
-    :ensure t
-    :config
-    (setq general-default-keymaps 'evil-normal-state-map)
-    (general-define-key :prefix my-leader
-                        "!" 'shell-command
-                        "g" 'magit-status
-                        "bd" 'kill-this-buffer
-                        "fc" 'open-config-file
-                        "TAB" 'evil-buffer
-                        "bD" 'kill-buffer-and-window))
-#+END_SRC
-
-** Misc Keybindings
-   Splitting and focusing in one step.
-#+BEGIN_SRC emacs-lisp
-  (defun evil-window-vsplit-and-focus ()
-    "Split window vertically and move right to focus it"
-    (interactive)
-    (evil-window-vsplit)
-    (other-window 1))
-
-  (defun evil-window-split-and-focus ()
-    "Split window vertically and move right to focus it"
-    (interactive)
-    (evil-window-split)
-    (other-window 1))
-
-  (define-key evil-normal-state-map (kbd "C-w C-v") 'evil-window-vsplit-and-focus)
-  (define-key evil-normal-state-map (kbd "C-w C-s") 'evil-window-split-and-focus)
-
-#+END_SRC
-
-   Indent from normal mode.
-#+BEGIN_SRC emacs-lisp
-  (define-key evil-normal-state-map (kbd "TAB") 'c-indent-line-or-region)
-#+END_SRC
-
 * Themes
 ** Set Varaiable for easily choosing theme
 #+BEGIN_SRC emacs-lisp
@@ -186,7 +91,19 @@ General helps assign leader keys for different modes
       '(ivy-current-match((t (:background "#504945"))))
 
       '(linum ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))
-      '(linum-relative-current-face ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))))))
+      '(linum-relative-current-face ((t(:background "#282828" :foreground "#7c6f64" :weight normal)))))))
+#+END_SRC
+
+** Dracula
+#+BEGIN_SRC emacs-lisp
+  ((string= my-theme 'dracula)
+   (use-package dracula-theme
+     :ensure t
+     :config
+     (load-theme 'dracula t)
+     (custom-theme-set-faces
+      'dracula
+      ))))
 #+END_SRC
 
 ** Spaceline
@@ -206,6 +123,112 @@ General helps assign leader keys for different modes
   Set the status colour to be based off the current evil-state.
 #+BEGIN_SRC emacs-lisp
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state))
+#+END_SRC
+
+* Magit
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :ensure t
+    :config
+    (use-package evil-magit
+      :ensure t)
+    (setq auto-revert-check-vc-info t))
+#+END_SRC
+
+* Keybindings
+** Evil
+  Config for evil-mode and related packages.
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :ensure t
+    :config 
+#+END_SRC
+
+  Set evil escape key, using the evil-escape package.
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-escape
+    :ensure t
+    :config
+    (evil-escape-mode)
+    (setq evil-escape-key-sequence "jk"))
+#+END_SRC
+
+  Disable evil shift rounding.
+#+BEGIN_SRC emacs-lisp
+  (setq-default evil-shift-round 'nil)
+#+END_SRC
+
+  Easy commenting with evil-commentary.
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-commentary
+    :ensure t
+    :config (evil-commentary-mode))
+#+END_SRC
+
+  Finally enable evil-mode.
+#+BEGIN_SRC emacs-lisp
+  (evil-mode))
+#+END_SRC
+
+** Functions
+   Define some functions to help with setting keybindings
+#+BEGIN_SRC emacs-lisp
+  (defun open-config-file()
+    "Open my config file"
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
+
+  (defun kill-buffer-and-window ()
+    "Kill the current buffer and window in one step"
+    (interactive)
+    (kill-this-buffer)
+    (evil-window-delete))
+#+END_SRC
+
+** General
+General helps assign leader keys for different modes
+
+#+BEGIN_SRC emacs-lisp
+  (setq my-leader "SPC")
+  (define-key evil-motion-state-map (kbd ",") 'nil)
+  (define-key magit-status-mode-map (kbd "SPC") 'nil)
+  (setq my-major-mode-leader ",")
+  (use-package general
+    :ensure t
+    :config
+    (setq general-default-keymaps '(evil-normal-state-map))
+    (general-define-key :prefix my-leader
+                        "!" 'shell-command
+                        "g" 'magit-status
+                        "bd" 'kill-this-buffer
+                        "fc" 'open-config-file
+                        "TAB" 'evil-buffer
+                        "bD" 'kill-buffer-and-window))
+#+END_SRC
+
+** Misc Keybindings
+   Splitting and focusing in one step.
+#+BEGIN_SRC emacs-lisp
+  (defun evil-window-vsplit-and-focus ()
+    "Split window vertically and move right to focus it"
+    (interactive)
+    (evil-window-vsplit)
+    (other-window 1))
+
+  (defun evil-window-split-and-focus ()
+    "Split window vertically and move right to focus it"
+    (interactive)
+    (evil-window-split)
+    (other-window 1))
+
+  (define-key evil-normal-state-map (kbd "C-w C-v") 'evil-window-vsplit-and-focus)
+  (define-key evil-normal-state-map (kbd "C-w C-s") 'evil-window-split-and-focus)
+
+#+END_SRC
+
+   Indent from normal mode.
+#+BEGIN_SRC emacs-lisp
+  (define-key evil-normal-state-map (kbd "TAB") 'c-indent-line-or-region)
 #+END_SRC
 
 * Helm and Ivy
@@ -360,17 +383,6 @@ Create and set variable for switching between helm/ivy
     :ensure t)
 #+END_SRC
 
-* Magit
-#+BEGIN_SRC emacs-lisp
-  (use-package magit
-    :ensure t
-    :defer t
-    :config
-    (use-package evil-magit
-      :ensure t)
-    (setq auto-revert-check-vc-info t))
-#+END_SRC
-
 * Projectile
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
@@ -490,7 +502,6 @@ Turn on visual line mode in org
     (require 'rtags)
     (cmake-ide-setup)
     (setq cmake-ide-build-dir "build/"))
-
 
   (use-package company-c-headers
     :ensure t
