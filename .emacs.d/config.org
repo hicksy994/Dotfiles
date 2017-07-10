@@ -191,13 +191,16 @@ General helps assign leader keys for different modes
 
 #+BEGIN_SRC emacs-lisp
   (setq my-leader "SPC")
+  (setq my-major-mode-leader ",")
+
   ;;Unbind space and comma in some maps so I can use them as leaders
   (define-key evil-motion-state-map (kbd ",") 'nil)
   (define-key evil-motion-state-map (kbd "SPC") 'nil)
   (define-key magit-status-mode-map (kbd "SPC") 'nil)
   (define-key magit-revision-mode-map (kbd "SPC") 'nil)
   (define-key magit-log-mode-map (kbd "SPC") 'nil)
-  (setq my-major-mode-leader ",")
+  (define-key help-mode-map (kbd "SPC") 'nil)
+
   (use-package general
     :ensure t
     :config
@@ -360,7 +363,6 @@ Create and set variable for switching between helm/ivy
     (setq-default company-require-match 'nil))
 
   (define-key company-active-map (kbd "C-j") 'company-select-next)
-  (define-key company-active-map (kbd "TAB") 'company-select-next)
   (define-key company-active-map (kbd "C-k") 'company-select-previous)
 
   (defun completing-dot()
@@ -625,6 +627,16 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
     :ensure t)
+#+END_SRC
+
+* Yasnippet
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :defer t
+    :config
+    (yas-global-mode 1)
+    (add-to-list 'company-backends 'company-yasnippet))
 #+END_SRC
 
 * ERC
