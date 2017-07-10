@@ -113,6 +113,7 @@
     :ensure t
     :config
     (require 'spaceline-config)
+    (setq powerline-default-separator "slant")
     (spaceline-spacemacs-theme)
     (spaceline-helm-mode t)
     (spaceline-info-mode t)
@@ -190,8 +191,12 @@ General helps assign leader keys for different modes
 
 #+BEGIN_SRC emacs-lisp
   (setq my-leader "SPC")
+  ;;Unbind space and comma in some maps so I can use them as leaders
   (define-key evil-motion-state-map (kbd ",") 'nil)
+  (define-key evil-motion-state-map (kbd "SPC") 'nil)
   (define-key magit-status-mode-map (kbd "SPC") 'nil)
+  (define-key magit-revision-mode-map (kbd "SPC") 'nil)
+  (define-key magit-log-mode-map (kbd "SPC") 'nil)
   (setq my-major-mode-leader ",")
   (use-package general
     :ensure t
@@ -690,6 +695,15 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (define-key compilation-mode-map (kbd "g") 'nil)
   (define-key compilation-mode-map (kbd "h") 'nil)
+  (define-key compilation-mode-map (kbd "SPC") 'nil)
+  (general-define-key :prefix my-leader
+                      :keymaps '(compilation-mode-map)
+                      "!" 'shell-command
+                      "g" 'magit-status
+                      "bd" 'kill-this-buffer
+                      "fc" 'open-config-file
+                      "TAB" 'evil-buffer
+                      "bD" 'kill-buffer-and-window)
 #+END_SRC
    
 ** Popwin
