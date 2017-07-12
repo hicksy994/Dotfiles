@@ -113,7 +113,7 @@
     :ensure t
     :config
     (require 'spaceline-config)
-    (setq powerline-default-separator "slant")
+    (setq powerline-default-separator 'alternate)
     (spaceline-spacemacs-theme)
     (spaceline-helm-mode t)
     (spaceline-info-mode t)
@@ -136,222 +136,35 @@
     (setq auto-revert-check-vc-info t))
 #+END_SRC
 
-* Keybindings
-** Evil
-  Config for evil-mode and related packages.
+* Ivy
 #+BEGIN_SRC emacs-lisp
-  (use-package evil
-    :ensure t
-    :config 
-#+END_SRC
-
-  Set evil escape key, using the evil-escape package.
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-escape
+  (use-package ivy
     :ensure t
     :config
-    (evil-escape-mode)
-    (setq evil-escape-key-sequence "jk"))
-#+END_SRC
+    (ivy-mode)
+    (setq ivy-height 10)
+    (setq ivy-count-format "")
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-virtual-abbreviate 'full)
+    (setq helm-make-completion-method 'ivy)
+    (setq ivy-extra-directories 'nil)
+    (setq projectile-completion-system 'ivy)
+    (setq ivy-ignore-buffers '("\\` "
+                               "\\`\\*magit-process"
+                               "\\`\\*magit-diff"
+                               "\\`\\*Flycheck"
+                               "\\`\\*Shell Command Output"
+                               "\\`\\*rdm"
+                               "\\`\\*RTags Log"))
 
-  Disable evil shift rounding.
-#+BEGIN_SRC emacs-lisp
-  (setq-default evil-shift-round 'nil)
-#+END_SRC
-
-  Easy commenting with evil-commentary.
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-commentary
-    :ensure t
-    :config (evil-commentary-mode))
-#+END_SRC
-
-  Finally enable evil-mode.
-#+BEGIN_SRC emacs-lisp
-  (evil-mode))
-#+END_SRC
-
-** Functions
-   Define some functions to help with setting keybindings
-#+BEGIN_SRC emacs-lisp
-  (defun open-config-file()
-    "Open my config file"
-    (interactive)
-    (find-file "~/.emacs.d/config.org"))
-
-  (defun kill-buffer-and-window ()
-    "Kill the current buffer and window in one step"
-    (interactive)
-    (kill-this-buffer)
-    (evil-window-delete))
-#+END_SRC
-
-** General
-General helps assign leader keys for different modes
-
-#+BEGIN_SRC emacs-lisp
-  (setq my-leader "SPC")
-  (setq my-major-mode-leader ",")
-
-  ;;Unbind space and comma in some maps so I can use them as leaders
-  (define-key evil-motion-state-map (kbd ",") 'nil)
-  (define-key evil-motion-state-map (kbd "SPC") 'nil)
-  (define-key magit-status-mode-map (kbd "SPC") 'nil)
-  (define-key magit-revision-mode-map (kbd "SPC") 'nil)
-  (define-key magit-log-mode-map (kbd "SPC") 'nil)
-  (define-key help-mode-map (kbd "SPC") 'nil)
-
-  (use-package general
-    :ensure t
-    :config
-    (setq general-default-keymaps '(evil-normal-state-map))
-    (general-define-key :prefix my-leader
-                        "!" 'shell-command
-                        "g" 'magit-status
-                        "bd" 'kill-this-buffer
-                        "fc" 'open-config-file
-                        "TAB" 'evil-buffer
-                        "bD" 'kill-buffer-and-window))
-#+END_SRC
-
-** Misc Keybindings
-   Splitting and focusing in one step.
-#+BEGIN_SRC emacs-lisp
-  (defun evil-window-vsplit-and-focus ()
-    "Split window vertically and move right to focus it"
-    (interactive)
-    (evil-window-vsplit)
-    (other-window 1))
-
-  (defun evil-window-split-and-focus ()
-    "Split window vertically and move right to focus it"
-    (interactive)
-    (evil-window-split)
-    (other-window 1))
-
-  (define-key evil-normal-state-map (kbd "C-w C-v") 'evil-window-vsplit-and-focus)
-  (define-key evil-normal-state-map (kbd "C-w C-s") 'evil-window-split-and-focus)
-
-#+END_SRC
-
-   Indent from normal mode.
-#+BEGIN_SRC emacs-lisp
-  (define-key evil-normal-state-map (kbd "TAB") 'c-indent-line-or-region)
-#+END_SRC
-
-* Helm and Ivy
-Create and set variable for switching between helm/ivy
-#+BEGIN_SRC emacs-lisp
-  (setq my-completion-framework 'ivy)
-#+END_SRC
-** Helm
-#+BEGIN_SRC emacs-lisp
-  (cond ((string= my-completion-framework 'helm)
-    (use-package helm
+    (use-package counsel
+      :ensure t)
+    (use-package counsel-projectile
       :ensure t
       :config
-      (helm-mode)
-    
-#+END_SRC
-*** Appearance
- #+BEGIN_SRC emacs-lisp
-
-     (setq helm-display-header-line nil)
-     (helm-autoresize-mode)
-     (setq helm-autoresize-max-height 30)
-     (setq helm-autoresize-min-height 30)
- #+END_SRC
-*** Set boring buffers
- #+BEGIN_SRC emacs-lisp
-     (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*Help")
-     (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*Flycheck")
-     (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*magit-process")
-     (add-to-list 'helm-boring-buffer-regexp-list "\\`\\*magit-diff")
- #+END_SRC
-*** Use other related packages
- #+BEGIN_SRC emacs-lisp
-   (use-package helm-describe-modes
-     :ensure t
-     :config (global-set-key [remap describe-mode] #'helm-describe-modes))
-
-   (use-package helm-ag
-     :ensure t)
-
-   (use-package helm-swoop
-     :ensure t
-     :config)
-
-   (use-package helm-make
-     :ensure t)
- #+END_SRC
-
-*** Keybindings
- #+BEGIN_SRC emacs-lisp
-   (general-define-key :prefix my-leader
-                       "ff" 'helm-find-files
-                       "pp" 'helm-projectile
-                       "pf" 'helm-projectile-find-file
-                       "s" 'helm-swoop-without-pre-input
-                       "bb" 'helm-mini)
-
-   (global-set-key (kbd "M-x") 'helm-M-x)
-   (define-key helm-map (kbd "C-j") 'helm-next-line)
-   (define-key helm-map (kbd "C-k") 'helm-previous-line)
-   (define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
-   (define-key helm-find-files-map (kbd "C-l") 'helm-execute-persistent-action)
-   (define-key helm-map (kbd "C-l") 'helm-execute-persistent-action)
-   (define-key helm-map (kbd "C-h") 'helm-find-files-up-one-level)
-   (define-key helm-read-file-map (kbd "C-l") 'helm-execute-persistent-action)
-   (define-key helm-read-file-map (kbd "C-h") 'helm-find-files-up-one-level)
-   (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
-   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)))
- #+END_SRC
-
-** Ivy
-#+BEGIN_SRC emacs-lisp
-  ((string= my-completion-framework 'ivy)
-    (use-package ivy
-      :ensure t
-      :config
-      (ivy-mode)
-      (setq ivy-height 10)
-      (setq ivy-count-format "")
-      (setq ivy-use-virtual-buffers t)
-      (setq ivy-virtual-abbreviate 'full)
-      (setq helm-make-completion-method 'ivy)
-      (setq ivy-extra-directories 'nil)
-      (setq projectile-completion-system 'ivy)
-      (setq ivy-ignore-buffers '("\\` "
-                                 "\\`\\*magit-process"
-                                 "\\`\\*magit-diff"
-                                 "\\`\\*Flycheck"
-                                 "\\`\\*Shell Command Output"
-                                 "\\`\\*rdm"
-                                 "\\`\\*RTags Log"))
-
-      (use-package counsel
-        :ensure t)
-      (use-package counsel-projectile
-        :ensure t
-        :config
-        (counsel-projectile-on))
-      (use-package swiper
-        :ensure t)
-
-      (general-define-key :prefix my-leader
-                          "ff" 'counsel-find-file
-                          "pp" 'counsel-projectile
-                          "pf" 'counsel-projectile-find-file
-                          "ps" 'counsel-projectile-ag
-                          "s" 'swiper
-                          "bb" 'ivy-switch-buffer
-                          "bw" 'ivy-switch-buffer-other-window)
-
-      (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
-      (global-set-key (kbd "M-x") 'counsel-M-x)
-      (define-key ivy-minibuffer-map (kbd "C-h") 'counsel-up-directory)
-      (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-partial-or-done)
-      (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line))))
+      (counsel-projectile-on))
+    (use-package swiper
+      :ensure t))
 #+END_SRC
 
 * Company
@@ -362,26 +175,12 @@ Create and set variable for switching between helm/ivy
     (global-company-mode)
     (setq-default company-require-match 'nil))
 
-  (define-key company-active-map (kbd "C-j") 'company-select-next)
-  (define-key company-active-map (kbd "C-k") 'company-select-previous)
-
   (defun completing-dot()
     "Insert a dot and then show completions"
     (interactive "*")
     (company-abort)
     (insert ".")
     (company-complete))
-
-  ;; For some reason doing this for prog-mode-map doesn't work, so you have to do this...
-
-  (evil-define-key 'insert java-mode-map
-    (kbd ".") 'completing-dot)
-
-  (evil-define-key 'insert haskell-mode-map
-    (kbd ".") 'completing-dot)
-
-  (evil-define-key 'insert c++-mode-map
-    (kbd ".") 'completing-dot)
 #+END_SRC
 
 * Flycheck
@@ -405,12 +204,12 @@ Create and set variable for switching between helm/ivy
 ** Todo/Agenda
 Set location of agenda files.
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files '("~/org/"))
+(setq org-agenda-files '("~/org/"))
 #+END_SRC
 
 Open agenda in current window.
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-window-setup 'current-window)
+(setq org-agenda-window-setup 'current-window)
 #+END_SRC
 
 Add some custom todo states
@@ -447,19 +246,6 @@ Enable syntax highlighting for org-mode source blocks.
 Edit source block in current window rather than splitting.
 #+BEGIN_SRC emacs-lisp
   (setq org-src-window-setup 'current-window)
-#+END_SRC
-
-Use evil-org-mode for nice evil keybindings in org-mode.
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/plugins/evil-org-mode")
-  (use-package evil-org
-    :ensure t)
-#+END_SRC
-
-Enter in normal mode to open links
-#+BEGIN_SRC emacs-lisp
-  (evil-define-key 'normal org-mode-map
-    (kbd "RET") 'org-open-at-point)
 #+END_SRC
 
 Set all headings to be the same height/weight.
@@ -522,17 +308,6 @@ Turn on visual line mode in org
     (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode))
 #+END_SRC
 
-** Keybindings
-#+BEGIN_SRC emacs-lisp
-  (general-define-key :prefix my-major-mode-leader
-                      :keymaps '(c-mode-map c++-mode-map)
-                      "cc" 'helm-make-projectile
-                      "cm" 'cmake-ide-run-cmake
-                      "gg" 'rtags-find-symbol-at-point
-                      "ga" 'projectile-find-other-file
-                      "gA" 'projectile-find-other-file-other-window)
-#+END_SRC
-
 ** Misc
 #+BEGIN_SRC emacs-lisp
   (add-hook 'c-mode-hook (lambda() (flycheck-mode)))
@@ -564,20 +339,6 @@ Turn on visual line mode in org
     (add-hook 'java-mode-hook (lambda() (gradle-mode))))
 #+END_SRC
 
-** Keybindings
-#+BEGIN_SRC emacs-lisp
-  (general-define-key :prefix my-major-mode-leader
-                      :keymaps 'java-mode-mapk
-                      "cc" 'gradle-build
-                      "cx" 'gradle-execute
-                      "ct" 'gradle-test
-                      "ds" 'start-eclimd
-                      "dk" 'stop-eclimd
-                      "ec" 'eclim-problems-correct
-                      "eb" 'eclim-problems
-                      "gg" 'eclim-java-find-declaration)
-#+END_SRC
-  
 ** Misc
 #+BEGIN_SRC emacs-lisp
   (add-hook 'java-mode-hook (lambda() (c-set-style "java")))
@@ -636,7 +397,7 @@ Turn on visual line mode in org
     :defer t
     :config
     (yas-global-mode 1)
-    (add-to-list 'company-backends 'company-yasnippet))
+    (add-to-list 'company-backends 'company-yasnippet t))
 #+END_SRC
 
 * ERC
@@ -687,7 +448,6 @@ Turn on visual line mode in org
 #+END_SRC
 
 ** Compilation
-
    Use ANSI colours in compilation.
 #+BEGIN_SRC emacs-lisp
   (require 'ansi-color)
@@ -707,15 +467,6 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (define-key compilation-mode-map (kbd "g") 'nil)
   (define-key compilation-mode-map (kbd "h") 'nil)
-  (define-key compilation-mode-map (kbd "SPC") 'nil)
-  (general-define-key :prefix my-leader
-                      :keymaps '(compilation-mode-map)
-                      "!" 'shell-command
-                      "g" 'magit-status
-                      "bd" 'kill-this-buffer
-                      "fc" 'open-config-file
-                      "TAB" 'evil-buffer
-                      "bD" 'kill-buffer-and-window)
 #+END_SRC
    
 ** Popwin
@@ -771,7 +522,6 @@ Turn on visual line mode in org
 #+END_SRC
 
 ** Relative Line Numbers
-  In programming modes, I want relative line numbers enabled.
 #+BEGIN_SRC emacs-lisp
   (use-package linum-relative
     :ensure t
@@ -779,7 +529,6 @@ Turn on visual line mode in org
     (add-hook 'prog-mode-hook 'linum-relative-mode)
 #+END_SRC
 
-  Setting the symbol for the current line as the empty string means that I can see the absolute line number for that line only.
 #+BEGIN_SRC emacs-lisp
   (setq linum-relative-current-symbol ""))
 #+END_SRC
@@ -851,4 +600,9 @@ Turn on visual line mode in org
     "Prevent annoying \"Active processes exist\" query when you quit Emacs."
     (cl-letf (((symbol-function #'process-list) (lambda ())))
       ad-do-it))
+#+END_SRC
+* Keybindings
+I keep my keybindings in a seperate file, keys.org
+#+BEGIN_SRC emacs-lisp
+(org-babel-load-file "~/.emacs.d/keys.org")
 #+END_SRC
