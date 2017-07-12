@@ -62,36 +62,39 @@
 
 ** Gruvbox
 #+BEGIN_SRC emacs-lisp
-  ((string= my-theme 'gruvbox)
-   (use-package gruvbox-theme
-     :ensure t
-     :config
-     (load-theme 'gruvbox t)
-     (custom-theme-set-faces
-      'gruvbox
+    ((string= my-theme 'gruvbox)
+     (use-package gruvbox-theme
+       :ensure t
+       :config
+       (load-theme 'gruvbox t)
+       (custom-theme-set-faces
+        'gruvbox
 
-      '(header-line ((t(:background "#282828"))))
-      '(mode-line-inactive ((t(:foreground "#d5c4a1" :background "#504945"))))
-      '(powerline-active1 ((t(:foreground "#d5c4a1" :background "grey22"))))
-      '(powerline-inactive1 ((t(:foreground "#d5c4a1" :background "grey22"))))
-      '(powerline-active2 ((t(:foreground "#d5c4a1" :background "grey40"))))
-      '(powerline-inactive2 ((t(:foreground "#d5c4a1" :background "grey40"))))
+        '(header-line ((t(:background "#282828"))))
+        '(mode-line-inactive ((t(:foreground "#d5c4a1" :background "#504945"))))
+        '(powerline-active1 ((t(:foreground "#d5c4a1" :background "grey22"))))
+        '(powerline-inactive1 ((t(:foreground "#d5c4a1" :background "grey22"))))
+        '(powerline-active2 ((t(:foreground "#d5c4a1" :background "grey40"))))
+        '(powerline-inactive2 ((t(:foreground "#d5c4a1" :background "grey40"))))
 
-      '(company-preview ((t(:background "#504945"))))
-      '(company-tooltip-common ((t(:underline nil))))
-      '(company-preview-common ((t(:underline nil))))
-      '(company-tooltip-common-selection ((t(:underline nil))))
+        '(company-preview ((t(:background "#504945"))))
+        '(company-tooltip-common ((t(:underline nil))))
+        '(company-preview-common ((t(:underline nil))))
+        '(company-tooltip-common-selection ((t(:underline nil))))
 
-      '(org-block-begin-line ((t(:foreground "#7c6f64"))))
-      '(org-block ((t(:foreground "#fdf4c1"))))
-      '(org-block-end-line ((t(:foreground "#7c6f64"))))
+        '(org-block-begin-line ((t(:foreground "#7c6f64"))))
+        '(org-block ((t(:foreground "#fdf4c1"))))
+        '(org-block-end-line ((t(:foreground "#7c6f64"))))
 
-      '(show-paren-match ((t (:foreground "#ff0000" :background "#282828"))))
+        '(erc-prompt-face ((t(:background "#282828" :foreground "Green"))))
+        '(erc-input-face ((t(:foreground "#fe8019"))))
 
-      '(ivy-current-match((t (:background "#504945"))))
+        '(show-paren-match ((t (:foreground "#ff0000" :background "#282828"))))
 
-      '(linum ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))
-      '(linum-relative-current-face ((t(:background "#282828" :foreground "#7c6f64" :weight normal)))))))
+        '(ivy-current-match((t (:background "#504945"))))
+
+        '(linum ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))
+        '(linum-relative-current-face ((t(:background "#282828" :foreground "#7c6f64" :weight normal)))))))
 #+END_SRC
 
 ** Dracula
@@ -394,10 +397,8 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :ensure t
-    :defer t
     :config
-    (yas-global-mode 1)
-    (add-to-list 'company-backends 'company-yasnippet t))
+    (yas-global-mode 1))
 #+END_SRC
 
 * ERC
