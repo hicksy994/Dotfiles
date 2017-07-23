@@ -62,39 +62,39 @@
 
 ** Gruvbox
 #+BEGIN_SRC emacs-lisp
-    ((string= my-theme 'gruvbox)
-     (use-package gruvbox-theme
-       :ensure t
-       :config
-       (load-theme 'gruvbox t)
-       (custom-theme-set-faces
-        'gruvbox
+  ((string= my-theme 'gruvbox)
+   (use-package gruvbox-theme
+     :ensure t
+     :config
+     (load-theme 'gruvbox t)
+     (custom-theme-set-faces
+      'gruvbox
 
-        '(header-line ((t(:background "#282828"))))
-        '(mode-line-inactive ((t(:foreground "#d5c4a1" :background "#504945"))))
-        '(powerline-active1 ((t(:foreground "#d5c4a1" :background "grey22"))))
-        '(powerline-inactive1 ((t(:foreground "#d5c4a1" :background "grey22"))))
-        '(powerline-active2 ((t(:foreground "#d5c4a1" :background "grey40"))))
-        '(powerline-inactive2 ((t(:foreground "#d5c4a1" :background "grey40"))))
+      '(header-line ((t(:background "#282828"))))
+      '(mode-line-inactive ((t(:foreground "#d5c4a1" :background "#504945"))))
+      '(powerline-active1 ((t(:foreground "#d5c4a1" :background "grey22"))))
+      '(powerline-inactive1 ((t(:foreground "#d5c4a1" :background "grey22"))))
+      '(powerline-active2 ((t(:foreground "#d5c4a1" :background "grey40"))))
+      '(powerline-inactive2 ((t(:foreground "#d5c4a1" :background "grey40"))))
 
-        '(company-preview ((t(:background "#504945"))))
-        '(company-tooltip-common ((t(:underline nil))))
-        '(company-preview-common ((t(:underline nil))))
-        '(company-tooltip-common-selection ((t(:underline nil))))
+      '(company-preview ((t(:background "#504945"))))
+      '(company-tooltip-common ((t(:underline nil))))
+      '(company-preview-common ((t(:underline nil))))
+      '(company-tooltip-common-selection ((t(:underline nil))))
 
-        '(org-block-begin-line ((t(:foreground "#7c6f64"))))
-        '(org-block ((t(:foreground "#fdf4c1"))))
-        '(org-block-end-line ((t(:foreground "#7c6f64"))))
+      '(org-block-begin-line ((t(:foreground "#7c6f64"))))
+      '(org-block ((t(:foreground "#fdf4c1"))))
+      '(org-block-end-line ((t(:foreground "#7c6f64"))))
 
-        '(erc-prompt-face ((t(:background "#282828" :foreground "Green"))))
-        '(erc-input-face ((t(:foreground "#fe8019"))))
+      '(erc-prompt-face ((t(:background "#282828" :foreground "Green"))))
+      '(erc-input-face ((t(:foreground "#fe8019"))))
 
-        '(show-paren-match ((t (:foreground "#ff0000" :background "#282828"))))
+      '(show-paren-match ((t (:foreground "#ff0000" :background "#282828"))))
 
-        '(ivy-current-match((t (:background "#504945"))))
+      '(ivy-current-match((t (:background "#504945"))))
 
-        '(linum ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))
-        '(linum-relative-current-face ((t(:background "#282828" :foreground "#7c6f64" :weight normal)))))))
+      '(linum ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))
+      '(linum-relative-current-face ((t(:background "#282828" :foreground "#7c6f64" :weight normal)))))))
 #+END_SRC
 
 ** Dracula
@@ -116,7 +116,7 @@
     :ensure t
     :config
     (require 'spaceline-config)
-    (setq powerline-default-separator 'alternate)
+    ;;(setq powerline-default-separator 'utf-8)
     (spaceline-spacemacs-theme)
     (spaceline-helm-mode t)
     (spaceline-info-mode t)
@@ -279,7 +279,6 @@ Turn on visual line mode in org
 #+END_SRC
 
 * C/C++
-** Packages
 #+BEGIN_SRC emacs-lisp
   (use-package cc-mode
     :ensure t
@@ -309,16 +308,45 @@ Turn on visual line mode in org
     :config 
     (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
     (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode))
+
+  (add-hook 'c-mode-hook (lambda() (flycheck-mode)))
+  (add-hook 'c++-mode-hook (lambda() (flycheck-mode)))
 #+END_SRC
 
-** Misc
+* Rust
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'c-mode-hook (lambda() (flycheck-mode)))
+  (use-package rust-mode
+    :ensure t
+    :defer t
+    :config
+    (setq rust-format-on-save t))
+
+  (use-package cargo
+    :ensure t
+    :defer t)
+
+  (use-package racer
+    :ensure t
+    :defer t
+    :config
+    (setq racer-cmd "/usr/local/bin/racer")
+    (setq racer-rust-src-path "/usr/local/src/rust/src"))
+
+  (use-package company-racer
+    :ensure t
+    :defer t
+    :config
+    (add-to-list 'company-backends 'company-racer))
+
+  (use-package flycheck-rust
+    :ensure t
+    :config
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+    (add-hook 'rust-mode-hook (lambda() (flycheck-mode))))
 #+END_SRC
 
 * Java
-** Packages
-   Setup Eclim.
+** Eclim
 #+BEGIN_SRC emacs-lisp
   (use-package eclim
     :ensure t
@@ -331,8 +359,7 @@ Turn on visual line mode in org
     (add-hook 'java-mode-hook (lambda() (eclim-mode)))))
 #+END_SRC
 
-
-  Setup Gradle.
+** Gradle
 #+BEGIN_SRC emacs-lisp
   (use-package gradle-mode
     :ensure t
@@ -349,7 +376,6 @@ Turn on visual line mode in org
 #+END_SRC
 
 * Haskell
-** Packages
 #+BEGIN_SRC emacs-lisp
   (use-package haskell-mode
     :ensure t
@@ -361,23 +387,25 @@ Turn on visual line mode in org
       (autoload 'ghc-init "ghc" nil t)
       (autoload 'ghc-debug "ghc" nil t)
       (add-hook 'haskell-mode-hook (lambda () (ghc-init))))
+
     (use-package company-ghc
       :ensure t
       :config (add-to-list 'company-backends 'company-ghc))
+
     (use-package company-ghci
       :ensure t
       :config (add-to-list 'company-backends 'company-ghci))
+
     (use-package flycheck-haskell
       :ensure t
       :config
       (eval-after-load 'flycheck
-        '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)))
-    (use-package helm-ghc
-      :ensure t)
-    (use-package helm-ghc
-      :ensure t)
+        '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
 
-    (add-hook 'haskell-mode-hook (lambda () (flycheck-mode)))
+      (add-hook 'haskell-mode-hook (lambda () (flycheck-mode))))
+
+    (use-package helm-ghc
+      :ensure t)
 
     (setq haskell-interactive-popup-errors 'nil)
 
@@ -390,15 +418,24 @@ Turn on visual line mode in org
 * Markdown
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
-    :ensure t)
+    :ensure t
+    :defer t)
 #+END_SRC
 
 * Yasnippet
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :ensure t
+    :defer t
     :config
     (yas-global-mode 1))
+#+END_SRC
+
+* Eshell
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'eshell-mode-hook
+            (lambda ()
+              (setq-local evil-move-cursor-back nil)))
 #+END_SRC
 
 * ERC
@@ -417,15 +454,15 @@ Turn on visual line mode in org
 
   Set length of lines before they are split
 #+BEGIN_SRC emacs-lisp
-  (setq erc-fill-column 200)
+  (setq erc-fill-column 225)
 #+END_SRC
 
 * Misc
 ** Fonts
    Set default font.
 #+BEGIN_SRC emacs-lisp
-  (set-face-attribute 'default nil :font "Roboto Mono for Powerline")
-  (set-frame-font "Roboto Mono for Powerline" nil t)
+  (set-face-attribute 'default nil :font "Iosevka-13")
+  (set-frame-font "Iosevka-13" nil t)
 #+END_SRC
 
 ** Safe Local Variables
@@ -602,6 +639,7 @@ Turn on visual line mode in org
     (cl-letf (((symbol-function #'process-list) (lambda ())))
       ad-do-it))
 #+END_SRC
+
 * Keybindings
 I keep my keybindings in a seperate file, keys.org
 #+BEGIN_SRC emacs-lisp

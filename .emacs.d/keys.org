@@ -1,39 +1,27 @@
-* Keybindings
-** Evil
-  Config for evil-mode and related packages.
+#+TITLE: Emacs Keybindings
+
+* Evil
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :ensure t
     :config 
+
+    (use-package evil-escape
+      :ensure t
+      :config
+      (evil-escape-mode)
+      (setq evil-escape-key-sequence "jk"))
+  
+    (setq-default evil-shift-round 'nil)
+  
+    (use-package evil-commentary
+      :ensure t
+      :config (evil-commentary-mode))
+
+    (evil-mode 1))
 #+END_SRC
 
-  Set evil escape key, using the evil-escape package.
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-escape
-    :ensure t
-    :config
-    (evil-escape-mode)
-    (setq evil-escape-key-sequence "jk"))
-#+END_SRC
-
-  Disable evil shift rounding.
-#+BEGIN_SRC emacs-lisp
-  (setq-default evil-shift-round 'nil)
-#+END_SRC
-
-  Easy commenting with evil-commentary.
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-commentary
-    :ensure t
-    :config (evil-commentary-mode))
-#+END_SRC
-
-  Finally enable evil-mode.
-#+BEGIN_SRC emacs-lisp
-  (evil-mode))
-#+END_SRC
-
-** Functions
+* Functions
    Define some functions to help with setting keybindings
 #+BEGIN_SRC emacs-lisp
   (defun open-config-file()
@@ -53,7 +41,7 @@
     (evil-window-delete))
 #+END_SRC
 
-** General
+* General
 #+BEGIN_SRC emacs-lisp
   (setq my-leader "SPC")
   (setq my-major-mode-leader ",")
@@ -73,7 +61,7 @@
     (setq general-default-keymaps '(evil-normal-state-map evil-motion-state-map)))
 #+END_SRC
 
-** Global
+* Global
 #+BEGIN_SRC emacs-lisp
   (general-define-key :prefix my-leader
                       "!" 'shell-command
@@ -85,7 +73,7 @@
                       "bD" 'kill-buffer-and-window)
 #+END_SRC
 
-** Ivy
+* Ivy
 #+BEGIN_SRC emacs-lisp
   (general-define-key :prefix my-leader
                       "ff" 'counsel-find-file
@@ -103,7 +91,7 @@
   (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
 #+END_SRC
 
-** Company
+* Company
 #+BEGIN_SRC emacs-lisp
   (define-key company-active-map (kbd "C-j") 'company-select-next)
   (define-key company-active-map (kbd "C-k") 'company-select-previous)
@@ -118,7 +106,7 @@
     (kbd ".") 'completing-dot)
 #+END_SRC
 
-** Org
+* Org
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/plugins/evil-org-mode")
   (use-package evil-org
@@ -131,7 +119,7 @@ Enter in normal mode to open links
     (kbd "RET") 'org-open-at-point)
 #+END_SRC
 
-** C/C++
+* C/C++
 #+BEGIN_SRC emacs-lisp
   (general-define-key :prefix my-major-mode-leader
                       :keymaps '(c-mode-map c++-mode-map)
@@ -143,7 +131,7 @@ Enter in normal mode to open links
                       "gA" 'projectile-find-other-file-other-window)
 #+END_SRC
 
-** Java
+* Java
 #+BEGIN_SRC emacs-lisp
   (general-define-key :prefix my-major-mode-leader
                       :keymaps 'java-mode-mapk
@@ -157,7 +145,7 @@ Enter in normal mode to open links
                       "gg" 'eclim-java-find-declaration)
 #+END_SRC
 
-** Misc
+* Misc
    Splitting and focusing in one step.
 #+BEGIN_SRC emacs-lisp
   (defun evil-window-vsplit-and-focus ()
