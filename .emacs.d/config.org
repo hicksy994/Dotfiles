@@ -158,16 +158,20 @@
                                "\\`\\*Flycheck"
                                "\\`\\*Shell Command Output"
                                "\\`\\*rdm"
-                               "\\`\\*RTags Log"))
+                               "\\`\\*RTags Log")))
 
     (use-package counsel
-      :ensure t)
+      :ensure t
+      :config
+      (setq counsel-find-file-ignore-regexp "^build/"))
+
     (use-package counsel-projectile
       :ensure t
       :config
       (counsel-projectile-on))
+
     (use-package swiper
-      :ensure t))
+      :ensure t)
 #+END_SRC
 
 * Company
@@ -178,11 +182,11 @@
     (global-company-mode)
     (setq-default company-require-match 'nil))
 
-  (defun completing-dot()
-    "Insert a dot and then show completions"
-    (interactive "*")
+  (defun insert-and-complete(string)
+    "Insert a string and then show completions"
+    (interactive)
     (company-abort)
-    (insert ".")
+    (insert string)
     (company-complete))
 #+END_SRC
 
@@ -379,7 +383,6 @@ Turn on visual line mode in org
 #+BEGIN_SRC emacs-lisp
   (use-package haskell-mode
     :ensure t
-    :defer t
     :config
     (use-package ghc
       :ensure t

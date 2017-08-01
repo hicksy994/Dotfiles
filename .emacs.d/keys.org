@@ -46,14 +46,18 @@
   (setq my-leader "SPC")
   (setq my-major-mode-leader ",")
 
-  ;;Unbind space and comma in some maps so I can use them as leaders
   (define-key evil-motion-state-map (kbd ",") 'nil)
-  (define-key evil-motion-state-map (kbd "SPC") 'nil)
-  (define-key magit-status-mode-map (kbd "SPC") 'nil)
-  (define-key magit-revision-mode-map (kbd "SPC") 'nil)
-  (define-key magit-log-mode-map (kbd "SPC") 'nil)
-  (define-key compilation-mode-map (kbd "SPC") 'nil)
-  (define-key help-mode-map (kbd "SPC") 'nil)
+
+  (setq space-bound-maps '(evil-motion-state-map
+                           magit-status-mode-map
+                           magit-revision-mode-map
+                           magit-log-mode-map
+                           magit-diff-mode-map
+                           compilation-mode-map
+                           help-mode-map))
+
+  (dolist (element space-bound-maps)
+    (define-key (symbol-value element) (kbd "SPC") 'nil))
 
   (use-package general
     :ensure t
@@ -96,14 +100,20 @@
   (define-key company-active-map (kbd "C-j") 'company-select-next)
   (define-key company-active-map (kbd "C-k") 'company-select-previous)
 
-  (evil-define-key 'insert java-mode-map
-    (kbd ".") 'completing-dot)
+  (setq dot-to-complete-maps '(java-mode-map
+                               haskell-mode-map
+                               c++-mode-map))
 
-  (evil-define-key 'insert haskell-mode-map
-    (kbd ".") 'completing-dot)
+  (setq arrow-to-complete-maps '(c-mode-map
+                                 c++-mode-map))
 
-  (evil-define-key 'insert c++-mode-map
-    (kbd ".") 'completing-dot)
+  (dolist (element dot-to-complete-maps)
+    (evil-define-key 'insert (symbol-value element)
+      (kbd ".") (lambda () (interactive) (insert-and-complete "."))))
+
+  (dolist (element arrow-to-complete-maps)
+    (evil-define-key 'insert (symbol-value element)
+      (kbd "->") (lambda () (interactive) (insert-and-complete "->"))))
 #+END_SRC
 
 * Org
