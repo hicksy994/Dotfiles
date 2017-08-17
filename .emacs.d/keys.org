@@ -144,7 +144,7 @@ Enter in normal mode to open links
 * Java
 #+BEGIN_SRC emacs-lisp
   (general-define-key :prefix my-major-mode-leader
-                      :keymaps 'java-mode-mapk
+                      :keymaps 'java-mode-map
                       "cc" 'gradle-build
                       "cx" 'gradle-execute
                       "ct" 'gradle-test

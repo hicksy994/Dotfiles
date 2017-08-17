@@ -224,6 +224,7 @@ Add some custom todo states
   (setq org-todo-keywords '((sequence "TODO" "WAITING" "IN-PROGRESS" "|" "DONE")))
   (setq org-todo-keyword-faces '(("WAITING" . "deepskyblue1") ("IN-PROGRESS" . "yellow")))
 #+END_SRC
+
 ** Capture
 Create custom capture templates.
 #+BEGIN_SRC emacs-lisp
