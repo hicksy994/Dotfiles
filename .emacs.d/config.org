@@ -301,7 +301,15 @@ Turn on visual line mode in org
     :config
     (require 'rtags)
     (cmake-ide-setup)
-    (setq cmake-ide-build-dir "build/"))
+    (setq cmake-ide-build-dir "~/projects/c/HackerRank/build"))
+
+  ;;Create function for setting the build dir on the fly
+  (defun set-cmake-ide-build-dir()
+    "Set the cmake-ide build directory"
+    (interactive)
+    (let ((build-directory (read-directory-name "Select build directory: ")))
+      (setq cmake-ide-build-dir build-directory)
+      (message (concat "cmake build directory set to " build-directory))))
 
   (use-package company-c-headers
     :ensure t
