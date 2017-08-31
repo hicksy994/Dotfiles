@@ -6,14 +6,18 @@
     :ensure t
     :config 
 
+    (use-package evil-surround
+      :ensure t
+      :config (global-evil-surround-mode 1))
+
     (use-package evil-escape
       :ensure t
       :config
       (evil-escape-mode)
       (setq evil-escape-key-sequence "jk"))
-  
+
     (setq-default evil-shift-round 'nil)
-  
+
     (use-package evil-commentary
       :ensure t
       :config (evil-commentary-mode))
