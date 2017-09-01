@@ -71,11 +71,12 @@
       'gruvbox
 
       '(header-line ((t(:background "#282828"))))
-      '(mode-line-inactive ((t(:foreground "#d5c4a1" :background "#504945"))))
-      '(powerline-active1 ((t(:foreground "#d5c4a1" :background "grey22"))))
-      '(powerline-inactive1 ((t(:foreground "#d5c4a1" :background "grey22"))))
-      '(powerline-active2 ((t(:foreground "#d5c4a1" :background "grey40"))))
-      '(powerline-inactive2 ((t(:foreground "#d5c4a1" :background "grey40"))))
+      '(mode-line ((t(:foreground "#d5c4a1" :background "#504945" :weight bold))))
+      '(mode-line-inactive ((t(:foreground "#d5c4a1" :background "#504945" :weight bold))))
+      '(powerline-active1 ((t(:foreground "#d5c4a1" :background "grey22" :weight bold))))
+      '(powerline-inactive1 ((t(:foreground "#d5c4a1" :background "grey22" :weight bold))))
+      '(powerline-active2 ((t(:foreground "#d5c4a1" :background "grey40" :weight bold))))
+      '(powerline-inactive2 ((t(:foreground "#d5c4a1" :background "grey40" :weight bold))))
 
       '(company-preview ((t(:background "#504945"))))
       '(company-tooltip-common ((t(:underline nil))))
@@ -110,18 +111,18 @@
 #+END_SRC
 
 ** Spaceline
-  An excellent powerline-based mode line.
 #+BEGIN_SRC emacs-lisp
   (use-package spaceline
     :ensure t
     :config
     (require 'spaceline-config)
-    ;;(setq powerline-default-separator 'utf-8)
-    (spaceline-spacemacs-theme)
+    ;; (setq powerline-default-separator 'nil)
+    (spaceline-emacs-theme)
     (spaceline-helm-mode t)
     (spaceline-info-mode t)
     (spaceline-toggle-minor-modes-off)
     (spaceline-toggle-purpose-off)
+    (spaceline-toggle-buffer-size-off)
 #+END_SRC
 
   Set the status colour to be based off the current evil-state.
