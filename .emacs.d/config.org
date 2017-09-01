@@ -72,11 +72,11 @@
 
       '(header-line ((t(:background "#282828"))))
       '(mode-line ((t(:foreground "#d5c4a1" :background "#504945" :weight bold))))
-      '(mode-line-inactive ((t(:foreground "#d5c4a1" :background "#504945" :weight bold))))
+      '(mode-line-inactive ((t(:background "#3c3836" :foreground "#a89984" :weight bold))))
       '(powerline-active1 ((t(:foreground "#d5c4a1" :background "grey22" :weight bold))))
-      '(powerline-inactive1 ((t(:foreground "#d5c4a1" :background "grey22" :weight bold))))
+      '(powerline-inactive1 ((t(:background "grey11" :weight bold))))
       '(powerline-active2 ((t(:foreground "#d5c4a1" :background "grey40" :weight bold))))
-      '(powerline-inactive2 ((t(:foreground "#d5c4a1" :background "grey40" :weight bold))))
+      '(powerline-inactive2 ((t(:background "grey20" :weight bold))))
 
       '(company-preview ((t(:background "#504945"))))
       '(company-tooltip-common ((t(:underline nil))))
