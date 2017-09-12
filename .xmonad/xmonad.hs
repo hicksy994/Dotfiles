@@ -1,50 +1,42 @@
+{-# OPTIONS_GHC -fno-warn-missing-signatures #-}
+
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.EwmhDesktops
+import XMonad.Layout.Spacing
+import XMonad.Layout.Gaps
+import XMonad.Layout.Named
 import XMonad.Layout.NoBorders
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
 
-myTerminal :: String
 myTerminal = "urxvt"
 
-myScreensaver :: String
-myScreensaver = "i3lock -u -i ~/wallpapers/elcapitan.png"
+myScreensaver = "i3lock -u -i ~/wallpapers/godspeed.png"
 
-myLauncher :: String
--- myLauncher = "rofi -show run
-myLauncher = "$(dmenu_path |yeganesh -x -- -fn 'Droid Sans-11' -nb '#22262E')"
+myLauncher = "$(dmenu_path | yeganesh -x -- -fn 'Droid Sans-11' -nb '#22262E')"
 
-myFocusedBorderColor :: String
 myFocusedBorderColor = "#68a2ff"
 
-myNormalBorderColor :: String
 myNormalBorderColor = "#22262E"
 
-myBorderWidth :: Dimension
 myBorderWidth = 2
 
-xmobarTitleColor :: String
 xmobarTitleColor = "#68CDFF"
 
-xmobarLayoutColor :: String
 xmobarLayoutColor = "#08CC38"
 
-xmobarCurrentWorkspaceColor :: String
 xmobarCurrentWorkspaceColor = "#68CDFF"
 
-xmobarUnfocusedWorkspaceColor :: String
 xmobarUnfocusedWorkspaceColor = "#676E7D"
 
-myWorkspaces :: [String]
 myWorkspaces = map show [1::Int ..9]
 
 myManageHook = composeAll 
-    [ className =? "Qemu-system-x86_64"   --> doFloat
-    ]
+    [ className =? "Qemu-system-x86_64"   --> doFloat]
     
 myKeys =
     [ ((mod4Mask .|. shiftMask, xK_x), spawn myScreensaver)
@@ -60,6 +52,10 @@ myKeys =
     , ((0, 0x1008FF14), spawn "~/Scripts/sp play")
     ]
 
+myLayoutHook = smartBorders $ avoidStruts $ tiled ||| full
+  where tiled = named "Tiled" $ gaps [(U,7), (R,7), (D,7), (L,7)] $ spacing 7 $ Tall 1 (3/100) (1/2)
+        full = gaps [(U,14), (R,14), (D,14), (L,14)] Full
+  
 defaults = def
     { modMask = mod4Mask
     , terminal = myTerminal
@@ -67,13 +63,12 @@ defaults = def
     , focusedBorderColor = myFocusedBorderColor
     , normalBorderColor = myNormalBorderColor
     , borderWidth = myBorderWidth
-    , manageHook = manageDocks <+> myManageHook
     , handleEventHook = fullscreenEventHook
-    , layoutHook = smartBorders $ avoidStruts $ layoutHook def
+    , manageHook = manageDocks <+> myManageHook
+    , layoutHook = myLayoutHook
     , startupHook = setWMName "LG3D"
     }
 
-main :: IO()
 main = do
     xmproc <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
     xmonad $ docks $ defaults
