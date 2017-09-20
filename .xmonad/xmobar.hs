@@ -1,8 +1,8 @@
 Config { font = "xft:Droid Sans:size=11,FontAwesome:size=11"
-         , borderColor = "#22262E"
+         , borderColor = "#282828"
          , overrideRedirect = False
-         , bgColor = "#22262E"
-         , fgColor = "#f3f4f5"
+         , bgColor = "#282828"
+         , fgColor = "#fdf4c1"
          , commands = [Run Memory ["-t","<usedratio>%"] 10
                       ,Run Cpu ["-t", "<total>%", "-L","3","-H","50"] 10
                       ,Run CoreTemp ["-t", "<core0>°"] 50
@@ -13,5 +13,5 @@ Config { font = "xft:Droid Sans:size=11,FontAwesome:size=11"
                       ]
          , sepChar = "%"
          , alignSep = "}{"
-         , template = "%StdinReader% }{ <fc=#f442e8> %memory%</fc> | <fc=#E03800> %cpu%</fc> | <fc=#D47B00> %coretemp%</fc> | <fc=#ffff66> %vol%</fc> | <fc=#08CC38> %date%</fc> | <fc=#68CDFF> %time%</fc> "
+         , template = "%StdinReader% }{ <fc=#d3869b> %memory%</fc> | <fc=#fb4933> %cpu%</fc> | <fc=#fe8019> %coretemp%</fc> | <fc=#fabd2f> %vol%</fc> | <fc=#08CC38> %date%</fc> | <fc=#68CDFF> %time%</fc> "
          }

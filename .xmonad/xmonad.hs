@@ -1,67 +1,95 @@
 {-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 
+import System.IO
 import XMonad
+import qualified XMonad.StackSet as W
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ManageDocks
-import XMonad.Layout.Spacing
-import XMonad.Layout.Gaps
-import XMonad.Layout.Named
-import XMonad.Layout.NoBorders
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
-import System.IO
+import XMonad.Layout.Spacing
+import XMonad.Layout.Gaps
+import XMonad.Layout.NoFrillsDecoration
+import XMonad.Layout.Named
+import XMonad.Layout.NoBorders
+import XMonad.Layout.BinarySpacePartition
+  
+myFocusedBorderColor = "#666666"
+myNonFocusedBorderColor = "#262626"
+myUrgentBorderColor = "#dc322f"
+myUrgentTextColor = "#b58900"
+xmobarTitleColor = "#fabd2f"
+xmobarLayoutColor = "#fe8019"
+xmobarCurrentWorkspaceColor = "#fdf4c1"
+xmobarUnfocusedWorkspaceColor = "#7c6f64"
+                                
+myBorderWidth = 2
+myTopBarHeight = 10
+
+myModifier = mod4Mask
+
+myFont = "xft:Droid Sans:size=11"
 
 myTerminal = "urxvt"
 
-myScreensaver = "i3lock -u -i ~/wallpapers/godspeed.png"
+myScreensaver = "i3lock -u -i ~/wallpapers/mist.png"
 
 myLauncher = "$(dmenu_path | yeganesh -x -- -fn 'Droid Sans-11' -nb '#22262E')"
 
-myFocusedBorderColor = "#68a2ff"
+topBarTheme = def
+    { fontName = myFont
+    , inactiveBorderColor = myNonFocusedBorderColor
+    , inactiveColor = myNonFocusedBorderColor
+    , inactiveTextColor = myNonFocusedBorderColor
+    , activeBorderColor = myFocusedBorderColor 
+    , activeColor = myFocusedBorderColor 
+    , activeTextColor = myFocusedBorderColor 
+    , urgentBorderColor = myUrgentBorderColor
+    , urgentTextColor = myUrgentTextColor
+    , decoHeight = myTopBarHeight
+    }
 
-myNormalBorderColor = "#22262E"
-
-myBorderWidth = 2
-
-xmobarTitleColor = "#68CDFF"
-
-xmobarLayoutColor = "#08CC38"
-
-xmobarCurrentWorkspaceColor = "#68CDFF"
-
-xmobarUnfocusedWorkspaceColor = "#676E7D"
+addTopBar = noFrillsDeco shrinkText topBarTheme
 
 myWorkspaces = map show [1::Int ..9]
 
-myManageHook = composeAll 
-    [ className =? "Qemu-system-x86_64"   --> doFloat]
-    
-myKeys =
-    [ ((mod4Mask .|. shiftMask, xK_x), spawn myScreensaver)
-    , ((mod4Mask, xK_d), spawn myLauncher)
-    , ((mod4Mask, xK_e), spawn "emacs")
-    , ((mod4Mask, xK_c), spawn "google-chrome-stable")
-    , ((mod4Mask, xK_s), spawn "spotify")
-    , ((0, 0x1008FF13), spawn "pactl set-sink-volume 1 +1%")
-    , ((0, 0x1008FF11), spawn "pactl set-sink-volume 1 -1%")
-    , ((0, 0x1008FF12), spawn "pactl set-sink-mute 1 toggle")
-    , ((0, 0x1008FF17), spawn "~/Scripts/sp next")
-    , ((0, 0x1008FF16), spawn "~/Scripts/sp prev")
-    , ((0, 0x1008FF14), spawn "~/Scripts/sp play")
-    ]
+myLayoutHook = smartBorders $ noBorders $ avoidStruts $ bsp ||| tall ||| full
+  where bsp = named "BSP" $ addTopBar $ gaps [(U,7), (R,7), (D,7), (L,7)] $ spacing 7 emptyBSP
+        tall = named "Tall" $ addTopBar $ gaps [(U,7), (R,7), (D,7), (L,7)] $ spacing 7 $ Tall 1 (3/100) (1/2)
+        full = addTopBar $ gaps [(U,14), (R,14), (D,14), (L,14)] Full
 
-myLayoutHook = smartBorders $ avoidStruts $ tiled ||| full
-  where tiled = named "Tiled" $ gaps [(U,7), (R,7), (D,7), (L,7)] $ spacing 7 $ Tall 1 (3/100) (1/2)
-        full = gaps [(U,14), (R,14), (D,14), (L,14)] Full
+scratchpads =
+  [ NS "spotify" "LD_PRELOAD=/usr/lib/libcurl.so.3:/home/hicksy/builds/spotifywm/spotifywm.so /usr/bin/spotify" (className =? "Spotify") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+  -- , NS "terminal" "urxvt" (className =? "URxvt") (customFloating $ W.RationalRect 0 0 1 (1/3)) FIXME
+  , NS "htop" "urxvt -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+  ]
   
+myManageHook = namedScratchpadManageHook scratchpads
+
+myKeys =
+    [ ((myModifier, xK_d), spawn myLauncher)
+    , ((myModifier, xK_e), spawn "emacs")
+    , ((myModifier, xK_c), spawn "google-chrome-stable")
+    , ((myModifier, xK_s), namedScratchpadAction scratchpads "spotify")
+    , ((myModifier, xK_h), namedScratchpadAction scratchpads "htop")
+    -- , ((myModifier .|. shiftMask, xK_t), namedScratchpadAction scratchpads "terminal") FIXME
+    , ((myModifier .|. shiftMask, xK_x), spawn myScreensaver)
+    , ((myModifier .|. shiftMask, xK_n), spawn "~/Scripts/sp next")
+    , ((myModifier .|. shiftMask, xK_p), spawn "~/Scripts/sp prev")
+    , ((myModifier .|. shiftMask, xK_s), spawn "~/Scripts/sp play")
+    , ((myModifier, 0x55F2), spawn "pactl set-sink-volume 1 +1%") -- Volume up FIXME
+    , ((myModifier, 0x55F4), spawn "pactl set-sink-volume 1 -1%") -- Volume down FIXME
+    ]
+    
 defaults = def
     { modMask = mod4Mask
     , terminal = myTerminal
     , workspaces = myWorkspaces
     , focusedBorderColor = myFocusedBorderColor
-    , normalBorderColor = myNormalBorderColor
+    , normalBorderColor = myNonFocusedBorderColor
     , borderWidth = myBorderWidth
     , handleEventHook = fullscreenEventHook
     , manageHook = manageDocks <+> myManageHook
