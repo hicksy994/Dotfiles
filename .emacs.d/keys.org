@@ -89,8 +89,6 @@
                       "bD" 'kill-buffer-and-window
                       "fc" 'open-config-file
                       "fk" 'open-keys-file
-                      "ft" 'treemacs-toggle
-                      "pt" 'treemacs-projectile-toggle
                       "ot" 'open-todo-file
                       "oT" 'ivy-todo
                       "TAB" 'evil-buffer)
