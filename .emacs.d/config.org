@@ -182,13 +182,6 @@
     :config
     (global-company-mode)
     (setq-default company-require-match 'nil))
-
-  (defun insert-and-complete(string)
-    "Insert a string and then show completions"
-    (interactive)
-    (company-abort)
-    (insert string)
-    (company-complete))
 #+END_SRC
 
 * Flycheck
@@ -204,7 +197,8 @@
     :defer t
     :config
     (use-package helm-projectile
-      :ensure t)
+      :ensure t
+      :config (setq helm-make-build-dir "build/debug"))
     (projectile-mode))
 #+END_SRC
 
@@ -212,18 +206,11 @@
 ** Todo/Agenda
 Set location of agenda files.
 #+BEGIN_SRC emacs-lisp
-(setq org-agenda-files '("~/org/"))
-#+END_SRC
+  (setq org-agenda-files '("~/org/"))
 
-Open agenda in current window.
-#+BEGIN_SRC emacs-lisp
-(setq org-agenda-window-setup 'current-window)
-#+END_SRC
-
-Add some custom todo states
-#+BEGIN_SRC emacs-lisp
-  (setq org-todo-keywords '((sequence "TODO" "WAITING" "IN-PROGRESS" "|" "DONE")))
-  (setq org-todo-keyword-faces '(("WAITING" . "deepskyblue1") ("IN-PROGRESS" . "yellow")))
+  (use-package ivy-todo
+    :ensure t
+    :config (setq ivy-todo-file "~/org/Todo.org"))
 #+END_SRC
 
 ** Capture
@@ -284,7 +271,13 @@ Turn on visual line mode in org
   (add-hook 'org-mode-hook (lambda() (visual-line-mode)))
 #+END_SRC
 
+Show inline images
+#+BEGIN_SRC emacs-lisp
+  (setq org-startup-with-inline-images t)
+#+END_SRC
+
 * C/C++
+** Packages
 #+BEGIN_SRC emacs-lisp
   (use-package cc-mode
     :ensure t
@@ -302,15 +295,7 @@ Turn on visual line mode in org
     :config
     (require 'rtags)
     (cmake-ide-setup)
-    (setq cmake-ide-build-dir "~/projects/c/HackerRank/build"))
-
-  ;;Create function for setting the build dir on the fly
-  (defun set-cmake-ide-build-dir()
-    "Set the cmake-ide build directory"
-    (interactive)
-    (let ((build-directory (read-directory-name "Select build directory: ")))
-      (setq cmake-ide-build-dir build-directory)
-      (message (concat "cmake build directory set to " build-directory))))
+    (setq cmake-ide-build-dir "~/projects/c/jcc/build/debug"))
 
   (use-package company-c-headers
     :ensure t
@@ -323,8 +308,26 @@ Turn on visual line mode in org
     (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
     (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode))
 
+  (use-package bison-mode
+    :ensure t
+    :defer t)
+#+END_SRC
+
+** Misc
+#+BEGIN_SRC emacs-lisp
+  ;;Create function for setting the build dir on the fly
+  (defun set-cmake-ide-build-dir()
+    "Set the cmake-ide build directory"
+    (interactive)
+    (let ((build-directory (read-directory-name "Select build directory: ")))
+      (setq cmake-ide-build-dir build-directory)
+      (message (concat "cmake build directory set to " build-directory))))
+
   (add-hook 'c-mode-hook (lambda() (flycheck-mode)))
   (add-hook 'c++-mode-hook (lambda() (flycheck-mode)))
+
+  (add-hook 'c-mode-hook (lambda () (setq comment-start "//"
+                                          comment-end   "")))
 #+END_SRC
 
 * Rust
@@ -348,7 +351,6 @@ Turn on visual line mode in org
 
   (use-package company-racer
     :ensure t
-    :defer t
     :config
     (add-to-list 'company-backends 'company-racer))
 
@@ -403,11 +405,7 @@ Turn on visual line mode in org
 
     (use-package company-ghc
       :ensure t
-      :config (add-to-list 'company-backends 'company-ghc))
-
-    (use-package company-ghci
-      :ensure t
-      :config (add-to-list 'company-backends 'company-ghci))
+      :config (add-to-list 'company-backends '(company-ghc :with company-dabbrev-code)))
 
     (use-package flycheck-haskell
       :ensure t
@@ -442,13 +440,6 @@ Turn on visual line mode in org
     :defer t
     :config
     (yas-global-mode 1))
-#+END_SRC
-
-* Eshell
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'eshell-mode-hook
-            (lambda ()
-              (setq-local evil-move-cursor-back nil)))
 #+END_SRC
 
 * ERC
@@ -511,7 +502,7 @@ Turn on visual line mode in org
 
    Scroll to first error
 #+BEGIN_SRC emacs-lisp
-  (setq compilation-scroll-output 'first-error)
+  (setq compilation-scroll-output t)
 #+END_SRC
 
    Remove some unused keybindings in compilation mode.
@@ -578,10 +569,8 @@ Turn on visual line mode in org
     :ensure t
     :config
     (add-hook 'prog-mode-hook 'linum-relative-mode)
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (setq linum-relative-current-symbol ""))
+    (add-hook 'conf-mode-hook 'linum-relative-mode)
+    (setq linum-relative-current-symbol ""))
 #+END_SRC
 
 ** Default Style

@@ -43,6 +43,11 @@
     (interactive)
     (find-file "~/.emacs.d/keys.org"))
 
+  (defun open-todo-file()
+    "Open my todo file"
+    (interactive)
+    (find-file "~/org/Todo.org"))
+
   (defun kill-buffer-and-window ()
     "Kill the current buffer and window in one step"
     (interactive)
@@ -62,6 +67,7 @@
                            magit-revision-mode-map
                            magit-log-mode-map
                            magit-diff-mode-map
+                           magit-process-mode-map
                            compilation-mode-map
                            help-mode-map))
 
@@ -80,10 +86,14 @@
                       "!" 'shell-command
                       "g" 'magit-status
                       "bd" 'kill-this-buffer
+                      "bD" 'kill-buffer-and-window
                       "fc" 'open-config-file
                       "fk" 'open-keys-file
-                      "TAB" 'evil-buffer
-                      "bD" 'kill-buffer-and-window)
+                      "ft" 'treemacs-toggle
+                      "pt" 'treemacs-projectile-toggle
+                      "ot" 'open-todo-file
+                      "oT" 'ivy-todo
+                      "TAB" 'evil-buffer)
 #+END_SRC
 
 * Ivy
@@ -108,21 +118,6 @@
 #+BEGIN_SRC emacs-lisp
   (define-key company-active-map (kbd "C-j") 'company-select-next)
   (define-key company-active-map (kbd "C-k") 'company-select-previous)
-
-  (setq dot-to-complete-maps '(java-mode-map
-                               haskell-mode-map
-                               c++-mode-map))
-
-  (setq arrow-to-complete-maps '(c-mode-map
-                                 c++-mode-map))
-
-  (dolist (element dot-to-complete-maps)
-    (evil-define-key 'insert (symbol-value element)
-      (kbd ".") (lambda () (interactive) (insert-and-complete "."))))
-
-  (dolist (element arrow-to-complete-maps)
-    (evil-define-key 'insert (symbol-value element)
-      (kbd "->") (lambda () (interactive) (insert-and-complete "->"))))
 #+END_SRC
 
 * Org
@@ -130,10 +125,15 @@
   (add-to-list 'load-path "~/.emacs.d/plugins/evil-org-mode")
   (use-package evil-org
     :ensure t)
-#+END_SRC
 
-Enter in normal mode to open links
-#+BEGIN_SRC emacs-lisp
+  (general-define-key :prefix my-major-mode-leader
+                      :keymaps 'org-mode-map
+                      :states '(normal)
+                      "a" 'org-archive-subtree
+                      "d" 'org-deadline
+                      "s" 'org-schedule
+                      "p" 'org-pomodoro)
+
   (evil-define-key 'normal org-mode-map
     (kbd "RET") 'org-open-at-point)
 #+END_SRC
@@ -154,6 +154,7 @@ Enter in normal mode to open links
 #+BEGIN_SRC emacs-lisp
   (general-define-key :prefix my-major-mode-leader
                       :keymaps 'java-mode-map
+                      :states '(normal)
                       "cc" 'gradle-build
                       "cx" 'gradle-execute
                       "ct" 'gradle-test
@@ -182,9 +183,4 @@ Enter in normal mode to open links
   (define-key evil-normal-state-map (kbd "C-w C-v") 'evil-window-vsplit-and-focus)
   (define-key evil-normal-state-map (kbd "C-w C-s") 'evil-window-split-and-focus)
 
-#+END_SRC
-
-   Indent from normal mode.
-#+BEGIN_SRC emacs-lisp
-  (define-key evil-normal-state-map (kbd "TAB") 'c-indent-line-or-region)
 #+END_SRC
