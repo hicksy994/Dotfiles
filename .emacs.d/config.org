@@ -481,6 +481,7 @@ Show inline images
                           "[/\\]\\.elpa/"
                           ))
   (recentf-mode 1)
+  (setq recentf-max-saved-items 100)
 #+END_SRC
 
 ** Smex
