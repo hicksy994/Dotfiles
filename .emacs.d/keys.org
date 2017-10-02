@@ -163,6 +163,14 @@
                       "gg" 'eclim-java-find-declaration)
 #+END_SRC
 
+* Rust
+#+BEGIN_SRC emacs-lisp
+  (general-define-key :prefix my-major-mode-leader
+                      :keymaps 'rust-mode-map
+                      :states '(normal)
+                      "gg" 'racer-find-definition)
+#+END_SRC
+
 * Misc
    Splitting and focusing in one step.
 #+BEGIN_SRC emacs-lisp
