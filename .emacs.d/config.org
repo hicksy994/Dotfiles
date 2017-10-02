@@ -18,96 +18,42 @@
     :ensure t)
 #+END_SRC
 
-* Themes
-** Set Varaiable for easily choosing theme
-#+BEGIN_SRC emacs-lisp
-(setq my-theme 'gruvbox)
-#+END_SRC
-** Monokai
- #+BEGIN_SRC emacs-lisp
-   (cond ((string= my-theme 'monokai)
-          (use-package monokai-theme
-            :ensure t
-            :config
-            (load-theme 'monokai t)
-            (custom-theme-set-faces
-             'monokai
-          
-             '(header-line ((t (:background "#272822" :box nil))))
-             '(mode-line-inactive ((t (:foreground "#F8F8F0" :background "#49483E" :box (:line-width 1 :color "#64645E")))))
-             '(powerline-inactive1 ((t (:foreground "#F8F8F0" :background "#35331D"))))
-             '(powerline-inactive2 ((t (:foreground "#F8F8F0" :background "#272822"))))
-    
-             '(show-paren-match ((t (:foreground "#ff0000"))))
-          
-             '(company-tooltip-common ((t (:underline nil))))
-             '(company-preview-common ((t (:underline nil))))
-             '(company-tooltip-common-selection ((t (:underline nil))))
-          
-             '(linum ((t (:foreground "#75715E" :background "#272822" :weight normal))))
-             '(linum-relative-current-face ((t (:foreground "#75715E" :background "#272822" :weight normal))))
-          
-             '(flycheck-error((t (:underline (:color "#ff0000" :style wave )))))
-             '(flycheck-warning((t (:underline (:color "#ffff00" :style wave)))))
-          
-             '(eclim-problems-highlight-error-face((t (:underline (:color "#ff0000" :style wave)))))
-             '(eclim-problems-highlight-warning-face((t (:underline (:color "#ffff00" :style wave)))))
-          
-             '(ivy-minibuffer-match-face-2((t (:foreground "#9257FF" :underline t))))
-
-             '(org-block-begin-line ((t (:foreground "#75715E" :background "#272822"))))
-             '(org-block((t (:background "#272822"))))
-             '(org-block-end-line ((t (:foreground "#75715E" :background "#272822")))))))
- #+END_SRC
-
+* Aesthetics
 ** Gruvbox
 #+BEGIN_SRC emacs-lisp
-  ((string= my-theme 'gruvbox)
-   (use-package gruvbox-theme
-     :ensure t
-     :config
-     (load-theme 'gruvbox t)
-     (custom-theme-set-faces
-      'gruvbox
+  (use-package gruvbox-theme
+       :ensure t
+       :config
+       (load-theme 'gruvbox t)
+       (custom-theme-set-faces
+        'gruvbox
 
-      '(header-line ((t(:background "#282828"))))
-      '(mode-line ((t(:foreground "#d5c4a1" :background "#504945" :weight bold))))
-      '(mode-line-inactive ((t(:background "#3c3836" :foreground "#a89984" :weight bold))))
-      '(powerline-active1 ((t(:foreground "#d5c4a1" :background "grey22" :weight bold))))
-      '(powerline-inactive1 ((t(:background "grey11" :weight bold))))
-      '(powerline-active2 ((t(:foreground "#d5c4a1" :background "grey40" :weight bold))))
-      '(powerline-inactive2 ((t(:background "grey20" :weight bold))))
+        '(header-line ((t(:background "#282828"))))
+        '(mode-line ((t(:foreground "#d5c4a1" :background "#504945" :weight bold))))
+        '(mode-line-inactive ((t(:background "#3c3836" :foreground "#a89984" :weight bold))))
+        '(powerline-active1 ((t(:foreground "#d5c4a1" :background "grey22" :weight bold))))
+        '(powerline-inactive1 ((t(:background "grey11" :weight bold))))
+        '(powerline-active2 ((t(:foreground "#d5c4a1" :background "grey40" :weight bold))))
+        '(powerline-inactive2 ((t(:background "grey20" :weight bold))))
 
-      '(company-preview ((t(:background "#504945"))))
-      '(company-tooltip-common ((t(:underline nil))))
-      '(company-preview-common ((t(:underline nil))))
-      '(company-tooltip-common-selection ((t(:underline nil))))
+        '(company-preview ((t(:background "#504945"))))
+        '(company-tooltip-common ((t(:underline nil))))
+        '(company-preview-common ((t(:underline nil))))
+        '(company-tooltip-common-selection ((t(:underline nil))))
 
-      '(org-block-begin-line ((t(:foreground "#7c6f64"))))
-      '(org-block ((t(:foreground "#fdf4c1"))))
-      '(org-block-end-line ((t(:foreground "#7c6f64"))))
+        '(org-block-begin-line ((t(:foreground "#7c6f64"))))
+        '(org-block ((t(:foreground "#fdf4c1"))))
+        '(org-block-end-line ((t(:foreground "#7c6f64"))))
 
-      '(erc-prompt-face ((t(:background "#282828" :foreground "Green"))))
-      '(erc-input-face ((t(:foreground "#fe8019"))))
+        '(erc-prompt-face ((t(:background "#282828" :foreground "Green"))))
+        '(erc-input-face ((t(:foreground "#fe8019"))))
 
-      '(show-paren-match ((t (:foreground "#ff0000" :background "#282828"))))
+        '(show-paren-match ((t (:foreground "#ff0000" :background "#282828"))))
 
-      '(ivy-current-match((t (:background "#504945"))))
+        '(ivy-current-match((t (:background "#504945"))))
 
-      '(linum ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))
-      '(linum-relative-current-face ((t(:background "#282828" :foreground "#7c6f64" :weight normal)))))))
-#+END_SRC
-
-** Dracula
-#+BEGIN_SRC emacs-lisp
-  ((string= my-theme 'dracula)
-   (use-package dracula-theme
-     :ensure t
-     :config
-     (load-theme 'dracula t)
-     (custom-theme-set-faces
-      'dracula
-      ))))
+        '(linum ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))
+        '(linum-relative-current-face ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))))
 #+END_SRC
 
 ** Spaceline
@@ -116,7 +62,6 @@
     :ensure t
     :config
     (require 'spaceline-config)
-    ;; (setq powerline-default-separator 'nil)
     (spaceline-emacs-theme)
     (spaceline-helm-mode t)
     (spaceline-info-mode t)
@@ -204,7 +149,6 @@
 
 * Org
 ** Todo/Agenda
-Set location of agenda files.
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-files '("~/org/"))
 
@@ -214,15 +158,11 @@ Set location of agenda files.
 #+END_SRC
 
 ** Capture
-Create custom capture templates.
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
         '(("t" "Todo" entry (file"~/org/Todo.org")
            "* TODO %?  %i\n  %a")))
-#+END_SRC
 
-Open capture in insert mode.
-#+BEGIN_SRC emacs-lisp
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
 #+END_SRC
 
