@@ -334,9 +334,9 @@ Show inline images
 #+BEGIN_SRC emacs-lisp
   (use-package rust-mode
     :ensure t
-    :defer t
     :config
-    (setq rust-format-on-save t))
+    (setq rust-format-on-save t)
+    (setq rust-rustfmt-bin "~/.cargo/bin/rustfmt"))
 
   (use-package cargo
     :ensure t
