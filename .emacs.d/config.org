@@ -578,7 +578,7 @@ Show inline images
   (setq make-backup-files nil)
 #+END_SRC
 
-** Prevent emacs asking about running processes when quitting   
+** Prevent emacs asking about running processes when quitting
 #+BEGIN_SRC emacs-lisp
   (require 'cl-lib)
   (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
