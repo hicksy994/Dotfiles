@@ -331,7 +331,6 @@ Show inline images
 ** Misc
 #+BEGIN_SRC emacs-lisp
   (add-hook 'java-mode-hook (lambda() (c-set-style "java")))
-
 #+END_SRC
 
 * Haskell
