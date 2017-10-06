@@ -461,7 +461,8 @@ Show inline images
     :ensure t
     :config
     (popwin-mode)
-    (setq popwin:popup-window-height 25))
+    (setq popwin:popup-window-height 20)
+    (add-to-list 'popwin:special-display-config '(cargo-process-mode :noselect t)))
 #+END_SRC
 
 ** Smartparens
