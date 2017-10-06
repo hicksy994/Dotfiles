@@ -239,7 +239,10 @@ Show inline images
 
   (use-package company-c-headers
     :ensure t
-    :config (add-to-list 'company-backends 'company-c-headers))
+    :config
+    (add-to-list 'company-backends 'company-c-headers)
+    (add-hook 'c++-mode-hook (lambda()
+                               (add-to-list 'company-c-headers-path-system "/usr/include/c++/7.2.0"))))
 
   (use-package c-eldoc
     :ensure t
