@@ -347,7 +347,7 @@ Show inline images
 
     (use-package company-ghc
       :ensure t
-      :config (add-to-list 'company-backends '(company-ghc :with company-dabbrev-code)))
+      :config (add-to-list 'company-backends 'company-ghc))
 
     (use-package flycheck-haskell
       :ensure t
