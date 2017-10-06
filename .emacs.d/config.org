@@ -415,6 +415,7 @@ Show inline images
 #+BEGIN_SRC emacs-lisp
   (put 'helm-make-build-dir 'safe-local-variable 'stringp)
 #+END_SRC
+
 ** Recentf
 #+BEGIN_SRC emacs-lisp
   (setq recentf-exclude '("^/var/folders\\.*"
