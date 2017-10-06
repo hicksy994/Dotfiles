@@ -198,7 +198,7 @@ Set all headings to be the same height/weight
   (add-hook 'org-mode-hook 'my/org-mode-hook)
 #+END_SRC
 
-Set applications for running stuff.
+Set applications for running stuff
 #+BEGIN_SRC emacs-lisp
   (setq org-file-apps '((auto-mode . emacs)
                        ("\\.mm\\'" . default)
