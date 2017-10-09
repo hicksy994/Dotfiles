@@ -130,7 +130,8 @@
                       "a" 'org-archive-subtree
                       "d" 'org-deadline
                       "s" 'org-schedule
-                      "p" 'org-pomodoro)
+                      "p" 'org-pomodoro
+                      "e" 'org-export-dispatch)
 
   (evil-define-key 'normal org-mode-map
     (kbd "RET") 'org-open-at-point)
