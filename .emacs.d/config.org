@@ -19,7 +19,7 @@
 #+END_SRC
 
 * Aesthetics
-** Gruvbox
+** Gruvbox Theme
 #+BEGIN_SRC emacs-lisp
   (use-package gruvbox-theme
        :ensure t
@@ -27,14 +27,10 @@
        (load-theme 'gruvbox t)
        (custom-theme-set-faces
         'gruvbox
-
-        '(header-line ((t(:background "#282828"))))
-        '(mode-line ((t(:foreground "#d5c4a1" :background "#504945" :weight bold))))
-        '(mode-line-inactive ((t(:background "#3c3836" :foreground "#a89984" :weight bold))))
-        '(powerline-active1 ((t(:foreground "#d5c4a1" :background "grey22" :weight bold))))
-        '(powerline-inactive1 ((t(:background "grey11" :weight bold))))
-        '(powerline-active2 ((t(:foreground "#d5c4a1" :background "grey40" :weight bold))))
-        '(powerline-inactive2 ((t(:background "grey20" :weight bold))))
+        '(mode-line ((t(:background "#504945"))))
+        '(sml/filename ((t(:foreground "#fe8019" :weight normal))))
+        '(sml/modes ((t(:foreground "#fe8019"))))
+        '(sml/line-number ((t(:foreground "#b8bb26"))))
 
         '(company-preview ((t(:background "#504945"))))
         '(company-tooltip-common ((t(:underline nil))))
@@ -56,33 +52,30 @@
         '(linum-relative-current-face ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))))
 #+END_SRC
 
-** Spaceline
+** Smart Mode Line
 #+BEGIN_SRC emacs-lisp
-  (use-package spaceline
+  (use-package smart-mode-line
     :ensure t
-    :config
-    (require 'spaceline-config)
-    (spaceline-emacs-theme)
-    (spaceline-helm-mode t)
-    (spaceline-info-mode t)
-    (spaceline-toggle-minor-modes-off)
-    (spaceline-toggle-purpose-off)
-    (spaceline-toggle-buffer-size-off)
+    :config 
+    (sml/setup)
+    (setq sml/show-encoding nil)
+    (setq sml/show-remote nil)
+    (setq rm-whitelist '(" company" " FlyC" " yas" " ivy" )))
 #+END_SRC
 
-  Set the status colour to be based off the current evil-state.
-#+BEGIN_SRC emacs-lisp
-  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state))
-#+END_SRC
-
-* Magit
+* Magit/Version Control
 #+BEGIN_SRC emacs-lisp
   (use-package magit
+    :ensure t)
+
+  (use-package evil-magit
+    :ensure t)
+
+  (use-package git-gutter-fringe
     :ensure t
-    :config
-    (use-package evil-magit
-      :ensure t)
-    (setq auto-revert-check-vc-info t))
+    :config (global-git-gutter-mode t))
+
+  (setq auto-revert-check-vc-info t)
 #+END_SRC
 
 * Ivy
@@ -92,7 +85,7 @@
     :config
     (ivy-mode)
     (setq ivy-height 10)
-    (setq ivy-count-format "")
+    (setq ivy-count-format "%d/%d ")
     (setq ivy-use-virtual-buffers t)
     (setq ivy-virtual-abbreviate 'full)
     (setq helm-make-completion-method 'ivy)
@@ -106,18 +99,22 @@
                                "\\`\\*rdm"
                                "\\`\\*RTags Log")))
 
-    (use-package counsel
-      :ensure t
-      :config
-      (setq counsel-find-file-ignore-regexp "^build/"))
+  (use-package counsel
+    :ensure t
+    :config (setq counsel-find-file-ignore-regexp "^build/"))
 
-    (use-package counsel-projectile
-      :ensure t
-      :config
-      (counsel-projectile-on))
+  (use-package counsel-projectile
+    :ensure t
+    :config (counsel-projectile-on))
 
-    (use-package swiper
-      :ensure t)
+  (use-package swiper
+    :ensure t)
+
+  ;;Helm-make lets use use ivy to select a make target
+  (use-package helm-make
+    :ensure t
+    :defer t
+    :config (setq-default helm-make-build-dir "build"))
 #+END_SRC
 
 * Company
@@ -132,7 +129,8 @@
 * Flycheck
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
-    :ensure t)
+    :ensure t
+    :defer t)
 #+END_SRC
 
 * Projectile
@@ -141,10 +139,9 @@
     :ensure t
     :defer t
     :config
-    (use-package helm-projectile
-      :ensure t
-      :config (setq helm-make-build-dir "build/debug"))
-    (projectile-mode))
+    (projectile-mode)
+    (add-to-list 'projectile-globally-ignored-directories "build/"))
+
 #+END_SRC
 
 * Org
@@ -154,6 +151,7 @@
 
   (use-package ivy-todo
     :ensure t
+    :defer t
     :config (setq ivy-todo-file "~/org/Todo.org"))
 #+END_SRC
 
@@ -171,6 +169,7 @@ Use org bullets package to get pretty bullets
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
     :ensure t
+    :defer t
     :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
 #+END_SRC
 
@@ -202,7 +201,7 @@ Set applications for running stuff
 #+BEGIN_SRC emacs-lisp
   (setq org-file-apps '((auto-mode . emacs)
                        ("\\.mm\\'" . default)
-                       ("\\.x?html?\\'" . "google-chrome-stable %s")
+                       ("\\.x?html?\\'" . "chromium")
                        ("\\.pdf\\'" . "zathura %s")))
 #+END_SRC
 
@@ -228,14 +227,15 @@ Show inline images
     :defer t)
 
   (use-package rtags
-    :ensure t)
+    :ensure t
+    :defer t)
 
   (use-package cmake-ide
     :ensure t
     :config
     (require 'rtags)
     (cmake-ide-setup)
-    (setq cmake-ide-build-dir "~/projects/c/jcc/build/debug"))
+    (setq cmake-ide-build-dir "build"))
 
   (use-package company-c-headers
     :ensure t
@@ -243,13 +243,6 @@ Show inline images
     (add-to-list 'company-backends 'company-c-headers)
     (add-hook 'c++-mode-hook (lambda()
                                (add-to-list 'company-c-headers-path-system "/usr/include/c++/7.2.0"))))
-
-  (use-package c-eldoc
-    :ensure t
-    :defer t
-    :config 
-    (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
-    (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode))
 
   (use-package bison-mode
     :ensure t
@@ -268,15 +261,13 @@ Show inline images
 
   (add-hook 'c-mode-hook (lambda() (flycheck-mode)))
   (add-hook 'c++-mode-hook (lambda() (flycheck-mode)))
-
-  (add-hook 'c-mode-hook (lambda () (setq comment-start "//"
-                                          comment-end   "")))
 #+END_SRC
 
 * Rust
 #+BEGIN_SRC emacs-lisp
   (use-package rust-mode
     :ensure t
+    :defer t
     :config
     (setq rust-format-on-save t)
     (setq rust-rustfmt-bin "~/.cargo/bin/rustfmt"))
@@ -294,11 +285,12 @@ Show inline images
 
   (use-package company-racer
     :ensure t
-    :config
-    (add-to-list 'company-backends 'company-racer))
+    :config (add-to-list 'company-backends 'company-racer))
+    
 
   (use-package flycheck-rust
     :ensure t
+    :defer t
     :config
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
     (add-hook 'rust-mode-hook (lambda() (flycheck-mode))))
@@ -309,23 +301,28 @@ Show inline images
 #+BEGIN_SRC emacs-lisp
   (use-package eclim
     :ensure t
+    :defer t
     :config
     (setq eclim-eclipse-dirs "/usr/lib/eclipse"
-          eclim-executable "/usr/lib/eclipse/eclim")
-    (use-package company-emacs-eclim
-      :ensure t
-      :config (company-emacs-eclim-setup)
-    (add-hook 'java-mode-hook (lambda() (eclim-mode)))))
+          eclim-executable "/usr/lib/eclipse/eclim"))
+
+  (use-package company-emacs-eclim
+    :ensure t
+    :config
+    (company-emacs-eclim-setup)
+    (add-hook 'java-mode-hook (lambda() (eclim-mode))))
 #+END_SRC
 
 ** Gradle
 #+BEGIN_SRC emacs-lisp
   (use-package gradle-mode
     :ensure t
-    :config
-    (use-package groovy-mode
-      :ensure t)
-    (add-hook 'java-mode-hook (lambda() (gradle-mode))))
+    :defer t
+    :config (add-hook 'java-mode-hook (lambda() (gradle-mode))))
+
+  (use-package groovy-mode
+    :ensure t
+    :defer t)
 #+END_SRC
 
 ** Misc
@@ -337,35 +334,38 @@ Show inline images
 #+BEGIN_SRC emacs-lisp
   (use-package haskell-mode
     :ensure t
+    :defer t
     :config
-    (use-package ghc
-      :ensure t
-      :config
-      (autoload 'ghc-init "ghc" nil t)
-      (autoload 'ghc-debug "ghc" nil t)
-      (add-hook 'haskell-mode-hook (lambda () (ghc-init))))
-
-    (use-package company-ghc
-      :ensure t
-      :config (add-to-list 'company-backends 'company-ghc))
-
-    (use-package flycheck-haskell
-      :ensure t
-      :config
-      (eval-after-load 'flycheck
-        '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
-
-      (add-hook 'haskell-mode-hook (lambda () (flycheck-mode))))
-
-    (use-package helm-ghc
-      :ensure t)
-
     (setq haskell-interactive-popup-errors 'nil)
 
     ;;Stop the repl getting stuck
     (add-hook 'haskell-interactive-mode-hook
               (lambda ()
                 (setq-local evil-move-cursor-back nil))))
+
+  (use-package ghc
+    :ensure t
+    :defer t
+    :config
+    (autoload 'ghc-init "ghc" nil t)
+    (autoload 'ghc-debug "ghc" nil t)
+    (add-hook 'haskell-mode-hook (lambda () (ghc-init))))
+
+  (use-package company-ghc
+    :ensure t
+    :config (add-to-list 'company-backends 'company-ghc))
+
+  (use-package flycheck-haskell
+    :ensure t
+    :config
+    (eval-after-load 'flycheck
+      '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
+
+    (add-hook 'haskell-mode-hook (lambda () (flycheck-mode))))
+
+  (use-package helm-ghc
+    :ensure t
+    :defer t)
 #+END_SRC
 
 * Markdown
@@ -427,12 +427,6 @@ Show inline images
   (setq recentf-max-saved-items 100)
 #+END_SRC
 
-** Smex
-#+BEGIN_SRC emacs-lisp
-  (use-package smex
-    :ensure t)
-#+END_SRC
-
 ** Compilation
    Use ANSI colours in compilation.
 #+BEGIN_SRC emacs-lisp
@@ -465,45 +459,43 @@ Show inline images
     (add-to-list 'popwin:special-display-config '(cargo-process-mode :noselect t)))
 #+END_SRC
 
+** Smex
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :ensure t)
+#+END_SRC
+
 ** Smartparens
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
     :ensure t
+    :defer t
     :config
     (add-hook 'prog-mode-hook 'smartparens-mode)
-    (use-package evil-smartparens
-      :ensure t
-      :config (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)))
+    (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+    (setq sp-highlight-pair-overlay nil)
+    (setq sp-highlight-wrap-overlay nil)
+    (setq sp-highlight-wrap-tag-overlay nil)
+
+    (defun my-create-newline-and-enter-sexp (&rest _ignored)
+      "Open a new brace or bracket expression, with relevant newlines and indent. "
+      (newline)
+      (indent-according-to-mode)
+      (forward-line -1)
+      (indent-according-to-mode))
+
+    (sp-pair "{" nil :post-handlers '((my-create-newline-and-enter-sexp "RET"))))
+
+  (use-package evil-smartparens
+    :ensure t
+    :config (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode))
 #+END_SRC
-
-   Remove "'" pair in emacs-lisp mode.
-#+BEGIN_SRC emacs-lisp
-  (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
-#+END_SRC
-
-   Disable highlighting in pairs.
-#+BEGIN_SRC emacs-lisp
-  (setq sp-highlight-pair-overlay nil)
-  (setq sp-highlight-wrap-overlay nil)
-  (setq sp-highlight-wrap-tag-overlay nil)
-#+END_SRC
-
-   Insert a new line and indent after opening brace.
-#+BEGIN_SRC emacs-lisp
-  (defun my-create-newline-and-enter-sexp (&rest _ignored)
-    "Open a new brace or bracket expression, with relevant newlines and indent. "
-    (newline)
-    (indent-according-to-mode)
-    (forward-line -1)
-    (indent-according-to-mode))
-
-  (sp-pair "{" nil :post-handlers '((my-create-newline-and-enter-sexp "RET")))
-#+END_SRC 
 
 ** Rainbow Delimiters
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
     :ensure t
+    :defer t
     :config
     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 #+END_SRC
@@ -558,7 +550,7 @@ Show inline images
 ** Set Browser
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "google-chrome-stable")
+        browse-url-generic-program "chromium")
 #+END_SRC
 
 ** Scratch Buffer
@@ -567,9 +559,9 @@ Show inline images
   (setq initial-scratch-message '"")
 #+END_SRC
 
-** Open Todo file on startup
+** Inhibit Startup Screen
 #+BEGIN_SRC emacs-lisp
-  (setq initial-buffer-choice "~/org/Todo.org")
+  (setq inhibit-startup-screen 't)
 #+END_SRC
 
 ** Disable lockfile/backup file creation
