@@ -28,6 +28,7 @@
        (custom-theme-set-faces
         'gruvbox
         '(mode-line ((t(:background "#504945"))))
+        '(mode-line-inactive ((t(:background "#383432" :foreground "#a89984"))))
         '(sml/filename ((t(:foreground "#fe8019" :weight normal))))
         '(sml/modes ((t(:foreground "#fe8019"))))
         '(sml/line-number ((t(:foreground "#b8bb26"))))
@@ -59,8 +60,10 @@
     :config 
     (sml/setup)
     (setq sml/show-encoding nil)
+    (setq sml/name-width 40)
+    (setq sml/mode-width 'full)
     (setq sml/show-remote nil)
-    (setq rm-whitelist '(" company" " FlyC" " yas" " ivy" )))
+    (setq rm-whitelist '(" company" " FlyC" " yas" " ivy" " Fly" " GitGutter" " SP")))
 #+END_SRC
 
 * Magit/Version Control
@@ -258,9 +261,13 @@ Show inline images
     (let ((build-directory (read-directory-name "Select build directory: ")))
       (setq cmake-ide-build-dir build-directory)
       (message (concat "cmake build directory set to " build-directory))))
+#+END_SRC
 
+#+BEGIN_SRC emacs-lisp
   (add-hook 'c-mode-hook (lambda() (flycheck-mode)))
   (add-hook 'c++-mode-hook (lambda() (flycheck-mode)))
+  (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+  (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
 #+END_SRC
 
 * Rust
@@ -416,6 +423,15 @@ Show inline images
   (put 'helm-make-build-dir 'safe-local-variable 'stringp)
 #+END_SRC
 
+** Google This
+#+BEGIN_SRC emacs-lisp
+  (use-package google-this
+    :ensure t
+    :defer t
+    :config
+    (google-this-mode))
+#+END_SRC
+
 ** Recentf
 #+BEGIN_SRC emacs-lisp
   (setq recentf-exclude '("^/var/folders\\.*"
@@ -509,6 +525,11 @@ Show inline images
     (add-hook 'conf-mode-hook 'linum-relative-mode)
     (setq linum-relative-current-symbol ""))
 #+END_SRC
+
+** Column number mode
+#+begin_src emacs-lisp
+  (column-number-mode)
+#+end_src
 
 ** Default Style
 #+BEGIN_SRC emacs-lisp
