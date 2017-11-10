@@ -219,6 +219,13 @@ Show inline images
   (setq org-startup-with-inline-images t)
 #+END_SRC
 
+Remove unnecessary company backends
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (setq-local company-backends '((company-yasnippet company-dabbrev)))))
+#+END_SRC
+
 * C/C++
 ** Packages
 #+BEGIN_SRC emacs-lisp
