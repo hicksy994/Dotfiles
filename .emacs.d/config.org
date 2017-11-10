@@ -237,6 +237,13 @@ Remove unnecessary company backends
     :ensure t
     :defer t)
 
+  (use-package company-c-headers
+    :ensure t
+    :config
+    (add-to-list 'company-backends 'company-c-headers)
+    (add-hook 'c++-mode-hook (lambda()
+                               (add-to-list 'company-c-headers-path-system "/usr/include/c++/7.2.0"))))
+
   (use-package rtags
     :ensure t
     :defer t)
@@ -248,29 +255,13 @@ Remove unnecessary company backends
     (cmake-ide-setup)
     (setq cmake-ide-build-dir "build"))
 
-  (use-package company-c-headers
-    :ensure t
-    :config
-    (add-to-list 'company-backends 'company-c-headers)
-    (add-hook 'c++-mode-hook (lambda()
-                               (add-to-list 'company-c-headers-path-system "/usr/include/c++/7.2.0"))))
-
   (use-package bison-mode
     :ensure t
     :defer t)
 #+END_SRC
 
 ** Misc
-#+BEGIN_SRC emacs-lisp
-  ;;Create function for setting the build dir on the fly
-  (defun set-cmake-ide-build-dir()
-    "Set the cmake-ide build directory"
-    (interactive)
-    (let ((build-directory (read-directory-name "Select build directory: ")))
-      (setq cmake-ide-build-dir build-directory)
-      (message (concat "cmake build directory set to " build-directory))))
-#+END_SRC
-
+*** Flycheck
 #+BEGIN_SRC emacs-lisp
   (add-hook 'c-mode-hook (lambda() (flycheck-mode)))
   (add-hook 'c++-mode-hook (lambda() (flycheck-mode)))
