@@ -417,6 +417,12 @@ Remove unnecessary company backends
   (set-frame-font "Iosevka-13" nil t)
 #+END_SRC
 
+** Highlight Line
+#+BEGIN_SRC emacs-lisp
+  (setq hl-line-sticky-flag nil)
+  (add-hook 'prog-mode-hook (lambda() (hl-line-mode)))
+#+END_SRC
+
 ** Safe Local Variables
 #+BEGIN_SRC emacs-lisp
   (put 'helm-make-build-dir 'safe-local-variable 'stringp)
