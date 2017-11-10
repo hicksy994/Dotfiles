@@ -124,8 +124,9 @@
   (use-package company
     :ensure t
     :config
-    (global-company-mode)
-    (setq-default company-require-match 'nil))
+    (setq company-require-match nil)
+    (setq company-idle-delay 0.2)
+    (global-company-mode))
 #+END_SRC
 
 * Flycheck
