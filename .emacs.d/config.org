@@ -477,7 +477,9 @@ Remove unnecessary company backends
     :config
     (popwin-mode)
     (setq popwin:popup-window-height 20)
-    (add-to-list 'popwin:special-display-config '(cargo-process-mode :noselect t)))
+    (add-to-list 'popwin:special-display-config '(cargo-process-mode :noselect t))
+    (add-to-list 'popwin:special-display-config '(flycheck-error-list-mode :noselect t))
+    (add-to-list 'popwin:special-display-config '(rtags-mode :noselect t)))
 #+END_SRC
 
 ** Smex
