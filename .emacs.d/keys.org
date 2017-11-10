@@ -91,7 +91,9 @@
                       "fk" 'open-keys-file
                       "ot" 'open-todo-file
                       "oT" 'ivy-todo
-                      "TAB" 'evil-buffer)
+                      "TAB" 'evil-buffer
+                      "e" 'flycheck-list-errors
+                      "S" 'google-this)
 #+END_SRC
 
 * Ivy
@@ -145,8 +147,13 @@
                       "cc" 'helm-make-projectile
                       "cm" 'cmake-ide-run-cmake
                       "gg" 'rtags-find-symbol-at-point
+                      "gs" 'rtags-find-symbol
+                      "fr" 'rtags-find-all-references-at-point
                       "ga" 'projectile-find-other-file
                       "gA" 'projectile-find-other-file-other-window)
+
+  (evil-define-key 'normal rtags-mode-map
+    (kbd "RET") 'rtags-select-other-window)
 #+END_SRC
 
 * Java
