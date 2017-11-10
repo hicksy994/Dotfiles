@@ -45,7 +45,7 @@
         '(erc-prompt-face ((t(:background "#282828" :foreground "Green"))))
         '(erc-input-face ((t(:foreground "#fe8019"))))
 
-        '(show-paren-match ((t (:foreground "#ff0000" :background "#282828"))))
+        '(show-paren-match ((t (:foreground "#ff0000"))))
 
         '(ivy-current-match((t (:background "#504945"))))
 
