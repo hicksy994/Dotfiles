@@ -466,8 +466,8 @@ Remove unnecessary company backends
 
    Remove some unused keybindings in compilation mode.
 #+BEGIN_SRC emacs-lisp
-  (define-key compilation-mode-map (kbd "g") 'nil)
-  (define-key compilation-mode-map (kbd "h") 'nil)
+  (define-key compilation-mode-map (kbd "g") nil)
+  (define-key compilation-mode-map (kbd "h") nil)
 #+END_SRC
    
 ** Popwin
