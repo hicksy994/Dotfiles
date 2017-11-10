@@ -113,7 +113,6 @@
   (use-package swiper
     :ensure t)
 
-  ;;Helm-make lets use use ivy to select a make target
   (use-package helm-make
     :ensure t
     :defer t
