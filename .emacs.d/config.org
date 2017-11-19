@@ -19,51 +19,29 @@
 #+END_SRC
 
 * Aesthetics
-** Gruvbox Theme
+** Theme
 #+BEGIN_SRC emacs-lisp
-  (use-package gruvbox-theme
-       :ensure t
-       :config
-       (load-theme 'gruvbox t)
-       (custom-theme-set-faces
-        'gruvbox
-        '(mode-line ((t(:background "#504945"))))
-        '(mode-line-inactive ((t(:background "#383432" :foreground "#a89984"))))
-        '(sml/filename ((t(:foreground "#fe8019" :weight normal))))
-        '(sml/modes ((t(:foreground "#fe8019"))))
-        '(sml/line-number ((t(:foreground "#b8bb26"))))
-
-        '(company-preview ((t(:background "#504945"))))
-        '(company-tooltip-common ((t(:underline nil))))
-        '(company-preview-common ((t(:underline nil))))
-        '(company-tooltip-common-selection ((t(:underline nil))))
-
-        '(org-block-begin-line ((t(:foreground "#7c6f64"))))
-        '(org-block ((t(:foreground "#fdf4c1"))))
-        '(org-block-end-line ((t(:foreground "#7c6f64"))))
-
-        '(erc-prompt-face ((t(:background "#282828" :foreground "Green"))))
-        '(erc-input-face ((t(:foreground "#fe8019"))))
-
-        '(show-paren-match ((t (:foreground "#ff0000"))))
-
-        '(ivy-current-match((t (:background "#504945"))))
-
-        '(linum ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))
-        '(linum-relative-current-face ((t(:background "#282828" :foreground "#7c6f64" :weight normal))))))
+  (load-file "~/.emacs.d/hicksy-gruvbox.el")
 #+END_SRC
-
 ** Smart Mode Line
 #+BEGIN_SRC emacs-lisp
   (use-package smart-mode-line
     :ensure t
     :config 
-    (sml/setup)
+    (setq sml/no-confirm-load-theme t)
+    (setq sml/theme 'respectful)
     (setq sml/show-encoding nil)
     (setq sml/name-width 40)
     (setq sml/mode-width 'full)
     (setq sml/show-remote nil)
-    (setq rm-whitelist '(" company" " FlyC" " yas" " ivy" " Fly" " GitGutter" " SP")))
+    (setq rm-whitelist '(" company" " FlyC" " yas" " ivy" " Fly" " GitGutter" " SP"))
+    (sml/setup))
+#+END_SRC
+
+** Font
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'default nil :font "Iosevka-13")
+  (set-frame-font "Iosevka-13" nil t)
 #+END_SRC
 
 * Magit/Version Control
@@ -126,7 +104,7 @@
     :ensure t
     :config
     (setq company-require-match nil)
-    (setq company-idle-delay 0.2)
+    (setq company-idle-delay 0.1)
     (global-company-mode))
 #+END_SRC
 
@@ -264,6 +242,8 @@ Remove unnecessary company backends
 *** Flycheck
 #+BEGIN_SRC emacs-lisp
   (add-hook 'c-mode-hook (lambda() (flycheck-mode)))
+  (add-hook 'c-mode-hook (lambda () (setq flycheck-gcc-language-standard "gnu99")))
+  (add-hook 'c-mode-hook (lambda () (setq flycheck-clang-language-standard "gnu99")))
   (add-hook 'c++-mode-hook (lambda() (flycheck-mode)))
   (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
   (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
@@ -410,19 +390,6 @@ Remove unnecessary company backends
 #+END_SRC
 
 * Misc
-** Fonts
-   Set default font.
-#+BEGIN_SRC emacs-lisp
-  (set-face-attribute 'default nil :font "Iosevka-13")
-  (set-frame-font "Iosevka-13" nil t)
-#+END_SRC
-
-** Highlight Line
-#+BEGIN_SRC emacs-lisp
-  (setq hl-line-sticky-flag nil)
-  (add-hook 'prog-mode-hook (lambda() (hl-line-mode)))
-#+END_SRC
-
 ** Safe Local Variables
 #+BEGIN_SRC emacs-lisp
   (put 'helm-make-build-dir 'safe-local-variable 'stringp)
