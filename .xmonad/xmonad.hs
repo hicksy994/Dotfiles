@@ -20,14 +20,19 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.Tabbed
 
-myFocusedBorderColor = "#83a598"
+-- myFocusedBorderColor = "#83a598"
+myFocusedBorderColor = "#a9a1e1"
 myNonFocusedBorderColor = "#666666"
 myUrgentBorderColor = "#dc322f"
 myUrgentTextColor = "#b58900"
-myXmobarTitleColor = "#fabd2f"
-myXmobarLayoutColor = "#fe8019"
-myTextColor = "#fdf4c1"
-myNonFocusedTextColor = "#7c6f64"
+-- myXmobarTitleColor = "#fabd2f"
+myXmobarTitleColor = "#51afef"
+-- myXmobarLayoutColor = "#fe8019"
+myXmobarLayoutColor = "#98be65"
+-- myTextColor = "#fdf4c1"
+myTextColor = "#bbc2cf"
+-- myNonFocusedTextColor = "#7c6f64"
+myNonFocusedTextColor = "#5B6268"
 
 myBorderWidth = 2
 myTopBarHeight = 10
@@ -40,8 +45,9 @@ myTerminal = "urxvt"
 
 myScreensaver = "i3lock -u -i ~/wallpapers/mist.png"
 
--- myLauncher = "$(dmenu_path | yeganesh -x -- -fn 'Droid Sans-11' -nb '#282828')"
-myLauncher = "rofi -show run -theme gruvbox-dark -font 'Droid Sans 15' -lines  10 -no-show-match -width 40"
+-- myLauncher = "$(dmenu_path | yeganesh -x -- -fn 'Droid Sans-11' -nb '#282c34')"
+-- myLauncher = "$(dmenu_path | yeganesh -x -- -fn 'Iosevka-11' -nb '#282c34')"
+myLauncher = "rofi -show run -theme Arc -font 'Iosevka 15' -lines 5 -no-show-match -width 35"
 
 myWorkspaces = map show [1::Int ..9]
 

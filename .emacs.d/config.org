@@ -21,8 +21,9 @@
 * Aesthetics
 ** Theme
 #+BEGIN_SRC emacs-lisp
-  (load-file "~/.emacs.d/hicksy-gruvbox.el")
+  (load-file "~/.emacs.d/hicksy-doom.el")
 #+END_SRC
+
 ** Smart Mode Line
 #+BEGIN_SRC emacs-lisp
   (use-package smart-mode-line
@@ -31,10 +32,19 @@
     (setq sml/no-confirm-load-theme t)
     (setq sml/theme 'respectful)
     (setq sml/show-encoding nil)
-    (setq sml/name-width 40)
-    (setq sml/mode-width 'full)
+    (setq sml/shorten-directory nil)
+    (setq sml/name-width 45)
     (setq sml/show-remote nil)
-    (setq rm-whitelist '(" company" " FlyC" " yas" " ivy" " Fly" " GitGutter" " SP"))
+    (setq sml/line-number-format " %l")
+    (setq sml/col-number-format "%c")
+    (setq rm-blacklist "")
+    (setq sml/replacer-regexp-list
+          '(("^~/org" ":Org:")
+           ("^~/\\.emacs\\.d/elpa/" ":ELPA:")
+           ("^~/\\.emacs\\.d/" ":ED:")
+           ("^~/\\.xmonad/" ":XMonad:")
+           ("^~/\\projects/" ":Projects:")))
+
     (sml/setup))
 #+END_SRC
 
@@ -51,10 +61,6 @@
 
   (use-package evil-magit
     :ensure t)
-
-  (use-package git-gutter-fringe
-    :ensure t
-    :config (global-git-gutter-mode t))
 
   (setq auto-revert-check-vc-info t)
 #+END_SRC
@@ -73,6 +79,8 @@
     (setq ivy-extra-directories nil)
     (setq projectile-completion-system 'ivy)
     (setq ivy-switch-buffer-faces-alist nil)
+    ;; (setq ivy-re-builders-alist
+    ;;       '((t . ivy--regex-fuzzy)))
     (setq ivy-ignore-buffers '("\\` "
                                "\\`\\*magit-process"
                                "\\`\\*magit-diff"
@@ -412,7 +420,7 @@ Remove unnecessary company backends
                           "[/\\]\\.elpa/"
                           ))
   (recentf-mode 1)
-  (setq recentf-max-saved-items 100)
+  (setq recentf-max-saved-items 200)
 #+END_SRC
 
 ** Compilation
@@ -500,10 +508,10 @@ Remove unnecessary company backends
     (setq linum-relative-current-symbol ""))
 #+END_SRC
 
-** Column number mode
-#+begin_src emacs-lisp
+** Column Numbers
+#+BEGIN_SRC emacs-lisp
   (column-number-mode)
-#+end_src
+#+END_SRC
 
 ** Default Style
 #+BEGIN_SRC emacs-lisp

@@ -1,59 +1,19 @@
-!rofi
-
-rofi.color-enabled: true
-! rofi.color-window: #282828, #282828, #282828
-! rofi.color-normal: #282828, #ebdbb2, #282828, #504945, #fdf4c1
-rofi.color-window: #2f343f, #2f343f, #2f343f
-rofi.color-normal: #2f343f, #ffffff, #2f343f, #268bd2, #ffffff
-rofi.color-active: #2f343f, #268bd2, #2f343f, #268bd2, #205171
-rofi.font: Droid Sans 14
-rofi.hide-scrollbar: true
-rofi.lines: 3
-rofi.eh: 2
-rofi.width: 30
-rofi.padding:0
-rofi.bw: 0
-rofi.show-match: false
-
 !urxvt
 
-URxvt.font:                xft:SauceCodePro Nerd Font:pixelsize=14:antialias=true
-URxvt.boldFont:            xft:SauceCodePro Nerd Font:pixelsize=14:bold:antialias=true
-URxvt.italicFont:          xft:SauceCodePro Nerd Font:pixelsize=14:italic:antialias=true
-URxvt.boldItalicFont:      xft:SauceCodePro Nerd Font:pixelsize=14:bold:italic:antialias=true
-URxvt.letterSpace:         -1
-
-!standard dark theme
-
-URxvt*background: #161719
-URxvt*foreground: #DEDEDE 
-
-URxvt*colorUL: #86a2b0
-
-! black
-URxvt*color0  : #2E3436
-URxvt*color8  : #555753
-! red
-URxvt*color1  : #CC0000
-URxvt*color9  : #EF2929
-! green
-URxvt*color2  : #4E9A06
-URxvt*color10 : #8AE234
-! yellow
-URxvt*color3  : #C4A000
-URxvt*color11 : #FCE94F
-! blue
-URxvt*color4  : #3465A4
-URxvt*color12 : #729FCF
-! magenta
-URxvt*color5  : #75507B
-URxvt*color13 : #AD7FA8
-! cyan
-URxvt*color6  : #06989A
-URxvt*color14 : #34E2E2
-! white
-URxvt*color7  : #D3D7CF
-URxvt*color15 : #EEEEEC
+! URxvt.font:                xft:Roboto Mono for Powerline:pixelsize=14:antialias=true
+! URxvt.boldFont:            xft:Roboto Mono for Powerline:pixelsize=14:bold:antialias=true
+! URxvt.italicFont:          xft:Roboto Mono for Powerline:pixelsize=14:italic:antialias=true
+! URxvt.boldItalicFont:      xft:Roboto Mono for Powerline:pixelsize=14:bold:italic:antialias=true
+URxvt.font:                xft:Iosevka:pixelsize=16:antialias=true
+URxvt.boldFont:            xft:Iosevka:pixelsize=16:bold:antialias=true
+URxvt.italicFont:          xft:Iosevka:pixelsize=16:italic:antialias=true
+URxvt.boldItalicFont:      xft:Iosevka:pixelsize=16:bold:italic:antialias=true
+/* URxvt.letterSpace:         -1 */
+Xft.antialias:  1
+Xft.hinting:    1
+Xft.hintstyle:  hintfull
+Xft.lcdfilter:  lcddefault
+Xft.rgba:       rgb
 
 ! Gruvbox Theme
 ! *background: #282828
@@ -83,9 +43,34 @@ URxvt*color15 : #EEEEEC
 ! *color7:  #a89984
 ! *color15: #ebdbb2
 
-URxvt.urlLauncher:      /usr/bin/google-chrome-stable
-URxvt.matcher.button:   1 
+! Doom one theme
+*color0: #1E2127
+*color8: #5C6370
+*color1: #CC626A
+*color9: #E06C75
+*color2: #98C379
+*color10: #A7D685
+*color3:  #da8548
+*color11: #ECBE7B
+*color4: #3E86B8
+*color12: #51afef
+*color5: #a9a1e1
+*color13: #C678DD
+*color6: #4db5bd
+*color14: #56B6C2
+*color7: #ABB2BF
+*color15: #FFFFFF
 
+URxvt*background:                     #282c34
+URxvt*foreground:                     #d1d4e0
+URxvt*cursorColor:                    #51afef
+URxvt*scrollColor:                    #d1d4e0
+URxvt*highlightColor:                 #42444a
+! URxvt*highlightTextColor:             #959ba5
+
+
+URxvt.urlLauncher:      /usr/bin/chromium
+URxvt.matcher.button:   1 
 
 URxvt.internalBorder:      0
 URxvt.externalBorder:      0
