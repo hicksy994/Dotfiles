@@ -33,7 +33,7 @@
     (setq sml/theme 'respectful)
     (setq sml/show-encoding nil)
     (setq sml/shorten-directory nil)
-    (setq sml/name-width 45)
+    (setq sml/name-width 40)
     (setq sml/show-remote nil)
     (setq sml/line-number-format " %l")
     (setq sml/col-number-format "%c")
@@ -42,8 +42,7 @@
           '(("^~/org" ":Org:")
            ("^~/\\.emacs\\.d/elpa/" ":ELPA:")
            ("^~/\\.emacs\\.d/" ":ED:")
-           ("^~/\\.xmonad/" ":XMonad:")
-           ("^~/\\projects/" ":Projects:")))
+           ("^~/\\.xmonad/" ":XMonad:")))
 
     (sml/setup))
 #+END_SRC
@@ -79,8 +78,6 @@
     (setq ivy-extra-directories nil)
     (setq projectile-completion-system 'ivy)
     (setq ivy-switch-buffer-faces-alist nil)
-    ;; (setq ivy-re-builders-alist
-    ;;       '((t . ivy--regex-fuzzy)))
     (setq ivy-ignore-buffers '("\\` "
                                "\\`\\*magit-process"
                                "\\`\\*magit-diff"

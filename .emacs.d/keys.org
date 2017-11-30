@@ -103,6 +103,7 @@
                       "pp" 'counsel-projectile
                       "pf" 'counsel-projectile-find-file
                       "ps" 'counsel-projectile-ag
+                      "pb" 'counsel-projectile-switch-to-buffer
                       "s" 'swiper
                       "bb" 'ivy-switch-buffer
                       "bw" 'ivy-switch-buffer-other-window)
@@ -198,3 +199,4 @@
   (define-key evil-normal-state-map (kbd "C-w C-s") 'evil-window-split-and-focus)
 
 #+END_SRC
+
