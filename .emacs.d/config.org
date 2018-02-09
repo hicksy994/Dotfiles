@@ -29,17 +29,20 @@
 
 ** Mode Line
 #+BEGIN_SRC emacs-lisp
-   (use-package rich-minority
-     :ensure t
-     :config
-     (setq rm-blacklist "")
-     (rich-minority-mode))
+  (use-package spaceline
+    :ensure t
+    :config
+    (require 'spaceline-config)
+    (spaceline-emacs-theme)
+    (spaceline-info-mode t)
+    (spaceline-toggle-minor-modes-off)
+    (spaceline-toggle-buffer-size-off))
 #+END_SRC
 
 ** Font
 #+BEGIN_SRC emacs-lisp
-  (set-face-attribute 'default nil :font "Iosevka-13")
-  (set-frame-font "Iosevka-13" nil t)
+  (set-face-attribute 'default nil :font "Iosevka-14")
+  (set-frame-font "Iosevka-14" nil t)
 #+END_SRC
 
 * Magit/Version Control
@@ -58,8 +61,17 @@
   (use-package ivy
     :ensure t
     :config
+
+    (use-package flx
+      :ensure t)
+
+    (use-package ivy-xref
+      :ensure t
+      :config
+      (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+
     (ivy-mode)
-    (setq ivy-height 10)
+    (setq ivy-height 12)
     (setq ivy-count-format "%d/%d ")
     (setq ivy-use-virtual-buffers t)
     (setq ivy-virtual-abbreviate 'full)
@@ -74,12 +86,14 @@
                                "\\`\\*magit-diff"
                                "\\`\\*Flycheck"
                                "\\`\\*Shell Command Output"
+                               "\\`\\*lsp"
                                "\\`\\*rdm"
                                "\\`\\*RTags Log")))
 
   (use-package counsel
     :ensure t
-    :config (setq counsel-find-file-ignore-regexp "^build/"))
+    :config
+    (setq counsel-find-file-ignore-regexp "^.cquery"))
 
   (use-package counsel-projectile
     :ensure t)
@@ -89,8 +103,13 @@
 
   (use-package helm-make
     :ensure t
-    :defer t
-    :config (setq-default helm-make-build-dir "build"))
+    :defer t)
+#+END_SRC
+
+* Avy
+#+BEGIN_SRC emacs-lisp
+  (use-package avy
+    :ensure t)
 #+END_SRC
 
 * Company
@@ -98,8 +117,12 @@
   (use-package company
     :ensure t
     :config
-    (setq company-require-match nil)
     (setq company-idle-delay 0.1)
+
+    ;; (use-package company-childframe
+    ;;   :ensure t
+    ;;   :config (company-childframe-mode 1))
+
     (global-company-mode))
 #+END_SRC
 
@@ -118,6 +141,13 @@
     :config
     (projectile-mode)
     (add-to-list 'projectile-globally-ignored-directories "build/"))
+
+  (defvar project-notes-file ".notes.org")
+
+  (defun goto-project-notes()
+    "Open the notes file associated with the current project. Set `project-notes-file` to change the file name."
+    (interactive)
+    (find-file (concat (projectile-project-root) project-notes-file)))
 #+END_SRC
 
 * Org
@@ -218,6 +248,20 @@ Remove unnecessary company backends
               (setq-local company-backends '((company-yasnippet company-dabbrev)))))
 #+END_SRC
 
+* LSP
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-mode
+    :ensure t
+    :config
+    (setq lsp-highlight-symbol-at-point nil)
+    (require 'lsp-flycheck)
+    (use-package company-lsp
+      :ensure t
+      :config
+      (push 'company-lsp company-backends)))
+      ;; (add-to-list 'company-backends '(company-lsp))))
+#+END_SRC
+
 * C/C++
 ** Packages
 #+BEGIN_SRC emacs-lisp
@@ -229,42 +273,11 @@ Remove unnecessary company backends
     :ensure t
     :defer t)
 
-  (use-package rtags
+  (use-package cquery
     :ensure t
     :config 
-
-    (use-package ivy-rtags
-      :ensure t
-      :config (setq rtags-display-result-backend 'ivy))
-
-    (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
-    (add-hook 'c++-mode-hook 'rtags-start-process-unless-running))
-
-  (use-package irony
-    :ensure t
-    :config
-    (add-hook 'c-mode-hook 'irony-mode)
-    (add-hook 'c++-mode-hook 'irony-mode)
-    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-
-    (use-package company-irony
-      :ensure t
-      :config
-      (use-package company-irony-c-headers
-        :ensure t)
-
-      (add-to-list 'company-backends '(company-irony-c-headers company-irony))))
-
-    (use-package irony-eldoc
-      :ensure t
-      :config (add-hook 'irony-mode-hook #'irony-eldoc))
-
-  (use-package cmake-ide
-    :ensure t
-    :config
-    (cmake-ide-setup)
-    (setq cmake-ide-build-dir "build"))
-
+    (add-hook 'c-mode-hook (lambda() (lsp-cquery-enable)))
+    (add-hook 'c++-mode-hook (lambda() (lsp-cquery-enable))))
 
   (use-package bison-mode
     :ensure t
@@ -274,11 +287,9 @@ Remove unnecessary company backends
 ** Misc
 *** Flycheck
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'c-mode-hook (lambda () (setq flycheck-gcc-language-standard "gnu99")))
-  (add-hook 'c-mode-hook (lambda () (setq flycheck-clang-language-standard "gnu99")))
+  (add-hook 'c-mode-hook (lambda () (setq flycheck-checker 'lsp)))
   (add-hook 'c-mode-hook (lambda() (flycheck-mode)))
-  (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
-  (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
+  (add-hook 'c++-mode-hook (lambda () (setq flycheck-checker 'lsp)))
   (add-hook 'c++-mode-hook (lambda() (flycheck-mode)))
 #+END_SRC
 
@@ -399,15 +410,6 @@ Remove unnecessary company backends
     :defer t)
 #+END_SRC
 
-* Yasnippet
-#+BEGIN_SRC emacs-lisp
-  (use-package yasnippet
-    :ensure t
-    :defer t
-    :config
-    (yas-global-mode 1))
-#+END_SRC
-
 * ERC
   Set the timestamp to be on the left and set every message to be timestamped
 #+BEGIN_SRC emacs-lisp
@@ -428,6 +430,13 @@ Remove unnecessary company backends
 #+END_SRC
 
 * Misc
+** Yasnippet
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config (yas-global-mode))
+#+END_SRC
+
 ** Safe Local Variables
 #+BEGIN_SRC emacs-lisp
   (put 'helm-make-build-dir 'safe-local-variable 'stringp)
@@ -450,7 +459,7 @@ Remove unnecessary company backends
                           "[/\\]\\.elpa/"
                           ))
   (recentf-mode 1)
-  (setq recentf-max-saved-items 200)
+  (setq recentf-max-saved-items 500)
 #+END_SRC
 
 ** Compilation
@@ -466,7 +475,7 @@ Remove unnecessary company backends
 
    Scroll to first error
 #+BEGIN_SRC emacs-lisp
-  (setq compilation-scroll-output t)
+  (setq compilation-scroll-output 'first-error)
 #+END_SRC
 
    Remove some unused keybindings in compilation mode.
@@ -481,7 +490,7 @@ Remove unnecessary company backends
     :ensure t
     :config
     (popwin-mode)
-    (setq popwin:popup-window-height 20)
+    (setq popwin:popup-window-height 21)
     (add-to-list 'popwin:special-display-config '(cargo-process-mode :noselect t))
     (add-to-list 'popwin:special-display-config '(flycheck-error-list-mode :noselect t)))
     ;; (add-to-list 'popwin:special-display-config '(rtags-mode :noselect t)))

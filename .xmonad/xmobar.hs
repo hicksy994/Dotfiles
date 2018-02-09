@@ -1,5 +1,5 @@
 -- Config { font = "xft:Droid Sans:size=11:antialias=true,FontAwesome:size=11"
-Config { font = "xft:Iosevka:size=11:bold:antialias=true,FontAwesome:size=11"
+Config { font = "xft:Iosevka:size=12:bold:antialias=true,FontAwesome:size=12"
          -- , borderColor = "#282828"
          , overrideRedirect = False
          -- , bgColor = "#282828"

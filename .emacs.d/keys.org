@@ -10,11 +10,6 @@
       :ensure t
       :config (global-evil-surround-mode 1))
 
-    (use-package evil-goggles
-      :ensure t
-      :config
-      (evil-goggles-mode))
-
     (use-package evil-escape
       :ensure t
       :config
@@ -55,7 +50,7 @@
     (evil-window-delete))
 #+END_SRC
 
-* General
+* General Setup
 #+BEGIN_SRC emacs-lisp
   (setq my-leader "SPC")
   (setq my-major-mode-leader ",")
@@ -82,27 +77,26 @@
 
 * Global
 #+BEGIN_SRC emacs-lisp
-  (general-define-key :prefix my-leader
-                      "!" 'shell-command
-                      "g" 'magit-status
-                      "fc" 'open-config-file
-                      "fk" 'open-keys-file
-                      "ot" 'open-todo-file
-                      "oT" 'ivy-todo
-                      "TAB" 'evil-buffer
-                      "el" 'flycheck-list-errors
-                      "en" 'flycheck-next-error
-                      "S" 'google-this)
+    (general-define-key :prefix my-leader
+                        "!" 'shell-command
+                        "g" 'magit-status
+                        "fc" 'open-config-file
+                        "fk" 'open-keys-file
+                        "ot" 'open-todo-file
+                        "oT" 'ivy-todo
+                        "TAB" 'evil-buffer
+                        "el" 'flycheck-list-errors
+                        "en" 'flycheck-next-error
+                        "ss" 'swiper
+                        "sw" 'avy-goto-word-1
+                        "sc" 'avy-goto-char)
 #+END_SRC
 
- Ivy
 #+BEGIN_SRC emacs-lisp
-  (general-define-key :prefix my-leader
-                      "s" 'swiper)
-
   (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (define-key projectile-mode-map (kbd "C-c p s s") 'counsel-projectile-ag)
+  (define-key projectile-mode-map (kbd "C-c p n") 'goto-project-notes)
   (define-key ivy-minibuffer-map (kbd "C-h") 'counsel-up-directory)
   (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-partial-or-done)
   (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
@@ -140,20 +134,13 @@
                       :states '(normal)
                       "cc" 'helm-make-projectile
                       "cm" 'cmake-ide-run-cmake
-                      "gd" 'rtags-find-symbol-at-point
-                      "gD" 'rtags-find-symbol
-                      "fr" 'rtags-find-all-references-at-point
-                      "ga" 'projectile-find-other-file
-                      "gA" 'projectile-find-other-file-other-window)
+                      "fs" 'xref-find-apropos
+                      "fr" 'xref-find-references)
 
   (evil-define-key 'normal c-mode-map
-    (kbd "gd") 'rtags-find-symbol-at-point)
+    (kbd "gd") 'xref-find-definitions)
   (evil-define-key 'normal c++-mode-map
-    (kbd "gd") 'rtags-find-symbol-at-point)
-  (evil-define-key 'normal c-mode-map
-    (kbd "gs") 'rtags-find-symbol)
-  (evil-define-key 'normal c++-mode-map
-    (kbd "gs") 'rtags-find-symbol)
+    (kbd "gd") 'xref-find-definitions)
 #+END_SRC
 
 * Java
